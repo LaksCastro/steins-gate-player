@@ -13,7 +13,15 @@ const data = [{
 }, {
     filename: "skyclad-no-kansokusha.mp3",
     type: "song",
-    category: "ending",
+    category: "opening",
+}, {
+    filename: "space-engineer.mp3",
+    type: "song",
+    category: "opening",
+}, {
+    filename: "fatima.mp3",
+    type: "song",
+    category: "opening",
 }, {
     filename: "toki-tsukasadoru.mp3",
     type: "song",
@@ -21,10 +29,10 @@ const data = [{
 }].map(generateMetadata);
 
 function generateMetadata(item) {
-    const [filename, ext] = item.filename.split(".");
+    const [filename] = item.filename.split(".");
 
     const name = filename.split("-").map(word => {
-        word.replace(/^./, word[0].toUpperCase());
+        return word.replace(/^./, word[0].toUpperCase());
     }).join(" ");
     const cover = `${filename}.jpg`;
     const src = require(`../assets/audios/${item.filename}`).default;

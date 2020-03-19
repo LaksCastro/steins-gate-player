@@ -1,20 +1,24 @@
-// import { hello, tes } from './scripts/import-example';
-
-import './styles/style.css';
 import './styles/style.scss';
-import './styles/style.sass';
 
-import songs from "./scripts/data"
 import MusicPlayer from "./scripts/player"
+import songs from "./scripts/data"
 
 const player = MusicPlayer({
   playButton: "#play",
   nextButton: "#next",
   prevButton: "#prev",
   muteButton: "#toggle-mute",
+  loopButton: "#loop",
   timerDisplay: "#timer",
   songs,
-  initOn: 0
 });
 
+player.onSongChange = (updatedPlayer) => {
+  // console.log(updatedPlayer);
+  // document.body.innerHTML += `
+  // <h1>${updatedPlayer.songs[updatedPlayer.currentSong].name}</h1>
+  // <p>${updatedPlayer.currentSong}</p>
+  // <img width="450" src="${updatedPlayer.songs[updatedPlayer.currentSong].coverSrc}" alt="${updatedPlayer.songs[updatedPlayer.currentSong].name}" />
+  // `
+}
 player.init();

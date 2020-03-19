@@ -1,5 +1,7 @@
 import timer from "./timer";
 
+import { randomIntFromInterval } from "../utils";
+
 const player = (config) => {
     const {
         playButton,
@@ -7,6 +9,7 @@ const player = (config) => {
         prevButton,
         volButton = document.createElement("input").setAttribute("type", "range"),
         muteButton,
+        loopButton,
         timerDisplay,
         songs,
         initOn = 0 } = config;
@@ -14,11 +17,16 @@ const player = (config) => {
     const instance = {
         songs,
 
+        randomMode: true,
+        loopMode: true,
+        autoplay: true,
+
         playButton: document.querySelector(playButton),
         nextButton: document.querySelector(nextButton),
         prevButton: document.querySelector(prevButton),
         volButton: document.querySelector(volButton),
         muteButton: document.querySelector(muteButton),
+        loopButton: document.querySelector(loopButton),
         timerDisplay: document.querySelector(timerDisplay),
 
         onSongChange: null,
@@ -34,6 +42,7 @@ const player = (config) => {
             this.prevButton.onclick = () => this.prev();
             // this.volButton.onchange = () => this.changeVol();
             this.muteButton.onclick = () => this.toggleMute();
+            this.prevButton.onclick = () => this.toggleLoopMode();
 
 
             this.audio.onended = () => this.next();
@@ -49,6 +58,9 @@ const player = (config) => {
             };
         },
         play: function (audioIndex) {
+            if (this.randomMode) {
+                audioIndex = randomIntFromInterval(0, this.songs.length - 1);
+            }
             this.currentSong = audioIndex
             this.changeAudioSrc(this.songs[this.currentSong].src);
             this.audio.play();
@@ -71,6 +83,10 @@ const player = (config) => {
         },
         toggleMute: function () {
             this.audio.muted = !this.audio.muted
+        },
+        toggleLoopMode: function () {
+            this.loopMode = !this.loopMode;
+            this.audio.loop = this.loopMode;
         },
         changeAudioSrc: function (newSrc) {
             if (newSrc !== this.audio.src) {
