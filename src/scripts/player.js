@@ -21,6 +21,8 @@ const player = (config) => {
         muteButton: document.querySelector(muteButton),
         timerDisplay: document.querySelector(timerDisplay),
 
+        onSongChange: null,
+
         currentSong: initOn,
         audio: new Audio(songs[initOn].src),
 
@@ -48,7 +50,7 @@ const player = (config) => {
         },
         play: function (audioIndex) {
             this.currentSong = audioIndex
-            this.audio.src = this.songs[this.currentSong].src
+            this.changeAudioSrc(this.songs[this.currentSong].src);
             this.audio.play();
         },
         pause: function () {
@@ -69,6 +71,12 @@ const player = (config) => {
         },
         toggleMute: function () {
             this.audio.muted = !this.audio.muted
+        },
+        changeAudioSrc: function (newSrc) {
+            if (newSrc !== this.audio.src) {
+                this.audio.src = newSrc;
+                if (this.onSongChange) this.onSongChange(this);
+            }
         },
         changeVol: function (vol) { }
     }
