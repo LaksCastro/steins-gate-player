@@ -10,6 +10,7 @@ const player = (config) => {
         volButton = document.createElement("input").setAttribute("type", "range"),
         muteButton,
         loopButton,
+        randomButton,
         timerDisplay,
         songs,
         initOn = 0 } = config;
@@ -27,6 +28,7 @@ const player = (config) => {
         volButton: document.querySelector(volButton),
         muteButton: document.querySelector(muteButton),
         loopButton: document.querySelector(loopButton),
+        randomButton: document.querySelector(randomButton),
         timerDisplay: document.querySelector(timerDisplay),
 
         onSongChange: null,
@@ -42,7 +44,8 @@ const player = (config) => {
             this.prevButton.onclick = () => this.prev();
             // this.volButton.onchange = () => this.changeVol();
             this.muteButton.onclick = () => this.toggleMute();
-            this.prevButton.onclick = () => this.toggleLoopMode();
+            this.loopButton.onclick = () => this.toggleLoopMode();
+            this.randomButton.onclick = () => this.toggleRandomMode();
 
 
             this.audio.onended = () => this.next();
@@ -59,7 +62,18 @@ const player = (config) => {
         },
         play: function (audioIndex) {
             if (this.randomMode) {
-                audioIndex = randomIntFromInterval(0, this.songs.length - 1);
+                const possibleAudioIndex = randomIntFromInterval(0, this.songs.length - 1);
+                if (possibleAudioIndex === audioIndex) {
+                    if (possibleAudioIndex === this.songs.length - 1) {
+                        audioIndex = possibleAudioIndex - 1
+                    } else if (possibleAudioIndex === 0) {
+                        audioIndex = possibleAudioIndex + 1
+                    } else {
+                        audioIndex = possibleAudioIndex
+                    }
+                } else {
+                    audioIndex = possibleAudioIndex
+                }
             }
             this.currentSong = audioIndex
             this.changeAudioSrc(this.songs[this.currentSong].src);
@@ -88,9 +102,13 @@ const player = (config) => {
             this.loopMode = !this.loopMode;
             this.audio.loop = this.loopMode;
         },
+        toggleRandomMode: function () {
+            this.randomMode = !this.randomMode;
+        },
         changeAudioSrc: function (newSrc) {
             if (newSrc !== this.audio.src) {
                 this.audio.src = newSrc;
+                document.title = this.currentSong
                 if (this.onSongChange) this.onSongChange(this);
             }
         },
