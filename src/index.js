@@ -1,8 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import { hello, tes } from './scripts/import-example';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import './styles/style.css';
+import './styles/style.scss';
+import './styles/style.sass';
 
-serviceWorker.register();
+hello();
+
+async function run() {
+  const value = await tes();
+  console.log(value)
+}
+
+run();
+
+async function lazyLoadExample() {
+  const { lazyLoad } = await import('./scripts/lazy-load-example');
+  lazyLoad().then(res => console.log(res));
+};
+
+document.querySelector("#lazy-load").addEventListener('click', lazyLoadExample);
