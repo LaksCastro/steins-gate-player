@@ -23,7 +23,7 @@ const player = (config) => {
     const instance = {
         songs,
 
-        randomMode: true,
+        randomMode: false,
         loopMode: true,
         autoplay: true,
 
@@ -108,7 +108,13 @@ const player = (config) => {
             };
 
             // The song end is not a user action, it's just the natural flow of time
-            this.audio.onended = () => this.next();
+            this.audio.onended = () => {
+                if (this.loopMode) {
+                    this.play(this.currentSong);
+                } else {
+                    this.next();
+                }
+            };
 
             // On play, start/continue timer
             this.audio.onplay = () => {
@@ -135,7 +141,6 @@ const player = (config) => {
             this.currentSong = audioIndex
             this.changeAudioSrc(this.songs[this.currentSong].src);
             this.audio.play();
-            calcDurationRange(this.audio.duration);
         },
         pause: function () {
             this.audio.pause();
@@ -158,7 +163,6 @@ const player = (config) => {
         },
         toggleLoopMode: function () {
             this.loopMode = !this.loopMode;
-            this.audio.loop = this.loopMode;
         },
         toggleRandomMode: function () {
             this.randomMode = !this.randomMode;

@@ -94,7 +94,8 @@ module.exports = {
     // The plugin will generate an HTML5 file for you that includes all your webpack bundles in the body using script tags
     new HtmlWebpackPlugin({
       template: "./src/index.html",
-      filename: "index.html"
+      filename: "index.html",
+      favicon: "./src/favicon.ico"
     }),
     // ComppresionPlugin will Prepare compressed versions of assets to serve them with Content-Encoding.
     // In this case we use gzip
