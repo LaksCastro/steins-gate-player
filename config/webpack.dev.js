@@ -1,4 +1,5 @@
 const path = require("path");
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
@@ -37,7 +38,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|svg|jpe?g|gif)$/,
+        test: /\.(png|svg|jpe?g|gif|mp3|mp4)$/,
         use: [
           {
             loader: "file-loader", // This will resolves import/require() on a file into a url and emits the file into the output directory.
@@ -69,5 +70,8 @@ module.exports = {
       template: "./src/index.html",
       filename: "index.html"
     }),
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+    })
   ]
 };

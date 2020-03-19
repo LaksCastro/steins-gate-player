@@ -1,21 +1,29 @@
-import { hello, tes } from './scripts/import-example';
+// import { hello, tes } from './scripts/import-example';
 
 import './styles/style.css';
 import './styles/style.scss';
 import './styles/style.sass';
 
-hello();
+import data from "./scripts/data"
+import MusicPlayer from "./scripts/player"
 
-async function run() {
-  const value = await tes();
-  console.log(value)
-}
+let songs = data.map(item => {
+  const src = require(`./assets/audios/${item.filename}`).default;
+  const coverSrc = require(`./assets/images/${item.cover}`).default;
+  return {
+    ...item,
+    src,
+    coverSrc
+  }
+})
 
-run();
-
-async function lazyLoadExample() {
-  const { lazyLoad } = await import('./scripts/lazy-load-example');
-  lazyLoad().then(res => console.log(res));
-};
-
-document.querySelector("#lazy-load").addEventListener('click', lazyLoadExample);
+const player = MusicPlayer({
+  playButton: "#play",
+  nextButton: "#next",
+  prevButton: "#prev",
+  muteButton: "#toggle-mute",
+  timerDisplay: "#timer",
+  songs,
+  initOn: 0
+});
+player.init();
