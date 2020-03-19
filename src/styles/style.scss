@@ -1,4 +1,21 @@
-/* Here are example using scss */
+@import url('https://fonts.googleapis.com/css?family=Oxanium&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1em;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  list-style: none;
+  line-height: 2;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar { display: none; }
 
 html {
   box-sizing: border-box;

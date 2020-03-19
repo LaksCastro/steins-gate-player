@@ -11,6 +11,8 @@ const player = MusicPlayer({
   loopButton: "#loop",
   randomButton: "#random",
   timerDisplay: "#timer",
+  volRange: "#vol",
+  durationRange: "#duration",
   songs,
 });
 
