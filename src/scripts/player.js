@@ -62,6 +62,7 @@ const player = (config) => {
         },
         play: function (audioIndex) {
             if (this.randomMode) {
+                // Logic to play a random song that not be the current song
                 const possibleAudioIndex = randomIntFromInterval(0, this.songs.length - 1);
                 if (possibleAudioIndex === audioIndex) {
                     if (possibleAudioIndex === this.songs.length - 1) {
@@ -69,7 +70,7 @@ const player = (config) => {
                     } else if (possibleAudioIndex === 0) {
                         audioIndex = possibleAudioIndex + 1
                     } else {
-                        audioIndex = possibleAudioIndex
+                        audioIndex = possibleAudioIndex + 1
                     }
                 } else {
                     audioIndex = possibleAudioIndex
