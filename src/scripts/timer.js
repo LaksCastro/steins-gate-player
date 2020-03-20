@@ -7,10 +7,12 @@ import {
 
 const timer = {
     id: null,
+    // Current Time, in Seconds, Minutes, and Both
     minutes: 0,
     seconds: 0,
     onTimeChange: null,
     currentTime: 0,
+
     // hours: 0,
     startCount: function () {
         const everySecondRunThis = () => {
@@ -40,7 +42,8 @@ const timer = {
     },
     getDisplayMinutes: function () {
         return getMinutesTime(this.minutes);
-    }
+    },
+
 }
 
 export default timer;

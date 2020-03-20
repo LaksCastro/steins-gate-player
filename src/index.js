@@ -1,6 +1,7 @@
 import './styles/style.scss';
 
 import MusicPlayer from "./scripts/player"
+import keyboard from "./scripts/shortcuts"
 import songs from "./scripts/data"
 
 const player = MusicPlayer({
@@ -25,3 +26,23 @@ player.onSongChange = (updatedPlayer) => {
   `
 }
 player.init();
+
+keyboard.on([{
+  key: 32,
+  callback: player.togglePlaying.bind(player)
+}, {
+  key: 39,
+  callback: player.next.bind(player)
+}, {
+  key: 37,
+  callback: player.prev.bind(player)
+}, {
+  key: 77,
+  callback: player.toggleMute.bind(player)
+}, {
+  key: 82,
+  callback: player.toggleRandomMode.bind(player)
+}, {
+  key: 76,
+  callback: player.toggleLoopMode.bind(player)
+}]);

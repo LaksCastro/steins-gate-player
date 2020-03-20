@@ -3,7 +3,9 @@ import timer from "./timer";
 import {
     randomIntFromInterval,
     getDisplayTime,
-    converterSeconds
+    converterSeconds,
+    getSecondsTime,
+    getMinutesTime
 } from "../utils";
 
 const player = (config) => {
@@ -45,6 +47,10 @@ const player = (config) => {
 
         timer,
 
+        totalMinutes: null,
+        totalSeconds: null,
+        totalTime: null,
+
         init: function () {
             this.audio.autoplay = true;
             this.audio.volume = "1";
@@ -85,6 +91,12 @@ const player = (config) => {
                 const seconds = e.target.value;
                 this.changeDuration(seconds);
             };
+            // To set display timer when user is changing time
+            this.durationRange.oninput = e => {
+                const { seconds, minutes } = converterSeconds(e.target.value);
+                this.timerDisplay.textContent =
+                    `${getDisplayTime(seconds, minutes)} - ${this.getTotalDisplayTime()}`;
+            }
 
             // --- SIDE EFFECTS FOR USER ACTIONS
             // On action pause(), run pause timer side effect, the same for when start()
@@ -93,18 +105,24 @@ const player = (config) => {
 
             // On action next()/prev(), this will make the browser load the metadata for this sound
             // We take this event and calculate the range of the duration input
-            this.audio.onloadedmetadata = () => this.calcDurationRange(this.audio.duration);
+            this.audio.onloadedmetadata = () => {
+                this.calcDuration();
+                this.calcDurationRange();
+            }
 
             // --- CONSTANTS
             // If our user is not a time magician, they have no power over him, 
-            // therefore, the timer is a constant that must be updated every 1s
+            // therefore, the timer is a constant that must be updated every 1s xD
             this.timer.onTimeChange = (updatedTimer) => {
                 this.timer = updatedTimer
-                this.timerDisplay.textContent = this.timer.getDisplayTime();
 
-                // Change current time of input #duration only if user is not changing time
-                if (!this.isChangingTime)
+                // Change current time of input #duration and timer display only if user is not changing time
+                if (!this.isChangingTime) {
                     this.durationRange.value = this.timer.currentTime;
+
+                    this.timerDisplay.textContent =
+                        `${this.timer.getDisplayTime()} - ${this.getTotalDisplayTime()}`;
+                }
             };
 
             // The song end is not a user action, it's just the natural flow of time
@@ -180,9 +198,24 @@ const player = (config) => {
         changeDuration: function (time) {
             this.audio.currentTime = time;
         },
-        calcDurationRange: function (totalDuration) {
-            this.durationRange.max = totalDuration.toFixed(0);
+        calcDurationRange: function () {
+            this.durationRange.max = this.audio.duration.toFixed(0);
             this.durationRange.min = "0";
+        },
+        calcDuration: function () {
+            const { minutes, seconds } = converterSeconds(Number(this.audio.duration.toFixed(0)));
+            this.totalMinutes = minutes;
+            this.totalSeconds = seconds;
+            this.totalTime = this.audio.duration;
+        },
+        getTotalDisplayTime: function () {
+            return getDisplayTime(this.totalSeconds, this.totalMinutes);
+        },
+        getTotalDisplaySeconds: function () {
+            return getSecondsTime(this.totalSeconds);
+        },
+        getTotalDisplayMinutes: function () {
+            return getMinutesTime(this.totalMinutes);
         }
     }
 
