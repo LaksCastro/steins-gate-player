@@ -1,5 +1,4 @@
 import timer from "./timer";
-import keyboard from "./keyboard"
 
 import {
     randomIntFromInterval,
@@ -63,6 +62,12 @@ const player = (config) => {
                     `${this.timer.getDisplayTime()} - ${this.getTotalDisplayTime()}`;
             }
         },
+        cancelChangeDuration: function () {
+            console.log("a");
+            this.isChangingTime = false;
+            this.updateTimer();
+            this.allowToChangeDuration = false;
+        },
         init: function () {
             this.audio.volume = "1";
 
@@ -95,8 +100,21 @@ const player = (config) => {
             // Toggle random song mode
             this.randomButton.onclick = () => this.toggleRandomMode();
             // To prevent the user from being able to change the timing of the sound
-            this.durationRange.onpointerdown = () => this.isChangingTime = true
-            this.durationRange.onpointerup = () => this.isChangingTime = false
+
+            const callback = (e) => {
+                if (e.keyCode === 27) {
+                    this.cancelChangeDuration();
+                }
+            };
+
+            this.durationRange.onpointerdown = (e) => {
+                this.isChangingTime = true;
+                document.addEventListener("keyup", callback);
+            }
+            this.durationRange.onpointerup = (e) => {
+                this.isChangingTime = false;
+                document.removeEventListener("keyup", callback);
+            }
 
             // Fired when mouse up from range button
             this.durationRange.onchange = (e) => {
@@ -111,15 +129,6 @@ const player = (config) => {
             // To set display timer when user is changing time
             this.durationRange.oninput = e => {
 
-                keyboard.on([{
-                    key: 27,
-                    callback: () => {
-                        this.isChangingTime = false;
-                        this.updateTimer();
-                        this.allowToChangeDuration = false;
-                        e.stopPropagation();
-                    }
-                }]);
 
                 const { seconds, minutes } = converterSeconds(e.target.value);
 
