@@ -52,13 +52,13 @@ const player = (config) => {
         totalTime: null,
 
         init: function () {
+            this.audio.autoplay = "true";
             this.audio.volume = "1";
 
             this.volRange.value = "100";
             this.durationRange.value = "0";
 
             this.actions();
-            this.play();
         },
         actions: function () {
             // USER ACTIONS:
@@ -84,10 +84,9 @@ const player = (config) => {
             // Toggle random song mode
             this.randomButton.onclick = () => this.toggleRandomMode();
             // To prevent the user from being able to change the timing of the sound
-            this.durationRange.onmousedown = () => this.isChangingTime = true
-            this.durationRange.onmouseup = () => this.isChangingTime = false
-            this.durationRange.ontouchstart = () => this.isChangingTime = true
-            this.durationRange.ontouchleave = () => this.isChangingTime = false
+            this.durationRange.onpointerdown = () => this.isChangingTime = true
+            this.durationRange.onpointerup = () => this.isChangingTime = false
+
             // Fired when mouse up from range button
             this.durationRange.onchange = (e) => {
                 const seconds = e.target.value;
