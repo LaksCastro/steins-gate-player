@@ -34,7 +34,7 @@ const player = (config) => {
         playButton: document.querySelector(playButton),
         nextButton: document.querySelector(nextButton),
         prevButton: document.querySelector(prevButton),
-        volRange,
+        // volRange,
         durationRange: document.querySelector(durationRange),
         muteButton: document.querySelector(muteButton),
         loopButton: document.querySelector(loopButton),
@@ -75,9 +75,9 @@ const player = (config) => {
 
             // --- For Input Range's (volume and duration):
             // Fired when move the range button
-            this.volRange.listen("MDCSlider:input", () => this.changeVol(volRange.value));
-            // Fired when mouse up from range button
-            this.volRange.listen("MDCSlider:change", () => this.changeVol(volRange.value));
+            // this.volRange.listen("MDCSlider:input", () => this.changeVol(volRange.value));
+            // // Fired when mouse up from range button
+            // this.volRange.listen("MDCSlider:change", () => this.changeVol(volRange.value));
 
 
             // --- For Button Actions (play/pause, mute/unmute, next/prev, toggle loop, toggle random mode)
@@ -171,7 +171,6 @@ const player = (config) => {
                 this.timer.startCount.call({ ...this.timer, audio: this.audio });
                 if (this.onPlayStateChanged) this.onPlayStateChanged(this);
             }
-
         },
         play: function (audioIndex) {
             if (this.randomMode) {

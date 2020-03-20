@@ -1,11 +1,11 @@
 import { firstLetterUppercase } from "../utils"
 
 const data = [{
-    filename: "ar-kanako-itou.mp3",
+    filename: "hacking-to-the-gate.mp3",
     type: "song",
     category: "opening",
 }, {
-    filename: "hacking-to-the-gate.mp3",
+    filename: "ar-kanako-itou.mp3",
     type: "song",
     category: "opening",
 }, {

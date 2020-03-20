@@ -15,11 +15,22 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
   const player = initPlayer();
   const listenerFuncions = initPlayerKeyboardShortcuts(player);
+
+  const playerBottom = document.getElementById("app-player-bottom");
+  playerBottom.onclick = function (e) {
+    const currentState = this.getAttribute("state");
+    const isCollapsed = currentState === "collapsed";
+    const newState = isCollapsed ? "expanded" : "collapsed";
+
+    this.setAttribute("state", newState);
+    this.classList.remove(`p-viewport-${currentState}`);
+    this.classList.add(`p-viewport-${newState}`);
+  }
 }
 
 function initPlayer() {
 
-  const volSlider = new MDCSlider(document.querySelector('.mdc-slider'));
+  // const volSlider = new MDCSlider(document.querySelector('.mdc-slider'));
 
   const pThumb = document.getElementById("p-thumb");
   const pPlay = document.getElementById("p-play");
@@ -36,7 +47,7 @@ function initPlayer() {
     loopButton: "#p-loop",
     randomButton: "#p-random",
     timerDisplay: "#timer",
-    volRange: volSlider,
+    // volRange: volSlider,
     durationRange: "#duration",
     songs,
   });
