@@ -52,13 +52,13 @@ const player = (config) => {
         totalTime: null,
 
         init: function () {
-            this.audio.autoplay = true;
             this.audio.volume = "1";
 
             this.volRange.value = "100";
             this.durationRange.value = "0";
 
             this.actions();
+            this.play();
         },
         actions: function () {
             // USER ACTIONS:
