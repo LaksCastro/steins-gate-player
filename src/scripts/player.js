@@ -65,7 +65,6 @@ const player = (config) => {
         },
         cancelChangeDuration: {
             cancel: function () {
-                console.log("a");
                 this.isChangingTime = false;
                 this.updateTimer();
                 this.allowToChangeDuration = false;

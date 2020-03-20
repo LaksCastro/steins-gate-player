@@ -1,89 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Oxanium&display=swap');
-@import "@material/button/mdc-button";
+@use "material-components-web/material-components-web";
+
 *{
-  font-family: 'Oxanium', sans-serif;
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
   outline: none;
+  font-family: 'Oxanium', sans-serif;
+  -webkit-font-smoothing: antialiased !important;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
 }
 ::-webkit-scrollbar { 
   display: none; 
 }
-.button-container {
-  display: flex;
-  justify-content: flex-end;
+
+.username,
+.password {
+  display: block;
   width: 300px;
-  margin: auto;
+  margin: 20px auto;
 }
-
-.button-container button {
-  margin: 3px;
-}
-// *{
-//   margin: 0;
-//   padding: 0;
-//   border: none;
-//   box-sizing: border-box;
-//   outline: none;
-//   font-family: 'Oxanium', sans-serif;
-//   font-size: 1em;
-//   text-rendering: optimizeLegibility !important;
-//   -webkit-font-smoothing: antialiased !important;
-//   list-style: none;
-//   -webkit-tap-highlight-color: transparent;
-// }
-
-// html {
-//   box-sizing: border-box;
-//   font-size: 62.5%;
-// }
-
-// *,
-// *::before,
-// *::after {
-//   box-sizing: inherit;
-// }
-
-// body {
-//   margin: 0;
-//   padding: 0;
-//   background-color: #282c34;
-//   color: #fff;
-//   font-size: 1.6rem;
-//   text-align: center;
-
-//   & > * {
-//     margin: 2rem 0;
-//   }
-// }
-
-// .header {
-//   h1 {
-//     font-size: 3.5rem;
-//   }
-// }
-
-// .example {
-//   display: flex;
-//   justify-content: center;
-
-//   &-style,
-//   &-lazy-load {
-//     margin: 3rem 2rem;
-//   }
-// }
-
-// .from-scss {
-//   color: #0096FF;
-// }
-
-// .link {
-//   color: #61dafb;
-//   font-size: 2rem;
-//   margin-top: 3rem;
-// }
-
-// #lazy-load {
-//   padding: 1rem 1.5rem;
-//   border: 0;
-//   border-radius: 10rem;
-//   outline: none;
-// }
