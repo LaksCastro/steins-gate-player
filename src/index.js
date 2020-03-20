@@ -1,7 +1,7 @@
 import './styles/style.scss';
 
 import MusicPlayer from "./scripts/player"
-import keyboard from "./scripts/shortcuts"
+import keyboard from "./scripts/keyboard"
 import songs from "./scripts/data"
 
 document.addEventListener('DOMContentLoaded', init);
