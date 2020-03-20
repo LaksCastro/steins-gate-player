@@ -7,6 +7,7 @@ import songs from "./scripts/data"
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
+
   const player = MusicPlayer({
     playButton: "#play",
     nextButton: "#next",

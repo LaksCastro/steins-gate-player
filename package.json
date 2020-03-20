@@ -38,7 +38,8 @@
     "@babel/polyfill": "^7.7.0",
     "core-js": "3",
     "dotenv": "^8.2.0",
-    "dotenv-webpack": "^1.7.0"
+    "dotenv-webpack": "^1.7.0",
+    "material-components-web": "^5.1.0"
   },
   "browserslist": [
     "> 1%",

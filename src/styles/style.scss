@@ -1,83 +1,77 @@
+@use "@material/button/mdc-button";
 @import url('https://fonts.googleapis.com/css?family=Oxanium&display=swap');
-
 *{
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: border-box;
-  outline: none;
   font-family: 'Oxanium', sans-serif;
-  font-size: 1em;
-  text-rendering: optimizeLegibility !important;
-  -webkit-font-smoothing: antialiased !important;
-  list-style: none;
-  -webkit-tap-highlight-color: transparent;
-}
-button{
-  padding: 12px 8px; 
-  background: deepskyblue; 
-  color: #fff;
-  transition: all .2s ease-in-out;
-  cursor: pointer;
-  &:hover{
-    opacity: 0.8;
-  }
-}
-::-webkit-scrollbar { display: none; }
-
-html {
-  box-sizing: border-box;
-  font-size: 62.5%;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
+// *{
+//   margin: 0;
+//   padding: 0;
+//   border: none;
+//   box-sizing: border-box;
+//   outline: none;
+//   font-family: 'Oxanium', sans-serif;
+//   font-size: 1em;
+//   text-rendering: optimizeLegibility !important;
+//   -webkit-font-smoothing: antialiased !important;
+//   list-style: none;
+//   -webkit-tap-highlight-color: transparent;
+// }
+// ::-webkit-scrollbar { display: none; }
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #282c34;
-  color: #fff;
-  font-size: 1.6rem;
-  text-align: center;
+// html {
+//   box-sizing: border-box;
+//   font-size: 62.5%;
+// }
 
-  & > * {
-    margin: 2rem 0;
-  }
-}
+// *,
+// *::before,
+// *::after {
+//   box-sizing: inherit;
+// }
 
-.header {
-  h1 {
-    font-size: 3.5rem;
-  }
-}
+// body {
+//   margin: 0;
+//   padding: 0;
+//   background-color: #282c34;
+//   color: #fff;
+//   font-size: 1.6rem;
+//   text-align: center;
 
-.example {
-  display: flex;
-  justify-content: center;
+//   & > * {
+//     margin: 2rem 0;
+//   }
+// }
 
-  &-style,
-  &-lazy-load {
-    margin: 3rem 2rem;
-  }
-}
+// .header {
+//   h1 {
+//     font-size: 3.5rem;
+//   }
+// }
 
-.from-scss {
-  color: #0096FF;
-}
+// .example {
+//   display: flex;
+//   justify-content: center;
 
-.link {
-  color: #61dafb;
-  font-size: 2rem;
-  margin-top: 3rem;
-}
+//   &-style,
+//   &-lazy-load {
+//     margin: 3rem 2rem;
+//   }
+// }
 
-#lazy-load {
-  padding: 1rem 1.5rem;
-  border: 0;
-  border-radius: 10rem;
-  outline: none;
-}
+// .from-scss {
+//   color: #0096FF;
+// }
+
+// .link {
+//   color: #61dafb;
+//   font-size: 2rem;
+//   margin-top: 3rem;
+// }
+
+// #lazy-load {
+//   padding: 1rem 1.5rem;
+//   border: 0;
+//   border-radius: 10rem;
+//   outline: none;
+// }
