@@ -12,7 +12,6 @@ function getDisplayTime(seconds, minutes) {
     const display = `${getMinutesTime(minutes)}:${getSecondsTime(seconds)}`;
     return display;
 }
-
 function converterSeconds(seconds) {
     const time = {
         seconds: seconds % 60,
@@ -21,11 +20,15 @@ function converterSeconds(seconds) {
     }
     return time;
 }
+function firstLetterUppercase(string) {
+    return string.replace(/^./, string[0].toUpperCase())
+}
 
 export {
     randomIntFromInterval,
     getSecondsTime,
     getMinutesTime,
     getDisplayTime,
-    converterSeconds
+    converterSeconds,
+    firstLetterUppercase
 }

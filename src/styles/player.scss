@@ -1,0 +1,71 @@
+@import "./variables.scss";
+
+.player-viewport{
+    &.p-viewport-collapse{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: $content;
+    }
+}
+.player-wrapper{
+    &.p-wrapper-collapse{
+        cursor: pointer;
+    
+        position: relative;
+        
+        display: flex;
+        justify-content: center;
+    
+        border-top: 2px transparent solid;
+        border-bottom: 2px transparent solid;
+        border-image: linear-gradient(to right, $red, $yellow, $green, $purple);
+        border-image-slice: 1;
+    
+        &::after{
+            content: "";
+            position: absolute;
+            background: rgba(54, 57, 62, 0.5);
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            transition: all .4s ease-in-out;
+            z-index: -1;
+        }
+        &:hover{
+            &::after{
+                width: 100%;
+            }
+        }
+    }
+}
+.p-container{
+    width: 100%;
+    max-width: 950px;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+}
+.p-data{
+    display: flex;
+    align-items: center;
+}
+#p-thumb{
+    margin-right: 12px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+#p-title{
+    color: $color;
+}
+#p-description{
+    color: $color-light;
+}
+.mdc-icon-button{
+    color: $color;
+}

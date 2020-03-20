@@ -1,3 +1,5 @@
+import { firstLetterUppercase } from "../utils"
+
 const data = [{
     filename: "ar-kanako-itou.mp3",
     type: "song",
@@ -32,7 +34,7 @@ function generateMetadata(item) {
     const [filename] = item.filename.split(".");
 
     const name = filename.split("-").map(word => {
-        return word.replace(/^./, word[0].toUpperCase());
+        return firstLetterUppercase(word);
     }).join(" ");
     const cover = `${filename}.jpg`;
     const src = require(`../assets/audios/${item.filename}`).default;

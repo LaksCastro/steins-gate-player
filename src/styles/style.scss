@@ -1,4 +1,5 @@
-@use "material-components-web/material-components-web";
+@import "./player.scss";
+@import "./variables.scss";
 
 *{
   margin: 0;
@@ -14,10 +15,12 @@
 ::-webkit-scrollbar { 
   display: none; 
 }
-
-.username,
-.password {
-  display: block;
-  width: 300px;
-  margin: 20px auto;
+#content{
+  padding: 3rem;
+  width: 600px;
+}
+html, body{
+  width: 100%;
+  height: 100%;
+  background: $background;
 }

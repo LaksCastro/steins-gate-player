@@ -29,19 +29,24 @@ const player = (config) => {
         songs,
 
         randomMode: false,
-        loopMode: true,
+        loopMode: false,
 
         playButton: document.querySelector(playButton),
         nextButton: document.querySelector(nextButton),
         prevButton: document.querySelector(prevButton),
-        volRange: document.querySelector(volRange),
+        volRange,
         durationRange: document.querySelector(durationRange),
         muteButton: document.querySelector(muteButton),
         loopButton: document.querySelector(loopButton),
         randomButton: document.querySelector(randomButton),
         timerDisplay: document.querySelector(timerDisplay),
 
-        onSongChange: null,
+        onInit: null,
+        onSongChanged: null,
+        onPlayStateChanged: null,
+        onAnyModeChanged: null,
+
+        isPaused: true,
 
         isChangingTime: false,
         currentSong: initOn,
@@ -55,38 +60,24 @@ const player = (config) => {
 
         allowToChangeDuration: true,
 
-        updateTimer: function () {
-            if (!this.isChangingTime) {
-                this.durationRange.value = this.timer.currentTime;
-
-                this.timerDisplay.textContent =
-                    `${this.timer.getDisplayTime()} - ${this.getTotalDisplayTime()}`;
-            }
-        },
-        cancelChangeDuration: {
-            cancel: function () {
-                this.isChangingTime = false;
-                this.updateTimer();
-                this.allowToChangeDuration = false;
-            },
-            listener: null
-        },
         init: function () {
             this.audio.volume = "1";
 
-            this.volRange.value = "100";
+            // this.volRange.setAttribute("aria-valuenow", "100");
             this.durationRange.value = "0";
 
             this.actions();
+
+            if (this.onInit) this.onInit(this);
         },
         actions: function () {
             // USER ACTIONS:
 
             // --- For Input Range's (volume and duration):
             // Fired when move the range button
-            this.volRange.oninput = (e) => this.changeVol(e.target.value);
+            this.volRange.listen("MDCSlider:input", () => this.changeVol(volRange.value));
             // Fired when mouse up from range button
-            this.volRange.onchange = (e) => this.changeVol(e.target.value);
+            this.volRange.listen("MDCSlider:change", () => this.changeVol(volRange.value));
 
 
             // --- For Button Actions (play/pause, mute/unmute, next/prev, toggle loop, toggle random mode)
@@ -97,7 +88,7 @@ const player = (config) => {
             // Prev
             this.prevButton.onclick = () => this.prev();
             // Mute/Unmote
-            this.muteButton.onclick = () => this.toggleMute();
+            // this.muteButton.onclick = () => this.toggleMute();
             // Toggle loop mode
             this.loopButton.onclick = () => this.toggleLoopMode();
             // Toggle random song mode
@@ -144,8 +135,10 @@ const player = (config) => {
 
             // --- SIDE EFFECTS FOR USER ACTIONS
             // On action pause(), run pause timer side effect, the same for when start()
-            this.audio.onpause = () =>
+            this.audio.onpause = () => {
                 this.timer.pauseCount.call({ ...this.timer, audio: this.audio });
+                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
+            }
 
             // On action next()/prev(), this will make the browser load the metadata for this sound
             // We take this event and calculate the range of the duration input
@@ -176,6 +169,7 @@ const player = (config) => {
             // On play, start/continue timer
             this.audio.onplay = () => {
                 this.timer.startCount.call({ ...this.timer, audio: this.audio });
+                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
             }
 
         },
@@ -196,9 +190,10 @@ const player = (config) => {
                 }
             }
             this.currentSong = audioIndex
-            this.changeAudioSrc(this.songs[this.currentSong].src);
-            if (this.audio)
-                this.audio.play();
+            this.changeAudioSrc(this.songs[this.currentSong].src, () => {
+                if (!this.isPaused)
+                    this.audio.play();
+            });
         },
         pause: function () {
             this.audio.pause();
@@ -214,22 +209,25 @@ const player = (config) => {
             this.play(audioIndex);
         },
         togglePlaying: function () {
-            this.audio.paused ? this.audio.play() : this.audio.pause()
+            this.isPaused ? this.audio.play() : this.audio.pause();
+            this.isPaused = !this.isPaused;
         },
         toggleMute: function () {
             this.audio.muted = !this.audio.muted
         },
         toggleLoopMode: function () {
             this.loopMode = !this.loopMode;
+            if (this.onAnyModeChanged) this.onAnyModeChanged(this);
         },
         toggleRandomMode: function () {
             this.randomMode = !this.randomMode;
+            if (this.onAnyModeChanged) this.onAnyModeChanged(this);
         },
-        changeAudioSrc: function (newSrc) {
+        changeAudioSrc: function (newSrc, onChange) {
             if (newSrc !== this.audio.src) {
                 this.audio.src = newSrc;
-                this.calcDurationRange(this.audio.duration);
-                if (this.onSongChange) this.onSongChange(this);
+                onChange();
+                if (this.onSongChanged) this.onSongChanged(this);
             }
         },
         changeVol: function (vol) {
@@ -256,7 +254,23 @@ const player = (config) => {
         },
         getTotalDisplayMinutes: function () {
             return getMinutesTime(this.totalMinutes);
-        }
+        },
+        updateTimer: function () {
+            if (!this.isChangingTime) {
+                this.durationRange.value = this.timer.currentTime;
+
+                this.timerDisplay.textContent =
+                    `${this.timer.getDisplayTime()} - ${this.getTotalDisplayTime()}`;
+            }
+        },
+        cancelChangeDuration: {
+            cancel: function () {
+                this.isChangingTime = false;
+                this.updateTimer();
+                this.allowToChangeDuration = false;
+            },
+            listener: null
+        },
     }
 
     return instance
