@@ -1,5 +1,7 @@
 import './styles/style.scss';
 
+import playerUIState from "./scripts/player-ui-state"
+
 import { MDCSlider } from '@material/slider';
 
 import { firstLetterUppercase } from "./utils"
@@ -15,17 +17,7 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
   const player = initPlayer();
   const listenerFuncions = initPlayerKeyboardShortcuts(player);
-
-  const playerBottom = document.getElementById("app-player-bottom");
-  playerBottom.onclick = function (e) {
-    const currentState = this.getAttribute("state");
-    const isCollapsed = currentState === "collapsed";
-    const newState = isCollapsed ? "expanded" : "collapsed";
-
-    this.setAttribute("state", newState);
-    this.classList.remove(`p-viewport-${currentState}`);
-    this.classList.add(`p-viewport-${newState}`);
-  }
+  playerUIState.watch();
 }
 
 function initPlayer() {

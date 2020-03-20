@@ -1,12 +1,21 @@
 @import "./variables.scss";
 
 .player-viewport{
+    z-index: 4000;
     &.p-viewport-collapsed{
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
         background: $content;
+    }
+    &.p-viewport-expanded{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: red;
     }
 }
 .player-wrapper{
@@ -50,9 +59,10 @@
     justify-content: space-between;
     padding: 12px;
 }
-.p-data{
+#p-data{
     display: flex;
     align-items: center;
+    flex: 1;
 }
 #p-thumb{
     margin-right: 12px;
