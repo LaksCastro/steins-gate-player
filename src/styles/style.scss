@@ -1,10 +1,22 @@
-@use "@material/button/mdc-button";
 @import url('https://fonts.googleapis.com/css?family=Oxanium&display=swap');
+@import "@material/button/mdc-button";
 *{
   font-family: 'Oxanium', sans-serif;
   outline: none;
 }
+::-webkit-scrollbar { 
+  display: none; 
+}
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 300px;
+  margin: auto;
+}
 
+.button-container button {
+  margin: 3px;
+}
 // *{
 //   margin: 0;
 //   padding: 0;
@@ -18,7 +30,6 @@
 //   list-style: none;
 //   -webkit-tap-highlight-color: transparent;
 // }
-// ::-webkit-scrollbar { display: none; }
 
 // html {
 //   box-sizing: border-box;

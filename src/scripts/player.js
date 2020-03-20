@@ -1,5 +1,7 @@
 import timer from "./timer";
 
+import keyboard from "./keyboard";
+
 import {
     randomIntFromInterval,
     getDisplayTime,
@@ -28,7 +30,6 @@ const player = (config) => {
 
         randomMode: false,
         loopMode: true,
-        autoplay: true,
 
         playButton: document.querySelector(playButton),
         nextButton: document.querySelector(nextButton),
@@ -62,11 +63,14 @@ const player = (config) => {
                     `${this.timer.getDisplayTime()} - ${this.getTotalDisplayTime()}`;
             }
         },
-        cancelChangeDuration: function () {
-            console.log("a");
-            this.isChangingTime = false;
-            this.updateTimer();
-            this.allowToChangeDuration = false;
+        cancelChangeDuration: {
+            cancel: function () {
+                console.log("a");
+                this.isChangingTime = false;
+                this.updateTimer();
+                this.allowToChangeDuration = false;
+            },
+            listener: null
         },
         init: function () {
             this.audio.volume = "1";
@@ -101,19 +105,22 @@ const player = (config) => {
             this.randomButton.onclick = () => this.toggleRandomMode();
             // To prevent the user from being able to change the timing of the sound
 
-            const callback = (e) => {
-                if (e.keyCode === 27) {
-                    this.cancelChangeDuration();
-                }
-            };
-
-            this.durationRange.onpointerdown = (e) => {
+            this.durationRange.onpointerdown = () => {
                 this.isChangingTime = true;
-                document.addEventListener("keyup", callback);
+
+                const [listener] = keyboard.on([{
+                    key: 27, // Escape (Esc)
+                    callback: this.cancelChangeDuration.cancel.bind(this) // Bind to use this context
+                }]);
+
+                this.cancelChangeDuration.listener = listener;
             }
-            this.durationRange.onpointerup = (e) => {
+            this.durationRange.onpointerup = () => {
                 this.isChangingTime = false;
-                document.removeEventListener("keyup", callback);
+
+                keyboard.off([{
+                    listenerFunction: this.cancelChangeDuration.listener
+                }]);
             }
 
             // Fired when mouse up from range button
