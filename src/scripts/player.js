@@ -52,7 +52,6 @@ const player = (config) => {
         totalTime: null,
 
         init: function () {
-            this.audio.autoplay = "true";
             this.audio.volume = "1";
 
             this.volRange.value = "100";
