@@ -3,16 +3,21 @@ import { randomIntFromInterval } from "../utils"
 let wrapper = null;
 let waves = [];
 let playingAnimationsId = [];
-
-
+let width = null;
+let height = null;
+let maxWaveHeight = null;
 function toPx(num) {
     return `${num}px`
 }
 
 function init() {
     wrapper = document.getElementById("p-wave-container");
-    const width = wrapper.clientWidth;
+
+    width = window.innerWidth;
+    height = wrapper.clientHeight;
+    maxWaveHeight = height - 20;
     const wavesLength = width / 12 - 4;
+
     console.log(wavesLength);
     waves = Array.from({ length: wavesLength }).map(() => {
         const singleWave = document.createElement("div");
@@ -30,10 +35,9 @@ function render() {
 function usePlaying() {
     waves.forEach(wave => {
         let currentHeight = null;
-
         function animate() {
             playingAnimationsId.push(setTimeout(() => {
-                let newHeight = randomIntFromInterval(0, 55);
+                let newHeight = randomIntFromInterval(0, maxWaveHeight);
 
                 if (currentHeight) {
                     if (newHeight === currentHeight) {
