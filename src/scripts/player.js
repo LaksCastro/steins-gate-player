@@ -1,5 +1,7 @@
 import timer from "./timer";
 
+import { MDCSlider } from '@material/slider';
+
 import keyboard from "./keyboard";
 
 import {
@@ -21,7 +23,8 @@ const player = (config) => {
         muteButton,
         loopButton,
         randomButton,
-        timerDisplay,
+        timerDisplayNow,
+        timerDisplayTotal,
         songs,
         initOn = 0 } = config;
 
@@ -36,11 +39,12 @@ const player = (config) => {
         nextButton: document.querySelector(nextButton),
         prevButton: document.querySelector(prevButton),
         // volRange,
-        durationRange: document.querySelector(durationRange),
+        durationRange,
         muteButton: document.querySelector(muteButton),
         loopButton: document.querySelector(loopButton),
         randomButton: document.querySelector(randomButton),
-        timerDisplay: document.querySelector(timerDisplay),
+        timerDisplayNow: document.querySelector(timerDisplayNow),
+        timerDisplayTotal: document.querySelector(timerDisplayTotal),
 
         onInit: null,
         onSongChanged: null,
@@ -70,7 +74,7 @@ const player = (config) => {
             this.audio.volume = "1";
 
             // this.volRange.setAttribute("aria-valuenow", "100");
-            this.durationRange.value = "0";
+            this.durationRange.node.setAttribute("aria-valuemin", "0");
 
             this.defineNodeButtons();
             this.defineAudioEvents();
@@ -83,7 +87,7 @@ const player = (config) => {
             this.nextButton = document.querySelector(this.config.nextButton)
             this.prevButton = document.querySelector(this.config.prevButton)
             // volRange,
-            this.durationRange = document.querySelector(this.config.durationRange)
+            // this.durationRange = document.querySelector(this.config.durationRange)
             this.muteButton = document.querySelector(this.config.muteButton)
             this.loopButton = document.querySelector(this.config.loopButton)
             this.randomButton = document.querySelector(this.config.randomButton)
@@ -144,7 +148,7 @@ const player = (config) => {
             this.randomButton.onclick = () => this.toggleRandomMode();
             // To prevent the user from being able to change the timing of the sound
 
-            this.durationRange.onpointerdown = () => {
+            this.durationRange.node.onpointerdown = () => {
                 this.isChangingTime = true;
 
                 const [listener] = keyboard.on([{
@@ -154,32 +158,12 @@ const player = (config) => {
 
                 this.cancelChangeDuration.listener = listener;
             }
-            this.durationRange.onpointerup = () => {
+            this.durationRange.node.onpointerup = () => {
                 this.isChangingTime = false;
 
                 keyboard.off([{
                     listenerFunction: this.cancelChangeDuration.listener
                 }]);
-            }
-
-            // Fired when mouse up from range button
-            this.durationRange.onchange = (e) => {
-                const seconds = e.target.value;
-                if (this.allowToChangeDuration) {
-                    this.changeDuration(seconds);
-                }
-                else {
-                    this.allowToChangeDuration = true;
-                }
-            };
-            // To set display timer when user is changing time
-            this.durationRange.oninput = e => {
-
-
-                const { seconds, minutes } = converterSeconds(e.target.value);
-
-                this.timerDisplay.textContent =
-                    `${getDisplayTime(seconds, minutes)} - ${this.getTotalDisplayTime()}`;
             }
 
             // --- CONSTANTS
@@ -191,6 +175,26 @@ const player = (config) => {
                 // Change current time of input #duration and timer display only if user is not changing time
                 this.updateTimer();
             };
+        },
+        defineSyntheticActions: function () {
+
+            // Fired when mouse up from range button
+            this.durationRange.slider.listen('MDCSlider:change', () => {
+                const seconds = this.durationRange.slider.value;
+                if (this.allowToChangeDuration) {
+                    this.changeDuration(seconds);
+                }
+                else {
+                    this.allowToChangeDuration = true;
+                }
+            });
+
+            // To set display timer when user is changing time
+            this.durationRange.slider.listen('MDCSlider:input', () => {
+                const { seconds, minutes } = converterSeconds(Math.floor(this.durationRange.slider.value));
+
+                this.timerDisplayNow.textContent = getDisplayTime(seconds, minutes);
+            });
         },
         play: function (audioIndex, useRandom) {
             if (useRandom) {
@@ -257,8 +261,10 @@ const player = (config) => {
             this.audio.currentTime = time;
         },
         calcDurationRange: function () {
-            this.durationRange.max = this.audio.duration.toFixed(0);
-            this.durationRange.min = "0";
+            this.durationRange.node.setAttribute("aria-valuemax", this.audio.duration.toFixed(0));
+            this.durationRange.node.setAttribute("aria-valuemin", "0");
+            this.durationRange.slider = new MDCSlider(this.durationRange.node);
+            this.defineSyntheticActions();
         },
         calcDuration: function () {
             const { minutes, seconds } = converterSeconds(Number(this.audio.duration.toFixed(0)));
@@ -277,10 +283,10 @@ const player = (config) => {
         },
         updateTimer: function () {
             if (!this.isChangingTime) {
-                this.durationRange.value = this.timer.currentTime;
+                this.durationRange.slider.value = this.timer.currentTime;
 
-                this.timerDisplay.textContent =
-                    `${this.timer.getDisplayTime()} - ${this.getTotalDisplayTime()}`;
+                this.timerDisplayNow.textContent = this.timer.getDisplayTime();
+                this.timerDisplayTotal.textContent = this.getTotalDisplayTime()
             }
         },
         cancelChangeDuration: {

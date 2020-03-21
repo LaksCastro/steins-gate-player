@@ -194,7 +194,14 @@
 }
 .p-expanded-controls{
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), rgba(0,0,0,0.3), transparent);
+    background: linear-gradient(
+        to top, 
+        rgba(0,0,0,0.9), 
+        rgba(0,0,0,0.6), 
+        rgba(0,0,0,0.3), 
+        transparent
+    );
+
     padding: 2rem 12px;
     display: flex;
     flex-direction: column;
@@ -212,7 +219,19 @@
     }
 }
 .p-expanded-duration{
-    margin: 1rem 0;
+    width: 100%;
+    padding: 1rem;
+}
+.p-expanded-time-display{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+#p-expanded-time-init{
+    color: $color;
+}
+#p-expanded-time-end{
+    color: $color;
 }
 .p-expanded-actions{
     width: 100%;

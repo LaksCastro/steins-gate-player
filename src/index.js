@@ -2,8 +2,6 @@ import './styles/style.scss';
 
 import playerUIState from "./scripts/player-ui-state"
 
-import { MDCSlider } from '@material/slider';
-
 import { firstLetterUppercase } from "./utils"
 
 
@@ -17,6 +15,11 @@ document.addEventListener('DOMContentLoaded', init);
 
 
 function init() {
+  const durationNode = document.querySelector('.mdc-slider')
+  this.durationSlider = {
+    node: durationNode
+  };
+
   const wave = initWaveEffect.call(this);
   this.wave = wave;
 
@@ -66,9 +69,10 @@ function initPlayer() {
     muteButton: "#p-toggle-mute",
     loopButton: "#p-loop",
     randomButton: "#p-random",
-    timerDisplay: "#timer",
+    timerDisplayNow: "#p-expanded-time-init",
+    timerDisplayTotal: "#p-expanded-time-end",
     // volRange: volSlider,
-    durationRange: "#duration",
+    durationRange: this.durationSlider,
     songs,
   });
 
