@@ -80,7 +80,7 @@ const wave = function () {
                 animate.call(this);
 
                 function changePalette() {
-                    this.palette = generateRandomColorPalette({ a: 0.5 });
+                    this.palette = generateRandomColorPalette({ a: 0.2 }, { vA: 200 });
                     setTimeout(() => {
                         changePalette.call(this);
                     }, 3000);

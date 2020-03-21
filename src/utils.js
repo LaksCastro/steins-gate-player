@@ -68,7 +68,7 @@ function generateRandomColor(userConfig = {}) {
 
 function generateRandomColorPalette(userColor = {}, userVariant = {}) {
     const { color: defaultColor } = generateRandomColor();
-    const defaultVariant = { r: 15, g: 15, b: 15, a: 200 };
+    const defaultVariant = { vR: 15, vG: 15, vB: 15, vA: 200 };
 
 
     const color = Object.assign({}, defaultColor, userColor);
