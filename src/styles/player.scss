@@ -13,7 +13,7 @@
     justify-content: flex-end;
 }
 .p-viewport-collapsed{
-    height: 78px;
+    height: 60px;
     background: $content;
     .state-collapsed{
         visibility: visible;
@@ -86,7 +86,7 @@
     max-width: 950px;
     display: flex;
     justify-content: space-between;
-    padding: 12px;
+    padding: 4px 8px;
 }
 #p-data{
     display: flex;
@@ -95,8 +95,8 @@
 }
 #p-thumb{
     margin-right: 12px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
@@ -109,9 +109,11 @@
 }
 #p-title{
     color: $color;
+    font-size: 0.9em;
 }
 #p-description{
     color: $color-light;
+    font-size: 0.7em;
 }
 .p-vol-wrapper{
     width: 100%;

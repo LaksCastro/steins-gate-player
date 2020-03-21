@@ -106,7 +106,7 @@ const wave = function () {
             }
 
             this.waves.forEach(wave => {
-                let currentHeight = 8;
+                let currentHeight = 5;
 
                 wave.style.height = toPx(currentHeight);
             });
