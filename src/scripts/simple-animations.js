@@ -5,8 +5,8 @@ function simpleAnimations() {
     function animateExpandedTopBar() {
         setTimeout(() => {
             const palette = generateRandomColorPalette();
-            const color = generateRandomColor(palette);
-            expandedTopBar.style.borderBottomColor = color;
+            const { string } = generateRandomColor(palette);
+            expandedTopBar.style.borderBottomColor = string;
             window.requestAnimationFrame(animateExpandedTopBar);
         }, 800)
     }
