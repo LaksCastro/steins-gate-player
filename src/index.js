@@ -40,7 +40,10 @@ function init() {
 
   playerUIState.watch.call(this);
 
-  const butterfly = Butterfly({ canvasId: "butterfly-effect" });
+  const butterfly = Butterfly({
+    canvasId: "butterfly-effect",
+    canvasWrapperId: "butterfly-effect-wrapper"
+  });
   this.butterfly = butterfly;
 }
 
