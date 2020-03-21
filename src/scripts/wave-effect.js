@@ -43,6 +43,7 @@ const wave = function () {
         wavesLength: null,
 
         palette: generateRandomColorPalette({ a: 0.5 }),
+        paletteAnimationId: null,
 
         state: null,
 
@@ -51,6 +52,21 @@ const wave = function () {
 
             this.state = "usePaused";
             this.playingAnimationsId.forEach(id => clearTimeout(id));
+            clearTimeout(this.paletteAnimationId);
+        },
+        updateWave: function (wave, currentHeight) {
+            let newHeight = randomIntFromInterval(0, this.maxWaveHeight);
+            let { string: newColor } = generateRandomColor(this.palette);
+
+            if (currentHeight) {
+                if (newHeight === currentHeight) {
+                    newHeight = currentHeight + 10
+                }
+                currentHeight = newHeight;
+            }
+
+            wave.style.height = toPx(newHeight);
+            wave.style.backgroundColor = newColor;
         },
         usePlaying: function () {
             if (this.state === "usePlaying") return;
@@ -61,42 +77,33 @@ const wave = function () {
 
                 function animate() {
                     this.playingAnimationsId.push(setTimeout(() => {
-                        let newHeight = randomIntFromInterval(0, this.maxWaveHeight);
-                        let { string: newColor } = generateRandomColor(this.palette);
-
-                        if (currentHeight) {
-                            if (newHeight === currentHeight) {
-                                newHeight = currentHeight + 10
-                            }
-                            currentHeight = newHeight;
-                        }
-
-                        wave.style.height = toPx(newHeight);
-                        wave.style.backgroundColor = newColor;
-
+                        this.updateWave(wave, currentHeight);
                         animate.call(this);
                     }, 100));
                 }
                 animate.call(this);
-
-                function changePalette() {
-                    this.palette = generateRandomColorPalette({ a: 0.2 }, { vA: 200 });
-                    setTimeout(() => {
-                        changePalette.call(this);
-                    }, 3000);
-                }
-                setTimeout(() => {
-                    changePalette.call(this);
-                }, 3000);
             });
+            function changePalette() {
+                this.paletteAnimationId = setTimeout(() => {
+                    if (this.state !== "usePlaying") return;
+
+                    this.palette = generateRandomColorPalette({ a: 0.2 }, { vA: 200 });
+                    changePalette.call(this);
+                }, 5000);
+            }
+            changePalette.call(this);
         },
         useStatic: function () {
             if (this.state === "useStatic") return;
 
             this.state = "useStatic";
 
-            if (this.playingAnimationsId.length !== 0)
+            if (this.playingAnimationsId.length !== 0) {
                 this.playingAnimationsId.forEach(id => clearTimeout(id));
+            }
+            if (typeof this.paletteAnimationId !== "null") {
+                clearTimeout(this.paletteAnimationId);
+            }
 
             this.waves.forEach(wave => {
                 let currentHeight = 8;
@@ -106,6 +113,9 @@ const wave = function () {
         },
         reInit() {
             calcVariants.call(this);
+            if (this.state === "usePaused") {
+                this.waves.forEach(wave => this.updateWave(wave, wave.clientHeight));
+            }
         },
         render: function () {
             this.waves.forEach(wave => {

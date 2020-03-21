@@ -70,7 +70,6 @@ function generateRandomColorPalette(userColor = {}, userVariant = {}) {
     const { color: defaultColor } = generateRandomColor();
     const defaultVariant = { vR: 15, vG: 15, vB: 15, vA: 200 };
 
-
     const color = Object.assign({}, defaultColor, userColor);
     const variant = Object.assign({}, defaultVariant, userVariant);
 
