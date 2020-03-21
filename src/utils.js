@@ -58,9 +58,48 @@ function generateRandomColor(userConfig = {}) {
     b = randomIntFromInterval(minB, maxB);
     a = randomIntFromInterval(minA, maxA) / 1000;
 
-    return `rgba(${r}, ${g}, ${b}, ${a})`;
+    return {
+        string: `rgba(${r}, ${g}, ${b}, ${a})`,
+        color: {
+            r, g, b, a
+        }
+    };
 }
 
+function generateRandomColorPalette(userColor = {}) {
+    const { color: defaultColor } = generateRandomColor();
+
+    const color = Object.assign({}, defaultColor, userColor);
+
+    const { r, g, b, a } = color;
+
+    const palette = {
+        r: getVariant({ num: r }),
+        g: getVariant({ num: g }),
+        b: getVariant({ num: b }),
+        a: getVariant({ num: a * 1000, max: 1000, min: 0 }).map(item => item / 1000),
+    }
+
+    function getVariant(userConfig = {}) {
+        const defaultConfig = {
+            min: 0,
+            max: 255,
+            num: randomIntFromInterval(0, 255)
+        }
+        const config = Object.assign({}, defaultConfig, userConfig);
+        let { num, min, max } = config;
+        if (num + 15 >= max) {
+            num = [num - 15, max];
+        } else if (num - 15 < min) {
+            num = [min, num + 15];
+        } else {
+            num = [num - 15, num + 15]
+        }
+        return num;
+    }
+
+    return palette;
+}
 
 export {
     randomIntFromInterval,
@@ -70,5 +109,6 @@ export {
     converterSeconds,
     firstLetterUppercase,
     moveNodeElementTo,
-    generateRandomColor
+    generateRandomColor,
+    generateRandomColorPalette
 }

@@ -1,4 +1,4 @@
-import { randomIntFromInterval, generateRandomColor } from "../utils"
+import { randomIntFromInterval, generateRandomColor, generateRandomColorPalette } from "../utils"
 
 function toPx(num) {
     return `${num}px`
@@ -42,6 +42,8 @@ const wave = function () {
         maxWaveHeight: null,
         wavesLength: null,
 
+        palette: generateRandomColorPalette({ a: 0.5 }),
+
         state: null,
 
         usePaused: function () {
@@ -60,11 +62,7 @@ const wave = function () {
                 function animate() {
                     this.playingAnimationsId.push(setTimeout(() => {
                         let newHeight = randomIntFromInterval(0, this.maxWaveHeight);
-                        let newColor = generateRandomColor({
-                            r: [70, 95],
-                            g: [30, 60],
-                            b: [110, 135],
-                        });
+                        let { string: newColor } = generateRandomColor(this.palette);
 
                         if (currentHeight) {
                             if (newHeight === currentHeight) {
@@ -80,6 +78,16 @@ const wave = function () {
                     }, 100));
                 }
                 animate.call(this);
+
+                function changePalette() {
+                    this.palette = generateRandomColorPalette({ a: 0.5 });
+                    setTimeout(() => {
+                        changePalette.call(this);
+                    }, 3000);
+                }
+                setTimeout(() => {
+                    changePalette.call(this);
+                }, 3000);
             });
         },
         useStatic: function () {
