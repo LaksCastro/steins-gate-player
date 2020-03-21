@@ -51,6 +51,7 @@ function initPlayer() {
     // volRange: volSlider,
     durationRange: "#duration",
     songs,
+    initOn: 6
   });
 
   function renderSong(updatedPlayer) {

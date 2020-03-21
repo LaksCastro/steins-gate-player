@@ -2,7 +2,6 @@ import { randomIntFromInterval } from "../utils"
 
 let wrapper = null;
 let waves = [];
-
 let playingAnimationsId = [];
 
 
@@ -14,6 +13,7 @@ function init() {
     wrapper = document.getElementById("p-wave-container");
     const width = wrapper.clientWidth;
     const wavesLength = width / 12 - 4;
+    console.log(wavesLength);
     waves = Array.from({ length: wavesLength }).map(() => {
         const singleWave = document.createElement("div");
         singleWave.classList.add("p-single-wave");
@@ -44,10 +44,10 @@ function usePlaying() {
 
                 wave.style.height = toPx(newHeight);
 
-                window.requestAnimationFrame(animate);
+                animate();
             }, 100));
         }
-        window.requestAnimationFrame(animate);
+        animate();
     });
 }
 
