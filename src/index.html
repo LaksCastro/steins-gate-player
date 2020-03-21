@@ -31,58 +31,56 @@
     </div>
   </header>
 
-  <div>
-    <button id="play">play</button>
-    <button id="prev">prev</button>
-    <button id="next">next</button>
-    <button id="toggle-mute">toggle mute</button>
-    <button id="loop">toggle loop mode</button>
-    <button id="random">toggle random mode</button>
-  </div>
-  <div>
-    <input type="range" name="vol" id="vol" max="100" min="0">
-    <input type="range" name="duration" id="duration">
-  </div>
-
-  <p id="timer">--:-- - --:--</p>
-
-
-
   <div state="collapsed" id="app-player-bottom" class="player-viewport p-viewport-collapsed">
-    <div class="player-wrapper p-wrapper-collapsed">
-      <!-- <div class="p-vol-wrapper">
-        <div class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
-          aria-valuenow="100" aria-label="Select Value">
-          <div class="mdc-slider__track-container">
-            <div class="mdc-slider__track"></div>
-          </div>
-          <div class="mdc-slider__thumb-container">
-            <div class="mdc-slider__pin">
-              <span class="mdc-slider__pin-value-marker"></span>
+    <div class="state-collapsed">
+      <div class="player-wrapper">
+        <!-- <div class="p-vol-wrapper">
+          <div class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+            aria-valuenow="100" aria-label="Select Value">
+            <div class="mdc-slider__track-container">
+              <div class="mdc-slider__track"></div>
             </div>
-            <svg class="mdc-slider__thumb" width="21" height="21">
-              <circle cx="10.5" cy="10.5" r="7.875"></circle>
-            </svg>
-            <div class="mdc-slider__focus-ring"></div>
+            <div class="mdc-slider__thumb-container">
+              <div class="mdc-slider__pin">
+                <span class="mdc-slider__pin-value-marker"></span>
+              </div>
+              <svg class="mdc-slider__thumb" width="21" height="21">
+                <circle cx="10.5" cy="10.5" r="7.875"></circle>
+              </svg>
+              <div class="mdc-slider__focus-ring"></div>
+            </div>
           </div>
-        </div>
-      </div> -->
-      <div class="p-container">
-        <div id="p-data">
-          <img src="/assets/fatima.jpg" alt="Hacking To The Gate" id="p-thumb">
-          <div class="p-info">
-            <h3 id="p-title">Hacking To The Gate</h3>
-            <p id="p-description">Opening</p>
+        </div> -->
+        <div class="p-container">
+          <div id="p-data">
+            <img src="/assets/fatima.jpg" alt="Hacking To The Gate" id="p-thumb">
+            <div class="p-info">
+              <h3 id="p-title">Hacking To The Gate</h3>
+              <p id="p-description">Opening</p>
+            </div>
           </div>
-        </div>
-        <div class="p-actions">
-          <button id="p-random" class="mdc-icon-button material-icons">call_made</button>
-          <button id="p-prev" class="mdc-icon-button material-icons">skip_previous</button>
-          <button id="p-play" class="mdc-icon-button material-icons">play_arrow</button>
-          <button id="p-next" class="mdc-icon-button material-icons">skip_next</button>
-          <button id="p-loop" class="mdc-icon-button material-icons">repeat</button>
+          <div class="p-actions">
+            <button id="p-random" class="mdc-icon-button material-icons">call_made</button>
+            <button id="p-prev" class="mdc-icon-button material-icons">skip_previous</button>
+            <button id="p-play" class="mdc-icon-button material-icons">play_arrow</button>
+            <button id="p-next" class="mdc-icon-button material-icons">skip_next</button>
+            <button id="p-loop" class="mdc-icon-button material-icons">repeat</button>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="state-expanded">
+      <div>
+        <button id="play">play</button>
+        <button id="prev">prev</button>
+        <button id="next">next</button>
+        <button id="loop">toggle loop mode</button>
+        <button id="random">toggle random mode</button>
+      </div>
+      <div>
+        <input type="range" name="duration" id="duration">
+      </div>
+      <p id="timer">--:-- - --:--</p>
     </div>
   </div>
 </body>

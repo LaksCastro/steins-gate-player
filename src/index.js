@@ -17,7 +17,11 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
   const player = initPlayer();
   const listenerFuncions = initPlayerKeyboardShortcuts(player);
-  playerUIState.watch();
+
+  this.songs = songs;
+  this.player = player;
+
+  playerUIState.watch.call(this);
 }
 
 function initPlayer() {

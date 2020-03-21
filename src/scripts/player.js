@@ -26,6 +26,7 @@ const player = (config) => {
         initOn = 0 } = config;
 
     const instance = {
+        config,
         songs,
 
         randomMode: false,
@@ -60,17 +61,66 @@ const player = (config) => {
 
         allowToChangeDuration: true,
 
+        changeButtonControls: function (newButtonControls) {
+            this.config = Object.assign({}, this.config, newConfig);
+            this.defineNodeButtons();
+            this.defineActions();
+            console.log(this);
+        },
         init: function () {
             this.audio.volume = "1";
 
             // this.volRange.setAttribute("aria-valuenow", "100");
             this.durationRange.value = "0";
 
-            this.actions();
+            this.defineNodeButtons();
+            this.defineAudioEvents();
+            this.defineActions();
 
             if (this.onInit) this.onInit(this);
         },
-        actions: function () {
+        defineNodeButtons() {
+            this.playButton = document.querySelector(this.config.playButton)
+            this.nextButton = document.querySelector(this.config.nextButton)
+            this.prevButton = document.querySelector(this.config.prevButton)
+            // volRange,
+            this.durationRange = document.querySelector(this.config.durationRange)
+            this.muteButton = document.querySelector(this.config.muteButton)
+            this.loopButton = document.querySelector(this.config.loopButton)
+            this.randomButton = document.querySelector(this.config.randomButton)
+            this.timerDisplay = document.querySelector(this.config.timerDisplay)
+        },
+        defineAudioEvents: function () {
+            // --- SIDE EFFECTS FOR USER ACTIONS
+            // On action pause(), run pause timer side effect, the same for when start()
+            this.audio.onpause = () => {
+                this.timer.pauseCount.call({ ...this.timer, audio: this.audio });
+                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
+            }
+
+            // On action next()/prev(), this will make the browser load the metadata for this sound
+            // We take this event and calculate the range of the duration input
+            this.audio.onloadedmetadata = () => {
+                this.calcDuration();
+                this.calcDurationRange();
+            }
+
+            // The song end is not a user action, it's just the natural flow of time
+            this.audio.onended = () => {
+                if (this.loopMode) {
+                    this.play(this.currentSong);
+                } else {
+                    this.next();
+                }
+            };
+
+            // On play, start/continue timer
+            this.audio.onplay = () => {
+                this.timer.startCount.call({ ...this.timer, audio: this.audio });
+                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
+            }
+        },
+        defineActions: function () {
             // USER ACTIONS:
 
             // --- For Input Range's (volume and duration):
@@ -133,20 +183,6 @@ const player = (config) => {
                     `${getDisplayTime(seconds, minutes)} - ${this.getTotalDisplayTime()}`;
             }
 
-            // --- SIDE EFFECTS FOR USER ACTIONS
-            // On action pause(), run pause timer side effect, the same for when start()
-            this.audio.onpause = () => {
-                this.timer.pauseCount.call({ ...this.timer, audio: this.audio });
-                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
-            }
-
-            // On action next()/prev(), this will make the browser load the metadata for this sound
-            // We take this event and calculate the range of the duration input
-            this.audio.onloadedmetadata = () => {
-                this.calcDuration();
-                this.calcDurationRange();
-            }
-
             // --- CONSTANTS
             // If our user is not a time magician, they have no power over him, 
             // therefore, the timer is a constant that must be updated every 1s xD
@@ -156,27 +192,12 @@ const player = (config) => {
                 // Change current time of input #duration and timer display only if user is not changing time
                 this.updateTimer();
             };
-
-            // The song end is not a user action, it's just the natural flow of time
-            this.audio.onended = () => {
-                if (this.loopMode) {
-                    this.play(this.currentSong);
-                } else {
-                    this.next();
-                }
-            };
-
-            // On play, start/continue timer
-            this.audio.onplay = () => {
-                this.timer.startCount.call({ ...this.timer, audio: this.audio });
-                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
-            }
         },
-        play: function (audioIndex) {
-            if (this.randomMode) {
+        play: function (audioIndex, useRandom) {
+            if (useRandom) {
                 // Logic to play a random song that not be the current song
                 const possibleAudioIndex = randomIntFromInterval(0, this.songs.length - 1);
-                if (possibleAudioIndex === audioIndex) {
+                if (possibleAudioIndex === this.currentSong) {
                     if (possibleAudioIndex === this.songs.length - 1) {
                         audioIndex = possibleAudioIndex - 1
                     } else if (possibleAudioIndex === 0) {
@@ -200,12 +221,13 @@ const player = (config) => {
         next: function () {
             const isLastThenRestart = this.currentSong === (this.songs.length - 1)
             const audioIndex = isLastThenRestart ? 0 : this.currentSong + 1
-            this.play(audioIndex);
+            this.play(audioIndex, this.randomMode);
         },
         prev: function () {
             const isFirstThenGoToLast = this.currentSong === 0
-            const audioIndex = isFirstThenGoToLast ? songs.length - 1 : this.currentSong - 1
-            this.play(audioIndex);
+            const audioIndex = isFirstThenGoToLast ? songs.length - 1 : this.currentSong - 1;
+            const args = this.timer.currentTime > 5 ? [this.currentSong, false] : [audioIndex, this.randomMode];
+            this.play(...args);
         },
         togglePlaying: function () {
             this.isPaused ? this.audio.play() : this.audio.pause();

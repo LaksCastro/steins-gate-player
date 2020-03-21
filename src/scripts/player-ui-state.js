@@ -2,15 +2,26 @@ function watch() {
     const playerWrapper = document.getElementById("app-player-bottom");
     const pData = document.getElementById("p-data");
 
-    pData.onclick = (function () {
-        const currentState = this.getAttribute("state");
+    pData.onclick = () => {
+        const currentState = playerWrapper.getAttribute("state");
         const isCollapsed = currentState === "collapsed";
         const newState = isCollapsed ? "expanded" : "collapsed";
 
-        this.setAttribute("state", newState);
-        this.classList.remove(`p-viewport-${currentState}`);
-        this.classList.add(`p-viewport-${newState}`);
-    }).bind(playerWrapper);
+        playerWrapper.setAttribute("state", newState);
+        playerWrapper.classList.remove(`p-viewport-${currentState}`);
+        playerWrapper.classList.add(`p-viewport-${newState}`);
+
+        this.player.changeButtonControls({
+            playButton: "#play",
+            nextButton: "#next",
+            prevButton: "#prev",
+            loopButton: "#loop",
+            randomButton: "#random",
+            timerDisplay: "#timer",
+            // volRange: volSlider,
+            durationRange: "#duration",
+        });
+    }
 }
 
 export default { watch };

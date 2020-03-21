@@ -2,53 +2,66 @@
 
 .player-viewport{
     z-index: 4000;
-    &.p-viewport-collapsed{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: $content;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all .3s ease-in-out;
+}
+.p-viewport-collapsed{
+    height: 78px;
+    background: $content;
+    .state-collapsed{
+        visibility: visible;
+        opacity: 1;
     }
-    &.p-viewport-expanded{
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: red;
+    .state-expanded{
+        visibility: hidden;
+        opacity: 0;
     }
 }
+.p-viewport-expanded{
+    height: 100%;
+    background: red;
+    .state-collapsed{
+        visibility: hidden;
+        opacity: 0;
+    }
+    .state-expanded{
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
 .player-wrapper{
-    &.p-wrapper-collapsed{
-        cursor: pointer;
+    cursor: pointer;
+
+    position: relative;
     
-        position: relative;
-        
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    
-        border-top: 2px transparent solid;
-        border-bottom: 2px transparent solid;
-        border-image: linear-gradient(to right, $red, $yellow, $green, $purple);
-        border-image-slice: 1;
-    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    border-top: 2px transparent solid;
+    border-bottom: 2px transparent solid;
+    border-image: linear-gradient(to right, $red, $yellow, $green, $purple);
+    border-image-slice: 1;
+
+    &::after{
+        content: "";
+        position: absolute;
+        background: rgba(54, 57, 62, 0.5);
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        transition: all .4s ease-in-out;
+        z-index: -1;
+    }
+    &:hover{
         &::after{
-            content: "";
-            position: absolute;
-            background: rgba(54, 57, 62, 0.5);
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 0;
-            transition: all .4s ease-in-out;
-            z-index: -1;
-        }
-        &:hover{
-            &::after{
-                width: 100%;
-            }
+            width: 100%;
         }
     }
 }
