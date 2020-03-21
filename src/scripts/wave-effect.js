@@ -113,9 +113,8 @@ const wave = function () {
         },
         reInit() {
             calcVariants.call(this);
-            if (this.state === "usePaused") {
+            if (this.state === "usePaused")
                 this.waves.forEach(wave => this.updateWave(wave, wave.clientHeight));
-            }
         },
         render: function () {
             this.waves.forEach(wave => {

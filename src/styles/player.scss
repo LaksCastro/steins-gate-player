@@ -37,6 +37,9 @@
         opacity: 1;
     }
 }
+.state-collapsed{
+    transition: all .3s ease-in-out;
+}
 .state-expanded{
     transition: all .3s ease-in-out;
     height: 100%;
@@ -188,7 +191,39 @@
     flex: 1;
 }
 .p-expanded-controls{
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), rgba(0,0,0,0.3), transparent);
+    padding: 2rem 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+.p-expanded-extra-actions{
+    width: 100%;
+    max-width: 500px;
+
+    display: flex;
+    justify-content: space-between;
+    
+    *{
+        margin: 2px;
+    }
+}
+.p-expanded-duration{
+    margin: 1rem 0;
+}
+.p-expanded-actions{
+    width: 100%;
+    max-width: 500px;
+
+    display: flex;
+    justify-content: space-between;
+
+    *{
+        margin: 2px;
+    }
+}
+
 // ==============  MATERIAL DESIGN ================
 
 .mdc-icon-button{

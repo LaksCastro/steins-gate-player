@@ -39,6 +39,17 @@ function initWaveEffect() {
 
 function initPlayer() {
 
+  function renderSong(updatedPlayer) {
+    const song = updatedPlayer.songs[updatedPlayer.currentSong];
+    pThumb.src = song.coverSrc;
+    pThumb.alt = song.name;
+    pTitle.textContent = song.name;
+    pDescription.textContent = firstLetterUppercase(song.category);
+    pPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
+
+    this.wave.useStatic();
+  }
+
   // const volSlider = new MDCSlider(document.querySelector('.mdc-slider'));
 
   const pThumb = document.getElementById("p-thumb");
@@ -60,17 +71,6 @@ function initPlayer() {
     durationRange: "#duration",
     songs,
   });
-
-  function renderSong(updatedPlayer) {
-    const song = updatedPlayer.songs[updatedPlayer.currentSong];
-    pThumb.src = song.coverSrc;
-    pThumb.alt = song.name;
-    pTitle.textContent = song.name;
-    pDescription.textContent = firstLetterUppercase(song.category);
-    pPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
-
-    this.wave.useStatic();
-  }
 
   player.onInit = renderSong.bind(this);
   player.onSongChanged = renderSong.bind(this)
