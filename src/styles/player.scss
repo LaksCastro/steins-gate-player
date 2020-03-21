@@ -18,19 +18,25 @@
     .state-expanded{
         visibility: hidden;
         opacity: 0;
+        height: 0px;
     }
 }
 .p-viewport-expanded{
     height: 100%;
-    background: red;
     .state-collapsed{
         visibility: hidden;
         opacity: 0;
+        height: 0px;
     }
     .state-expanded{
         visibility: visible;
         opacity: 1;
     }
+}
+.state-expanded{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .player-wrapper{
@@ -133,15 +139,31 @@
 // ============== EXPANDED STATE ================
 
 #p-expanded-wave-wrapper{
-    background: violet;
+    transition: all .4s ease-in-out;
     width: 100%;
     height: 350px;
-    position: fixed; 
+    position: fixed;
     bottom: 0;
 }
-.p-expanded-top-bar{
+.p-expanded-top-bar-wrapper{
     width: 100%;
-    background: red;
+    background: $content;
+
+    display: flex;
+    justify-content: center;
+}
+.p-expanded-top-bar-container{
+    padding: 8px 1.5rem;
+    width: 100%;
+    height: 100%;
+    max-width: 950px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.p-expanded-body{
+    flex: 1;
 }
 
 // ==============  MATERIAL DESIGN ================

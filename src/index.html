@@ -55,8 +55,8 @@
           <div id="p-data">
             <img src="/assets/fatima.jpg" alt="Hacking To The Gate" id="p-thumb">
             <div class="p-info">
-              <h3 id="p-title">Hacking To The Gate</h3>
-              <p id="p-description">Opening</p>
+              <h3 id="p-title"></h3>
+              <p id="p-description"></p>
             </div>
           </div>
           <div id="p-wave-wrapper">
@@ -73,21 +73,28 @@
       </div>
     </div>
     <div class="state-expanded">
-      <div class="p-expanded-top-bar">
-
+      <div class="p-expanded-top-bar-wrapper">
+        <div class="p-expanded-top-bar-container">
+          <button id="p-random" class="mdc-icon-button material-icons">expand_more</button>
+          <button id="p-random" class="mdc-icon-button material-icons">volume_up</button>
+        </div>
+      </div>
+      <div class="p-expanded-body">
+        <div class="p-expanded-data">
+          <p id="timer">--:-- - --:--</p>
+        </div>
+        <div class="p-expanded-controls">
+          <button id="play">play</button>
+          <button id="prev">prev</button>
+          <button id="next">next</button>
+          <button id="loop">toggle loop mode</button>
+          <button id="random">toggle random mode</button>
+          <div>
+            <input type="range" name="duration" id="duration">
+          </div>
+        </div>
       </div>
       <div id="p-expanded-wave-wrapper"></div>
-      <div>
-        <button id="play">play</button>
-        <button id="prev">prev</button>
-        <button id="next">next</button>
-        <button id="loop">toggle loop mode</button>
-        <button id="random">toggle random mode</button>
-      </div>
-      <div>
-        <input type="range" name="duration" id="duration">
-      </div>
-      <p id="timer">--:-- - --:--</p>
     </div>
   </div>
 </body>

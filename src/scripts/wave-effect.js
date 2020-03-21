@@ -8,9 +8,14 @@ const wave = function () {
 
     const container = document.getElementById("p-wave-container");
 
-
     function init() {
         calcVariants.call(this);
+
+        this.waves = Array.from({ length: this.wavesLength }).map(() => {
+            const singleWave = document.createElement("div");
+            singleWave.classList.add("p-single-wave");
+            return singleWave;
+        });
     }
 
     function calcVariants() {
@@ -21,12 +26,6 @@ const wave = function () {
         this.wavesLength = this.width / 12;
 
         if (this.wavesLength > 80) this.wavesLength = 80;
-
-        this.waves = Array.from({ length: this.wavesLength }).map(() => {
-            const singleWave = document.createElement("div");
-            singleWave.classList.add("p-single-wave");
-            return singleWave;
-        });
     }
 
     const instance = {
@@ -43,10 +42,14 @@ const wave = function () {
         state: null,
 
         usePaused: function () {
+            if (this.state === "usePaused") return;
+
             this.state = "usePaused";
             this.playingAnimationsId.forEach(id => clearTimeout(id));
         },
         usePlaying: function () {
+            if (this.state === "usePlaying") return;
+
             this.state = "usePlaying";
             this.waves.forEach(wave => {
                 let currentHeight = null;
@@ -71,6 +74,8 @@ const wave = function () {
             });
         },
         useStatic: function () {
+            if (this.state === "useStatic") return;
+
             this.state = "useStatic";
 
             if (this.playingAnimationsId.length !== 0)
@@ -83,7 +88,7 @@ const wave = function () {
             });
         },
         reInit() {
-            init.call(this);
+            calcVariants.call(this);
         },
         render: function () {
             this.waves.forEach(wave => {
