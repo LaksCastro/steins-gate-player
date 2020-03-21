@@ -25,6 +25,7 @@ function init() {
   initPlayerKeyboardShortcuts(player);
 
   this.player = player;
+  this.wave = playerWave;
   playerUIState.watch.call(this);
 
 }

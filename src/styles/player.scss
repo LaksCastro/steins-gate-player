@@ -85,6 +85,12 @@
     object-position: center;
     border-radius: 12px;
 }
+#p-title, #p-description{
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 #p-title{
     color: $color;
 }
@@ -106,7 +112,6 @@
     height: 100%;
 
     width: 100%;
-    max-width: 950px;
 
     z-index: -1;
 }
@@ -118,6 +123,11 @@
     justify-content: center;
     align-items: flex-end;
 }
+#p-expanded-wave-wrapper{
+    background: violet;
+    width: 100%;
+    height: 80px;
+}
 .p-single-wave{
     width: 8px;
     background: rgba(66, 69, 73, 0.5);
@@ -127,4 +137,31 @@
 
 .mdc-icon-button{
     color: $color;
+}
+
+@media screen and (max-width: 558px){
+    #p-random{
+        display: none;
+    }
+}
+@media screen and (max-width: 510px){
+    #p-loop{
+        display: none;
+    }
+}
+@media screen and (max-width: 468px){
+    #p-title, #p-description{
+        max-width: 140px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+@media screen and (max-width: 398px){
+    #p-thumb{
+        display: none;
+    }
+    .p-viewport-collapsed{
+        height: 76px;
+    }
 }

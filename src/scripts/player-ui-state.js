@@ -21,6 +21,7 @@ function watch() {
             // volRange: volSlider,
             durationRange: "#duration",
         });
+        this.wave.moveTo("p-wave-wrapper", "p-expanded-wave-wrapper");
     }
 }
 

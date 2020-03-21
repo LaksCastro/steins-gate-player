@@ -24,11 +24,22 @@ function firstLetterUppercase(string) {
     return string.replace(/^./, string[0].toUpperCase())
 }
 
+function moveNodeElementTo(moveEntry) {
+    const { newParentId, currentParentId, nodeToMove } = moveEntry;
+
+    const newParent = document.getElementById(newParentId);
+    const oldParent = document.getElementById(currentParentId);
+
+    oldParent.removeChild(wrapper);
+    newParent.appendChild(wrapper);
+}
+
 export {
     randomIntFromInterval,
     getSecondsTime,
     getMinutesTime,
     getDisplayTime,
     converterSeconds,
-    firstLetterUppercase
+    firstLetterUppercase,
+    moveNodeElementTo
 }

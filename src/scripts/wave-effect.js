@@ -1,80 +1,88 @@
 import { randomIntFromInterval } from "../utils"
 
-let wrapper = null;
-let waves = [];
-let playingAnimationsId = [];
-let width = null;
-let height = null;
-let maxWaveHeight = null;
+
 function toPx(num) {
     return `${num}px`
 }
 
-function init() {
-    wrapper = document.getElementById("p-wave-container");
+const wave = function () {
 
-    width = window.innerWidth;
-    height = wrapper.clientHeight;
-    maxWaveHeight = height - 20;
-    const wavesLength = width / 12 - 4;
+    const instance = {
+        container: null,
 
-    console.log(wavesLength);
-    waves = Array.from({ length: wavesLength }).map(() => {
-        const singleWave = document.createElement("div");
-        singleWave.classList.add("p-single-wave");
-        return singleWave;
-    });
-}
+        waves: [],
+        playingAnimationsId: [],
 
-function render() {
-    waves.forEach(wave => {
-        wrapper.appendChild(wave);
-    });
-}
+        width: null,
+        height: null,
+        maxWaveHeight: null,
+        wavesLength: null,
 
-function usePlaying() {
-    waves.forEach(wave => {
-        let currentHeight = null;
-        function animate() {
-            playingAnimationsId.push(setTimeout(() => {
-                let newHeight = randomIntFromInterval(0, maxWaveHeight);
 
-                if (currentHeight) {
-                    if (newHeight === currentHeight) {
-                        newHeight = currentHeight + 10
-                    }
-                    currentHeight = newHeight;
+        usePaused: function () {
+            this.playingAnimationsId.forEach(id => clearTimeout(id));
+        },
+        usePlaying: function () {
+            this.waves.forEach(wave => {
+                let currentHeight = null;
+
+                function animate() {
+                    playingAnimationsId.push(setTimeout(() => {
+                        let newHeight = randomIntFromInterval(0, maxWaveHeight);
+
+                        if (currentHeight) {
+                            if (newHeight === currentHeight) {
+                                newHeight = currentHeight + 10
+                            }
+                            currentHeight = newHeight;
+                        }
+
+                        wave.style.height = toPx(newHeight);
+
+                        animate();
+                    }, 100));
                 }
+                animate.call(this);
 
-                wave.style.height = toPx(newHeight);
+            });
 
-                animate();
-            }, 100));
+        },
+        useStatic: function () {
+            if (playingAnimationsId.length !== 0) {
+                playingAnimationsId.forEach(id => clearTimeout(id));
+            }
+
+            this.waves.forEach(wave => {
+                let currentHeight = 8;
+
+                wave.style.height = toPx(currentHeight);
+            });
+
+        },
+        init: function () {
+            this.container = document.getElementById("p-wave-container");
+
+            this.width = this.container.clientWidth;
+            this.height = this.container.clientHeight;
+            this.maxWaveHeight = height - 20;
+
+            this.wavesLength = width / 12;
+
+            if (wavesLength > 80) wavesLength = 80;
+
+            this.waves = Array.from({ length: wavesLength }).map(() => {
+                const singleWave = document.createElement("div");
+                singleWave.classList.add("p-single-wave");
+                return singleWave;
+            });
+        },
+        render: function () {
+            this.waves.forEach(wave => {
+                this.container.appendChild(wave);
+            });
         }
-        animate();
-    });
-}
-
-function usePaused() {
-    playingAnimationsId.forEach(id => clearTimeout(id));
-}
-
-function useStatic() {
-    if (playingAnimationsId.length !== 0) {
-        playingAnimationsId.forEach(id => clearTimeout(id));
     }
-
-    waves.forEach(wave => {
-        let currentHeight = 8;
-
-        wave.style.height = toPx(currentHeight);
-    });
+    return instance;
 }
 
-export default {
-    usePlaying,
-    usePaused,
-    useStatic,
-    render,
-    init
-};
+export default wave;
