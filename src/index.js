@@ -6,10 +6,12 @@ import { firstLetterUppercase } from "./utils"
 
 import simpleAnimations from "./scripts/simple-animations"
 
+
 import Storage from "./scripts/localstorage";
 
 import MusicPlayer from "./scripts/player"
 import PlayerWave from "./scripts/wave-effect"
+import Butterfly from "./scripts/butterfly-effect";
 
 import keyboard from "./scripts/keyboard"
 import songs from "./scripts/data"
@@ -37,6 +39,9 @@ function init() {
   initPlayerKeyboardShortcuts(player);
 
   playerUIState.watch.call(this);
+
+  const butterfly = Butterfly({ canvasId: "butterfly-effect" });
+  this.butterfly = butterfly;
 }
 
 function initWaveEffect() {
@@ -59,6 +64,7 @@ function initPlayer() {
     pDescription.textContent = firstLetterUppercase(song.category);
     pPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
 
+    pExpandedBackgroundImg.style.backgroundImage = `url(${song.coverSrc})`;
     pExpandedThumb.src = song.coverSrc;
     pExpandedThumb.alt = song.name;
     pExpandedTitle.textContent = song.name;
@@ -86,6 +92,7 @@ function initPlayer() {
   const pExpandedTitle = document.getElementById("p-expanded-title");
   const pExpandedDescription = document.getElementById("p-expanded-description");
   const playerExpandedFavoriteButton = document.getElementById("p-expanded-favorite");
+  const pExpandedBackgroundImg = document.getElementById("p-expanded-background-image");
 
   const player = MusicPlayer({
     playButton: "#p-play",

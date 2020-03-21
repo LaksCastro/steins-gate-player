@@ -55,5 +55,4 @@ function generateMetadata(item) {
     }
 }
 
-console.log(data);
 export default data;

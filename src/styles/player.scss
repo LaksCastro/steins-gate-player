@@ -1,5 +1,21 @@
 @import "./variables.scss";
 
+
+// BUTTERFLY ANIMATIOn ===============
+
+#butterfly-effect{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,255,0.5);
+}
+
+// PLAYER COLLAPSED ================
+
 .player-viewport{
     z-index: 4000;
     position: fixed;
@@ -173,7 +189,7 @@
     justify-content: center;
 
     border-bottom: 5px solid transparent;
-    transition: all .8s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 .p-expanded-top-bar-container{
     padding: 8px 1.5rem;
@@ -191,6 +207,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+#p-expanded-background-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -2;
+
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.05;
 }
 
 .p-expanded-vol-slider-wrapper{
