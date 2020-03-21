@@ -5,6 +5,7 @@ function watch() {
 
     const playerExpandedBackButton = document.getElementById("p-expanded-back-button");
     const playerExpandedToHomeButton = document.getElementById("p-expanded-to-home");
+    const playerExpandedFavoriteButton = document.getElementById("p-expanded-favorite");
     const pData = document.getElementById("p-data");
 
     pData.onclick = expandPlayer.bind(this);
@@ -60,6 +61,18 @@ function watch() {
         playerWrapper.classList.add(`p-viewport-${newState}`);
 
         this.player.changeButtonControls(config);
+    }
+
+    // FAVORITE FEATURE
+
+    playerExpandedFavoriteButton.onclick = toggleFavorite.bind(this);
+    this.player.onAnyFavoriteChanged = ({ songs }) => {
+        const favoriteSongs = songs.filter(song => song.favorite);
+        this.storage.setFavorites(favoriteSongs);
+    }
+    function toggleFavorite() {
+        const nowIsFavorite = this.player.toggleFavorite();
+        playerExpandedFavoriteButton.textContent = nowIsFavorite ? "favorite" : "favorite_border";
     }
 }
 

@@ -1,4 +1,7 @@
+import storage from "./localstorage"
 import { firstLetterUppercase } from "../utils"
+
+const { favorites } = storage();
 
 const data = [{
     filename: "hacking-to-the-gate.mp3",
@@ -30,6 +33,7 @@ const data = [{
     category: "ending",
 }].map(generateMetadata);
 
+
 function generateMetadata(item) {
     const [filename] = item.filename.split(".");
 
@@ -47,9 +51,9 @@ function generateMetadata(item) {
         src,
         coverSrc,
         id: filename,
-        favorite: false
+        favorite: favorites.some(fav => fav.filename === item.filename)
     }
 }
 
-
+console.log(data);
 export default data;

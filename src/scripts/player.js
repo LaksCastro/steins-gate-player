@@ -68,8 +68,14 @@ const player = (config) => {
 
         toggleFavorite: function () {
             const currentSong = this.songs[this.currentSong];
-            this.songs[this.currentSong] = { ...currentSong, favorite: !currentSong.favorite };
+
+            const updatedFavorite = !currentSong.favorite
+
+            this.songs[this.currentSong] = { ...currentSong, favorite: updatedFavorite };
+
             if (this.onAnyFavoriteChanged) this.onAnyFavoriteChanged(this);
+
+            return updatedFavorite;
         },
         changeButtonControls: function (newButtonControls) {
             this.config = Object.assign({}, this.config, newButtonControls);

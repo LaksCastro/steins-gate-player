@@ -4,7 +4,7 @@ import playerUIState from "./scripts/player-ui-state"
 
 import { firstLetterUppercase } from "./utils"
 
-import Storage from "./localstorage";
+import Storage from "./scripts/localstorage";
 
 import MusicPlayer from "./scripts/player"
 import PlayerWave from "./scripts/wave-effect"
@@ -62,7 +62,7 @@ function initPlayer() {
     pExpandedDescription.textContent = firstLetterUppercase(song.category);
     pExpandedPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
 
-
+    playerExpandedFavoriteButton.textContent = song.favorite ? "favorite" : "favorite_border";
 
     this.wave.useStatic();
   }
@@ -82,6 +82,7 @@ function initPlayer() {
   const pExpandedRandom = document.getElementById("p-expanded-random");
   const pExpandedTitle = document.getElementById("p-expanded-title");
   const pExpandedDescription = document.getElementById("p-expanded-description");
+  const playerExpandedFavoriteButton = document.getElementById("p-expanded-favorite");
 
   const player = MusicPlayer({
     playButton: "#p-play",
