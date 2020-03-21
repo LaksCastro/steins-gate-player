@@ -47,6 +47,10 @@
         visibility: hidden;
         opacity: 0;
         height: 0px;
+
+        & .player-wrapper{
+            display: none;
+        }
     }
     .state-expanded{
         height: 100%;

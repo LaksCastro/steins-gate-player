@@ -56,6 +56,7 @@ const wave = function () {
             this.state = "usePaused";
             this.playingAnimationsId.forEach(id => clearTimeout(id));
             clearTimeout(this.paletteAnimationId);
+            clearTimeout(this.topBarAnimationId);
         },
         updateWave: function (wave, currentHeight) {
             let newHeight = randomIntFromInterval(0, this.maxWaveHeight);
@@ -72,8 +73,9 @@ const wave = function () {
             wave.style.backgroundColor = newColor;
         },
         updateTopBar: function () {
-            const topBarPalette = { ...this.palette, a: [0.8, 1] }
+            const topBarPalette = { ...this.palette, a: [0.5, 1] }
             const { string } = generateRandomColor(topBarPalette);
+
             expandedTopBar.style.borderBottomColor = string;
         },
         usePlaying: function () {
