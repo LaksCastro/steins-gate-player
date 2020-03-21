@@ -44,11 +44,20 @@ function initPlayer() {
 
   function renderSong(updatedPlayer) {
     const song = updatedPlayer.songs[updatedPlayer.currentSong];
+
     pThumb.src = song.coverSrc;
     pThumb.alt = song.name;
     pTitle.textContent = song.name;
     pDescription.textContent = firstLetterUppercase(song.category);
     pPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
+
+    pExpandedThumb.src = song.coverSrc;
+    pExpandedThumb.alt = song.name;
+    pExpandedTitle.textContent = song.name;
+    pExpandedDescription.textContent = firstLetterUppercase(song.category);
+    pExpandedPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
+
+
 
     this.wave.useStatic();
   }
@@ -61,6 +70,13 @@ function initPlayer() {
   const pRandom = document.getElementById("p-random");
   const pTitle = document.getElementById("p-title");
   const pDescription = document.getElementById("p-description");
+
+  const pExpandedThumb = document.getElementById("p-expanded-thumb");
+  const pExpandedPlay = document.getElementById("p-expanded-play");
+  const pExpandedLoop = document.getElementById("p-expanded-loop");
+  const pExpandedRandom = document.getElementById("p-expanded-random");
+  const pExpandedTitle = document.getElementById("p-expanded-title");
+  const pExpandedDescription = document.getElementById("p-expanded-description");
 
   const player = MusicPlayer({
     playButton: "#p-play",
@@ -83,11 +99,15 @@ function initPlayer() {
     const isPaused = updatedPlayer.audio.paused;
 
     pPlay.textContent = isPaused ? "play_arrow" : "pause";
+    pExpandedPlay.textContent = isPaused ? "play_arrow" : "pause";
     isPaused ? this.wave.usePaused() : this.wave.usePlaying();
   }
   player.onAnyModeChanged = (updatedPlayer) => {
     pLoop.textContent = updatedPlayer.loopMode ? "repeat_one" : "repeat"
     pRandom.textContent = updatedPlayer.randomMode ? "shuffle" : "call_made"
+
+    pExpandedLoop.textContent = updatedPlayer.loopMode ? "repeat_one" : "repeat"
+    pExpandedRandom.textContent = updatedPlayer.randomMode ? "shuffle" : "call_made"
   }
   player.init();
 

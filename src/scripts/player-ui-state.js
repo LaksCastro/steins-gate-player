@@ -4,18 +4,23 @@ function watch() {
     const playerWrapper = document.getElementById("app-player-bottom");
 
     const playerExpandedBackButton = document.getElementById("p-expanded-back-button");
+    const playerExpandedToHomeButton = document.getElementById("p-expanded-to-home");
     const pData = document.getElementById("p-data");
 
-    pData.onclick = () => {
+    pData.onclick = expandPlayer.bind(this);
+
+    playerExpandedToHomeButton.onclick = collapsePlayer.bind(this);
+    playerExpandedBackButton.onclick = collapsePlayer.bind(this);
+
+    function expandPlayer() {
         changeState.apply(this, [{
-            playButton: "#play",
-            nextButton: "#next",
-            prevButton: "#prev",
-            loopButton: "#loop",
-            randomButton: "#random",
-            timerDisplay: "#timer",
+            playButton: "#p-expanded-play",
+            nextButton: "#p-expanded-next",
+            prevButton: "#p-expanded-prev",
+            loopButton: "#p-expanded-loop",
+            randomButton: "#p-expanded-random",
             // volRange: volSlider,
-            durationRange: "#duration",
+            durationRange: "#p-expanded-duration",
         }]);
 
         moveNodeElementTo({
@@ -25,8 +30,7 @@ function watch() {
         });
         this.wave.reInit();
     }
-
-    playerExpandedBackButton.onclick = () => {
+    function collapsePlayer() {
         changeState.apply(this, [{
             playButton: "#p-play",
             nextButton: "#p-next",
@@ -34,7 +38,6 @@ function watch() {
             muteButton: "#p-toggle-mute",
             loopButton: "#p-loop",
             randomButton: "#p-random",
-            timerDisplay: "#timer",
             // volRange: volSlider,
             durationRange: "#duration",
         }]);

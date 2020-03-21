@@ -191,6 +191,26 @@
 }
 .p-expanded-data{
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.p-expanded-data-img{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 36px;
+    padding: 1rem;
+}
+.p-expanded-data-title{
+    color: $color;
+    padding: 1rem 0;
+}
+.p-expanded-data-description{
+    color: $color-light;
+    padding: 1rem 0;
 }
 .p-expanded-controls{
     width: 100%;
