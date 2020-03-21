@@ -4,6 +4,8 @@ import playerUIState from "./scripts/player-ui-state"
 
 import { firstLetterUppercase } from "./utils"
 
+import simpleAnimations from "./scripts/simple-animations"
+
 import Storage from "./scripts/localstorage";
 
 import MusicPlayer from "./scripts/player"
@@ -16,6 +18,7 @@ document.addEventListener('DOMContentLoaded', init);
 
 
 function init() {
+  simpleAnimations();
 
   const storage = Storage();
   this.storage = storage;

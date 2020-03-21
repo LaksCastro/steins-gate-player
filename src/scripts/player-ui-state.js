@@ -1,3 +1,4 @@
+import keyboard from "./keyboard"
 import { moveNodeElementTo } from "../utils"
 
 function watch() {
@@ -13,7 +14,19 @@ function watch() {
     playerExpandedToHomeButton.onclick = collapsePlayer.bind(this);
     playerExpandedBackButton.onclick = collapsePlayer.bind(this);
 
+    let state = "collapse";
+
+    keyboard.on([{
+        key: 38,
+        callback: expandPlayer.bind(this)
+    }, {
+        key: 40,
+        callback: collapsePlayer.bind(this)
+    }]);
+
     function expandPlayer() {
+        if (state === "expanded") return;
+        state = "expanded";
         changeState.apply(this, [{
             playButton: "#p-expanded-play",
             nextButton: "#p-expanded-next",
@@ -32,6 +45,9 @@ function watch() {
         this.wave.reInit();
     }
     function collapsePlayer() {
+        if (state === "collapsed") return;
+        state = "collapsed";
+
         changeState.apply(this, [{
             playButton: "#p-play",
             nextButton: "#p-next",

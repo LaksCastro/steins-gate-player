@@ -171,6 +171,8 @@
 
     display: flex;
     justify-content: center;
+
+    border-bottom: 5px solid transparent;
 }
 .p-expanded-top-bar-container{
     padding: 8px 1.5rem;
@@ -189,6 +191,12 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.p-expanded-vol-slider-wrapper{
+    width: 100%;
+    padding: 2rem 12px;
+}
+
 .p-expanded-data{
     flex: 1;
     display: flex;
@@ -201,16 +209,14 @@
     height: 250px;
     object-fit: cover;
     object-position: center;
-    border-radius: 36px;
-    padding: 1rem;
+    border-radius: 16px;
 }
 .p-expanded-data-title{
     color: $color;
-    padding: 1rem 0;
+    padding: 2rem 0;
 }
 .p-expanded-data-description{
     color: $color-light;
-    padding: 1rem 0;
 }
 .p-expanded-controls{
     width: 100%;
