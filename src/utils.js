@@ -34,6 +34,34 @@ function moveNodeElementTo(moveEntry) {
     newParent.appendChild(nodeToMove);
 }
 
+function generateRandomColor(userConfig = {}) {
+    const defaultConfig = {
+        r: [0, 255],
+        g: [0, 255],
+        b: [0, 255],
+        a: [1, 1],
+    }
+    const config = Object.assign({}, defaultConfig, userConfig);
+
+    let { r, g, b, a } = config;
+
+    let [minR, maxR] = r;
+    let [minG, maxG] = g;
+    let [minB, maxB] = b;
+    let [minA, maxA] = a;
+
+    maxA *= 1000;
+    minA *= 1000;
+
+    r = randomIntFromInterval(minR, maxR);
+    g = randomIntFromInterval(minG, maxG);
+    b = randomIntFromInterval(minB, maxB);
+    a = randomIntFromInterval(minA, maxA) / 1000;
+
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+
 export {
     randomIntFromInterval,
     getSecondsTime,
@@ -41,5 +69,6 @@ export {
     getDisplayTime,
     converterSeconds,
     firstLetterUppercase,
-    moveNodeElementTo
+    moveNodeElementTo,
+    generateRandomColor
 }

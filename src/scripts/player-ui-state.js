@@ -2,6 +2,7 @@ import { moveNodeElementTo } from "../utils"
 
 function watch() {
     const playerWrapper = document.getElementById("app-player-bottom");
+
     const playerExpandedBackButton = document.getElementById("p-expanded-back-button");
     const pData = document.getElementById("p-data");
 
@@ -23,8 +24,8 @@ function watch() {
             nodeToMove: this.wave.container
         });
         this.wave.reInit();
-
     }
+
     playerExpandedBackButton.onclick = () => {
         changeState.apply(this, [{
             playButton: "#p-play",
@@ -44,7 +45,6 @@ function watch() {
             nodeToMove: this.wave.container
         });
         this.wave.reInit();
-
     }
 
     function changeState(config) {
@@ -57,7 +57,6 @@ function watch() {
         playerWrapper.classList.add(`p-viewport-${newState}`);
 
         this.player.changeButtonControls(config);
-
     }
 }
 
