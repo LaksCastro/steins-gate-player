@@ -23,6 +23,8 @@ function useLocalStorage() {
             },
         },
     }
+
+    return instance;
 }
 
 export default useLocalStorage;

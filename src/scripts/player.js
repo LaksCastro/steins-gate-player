@@ -50,6 +50,7 @@ const player = (config) => {
         onSongChanged: null,
         onPlayStateChanged: null,
         onAnyModeChanged: null,
+        onAnyFavoriteChanged: null,
 
         isPaused: true,
 
@@ -65,6 +66,11 @@ const player = (config) => {
 
         allowToChangeDuration: true,
 
+        toggleFavorite: function () {
+            const currentSong = this.songs[this.currentSong];
+            this.songs[this.currentSong] = { ...currentSong, favorite: !currentSong.favorite };
+            if (this.onAnyFavoriteChanged) this.onAnyFavoriteChanged(this);
+        },
         changeButtonControls: function (newButtonControls) {
             this.config = Object.assign({}, this.config, newButtonControls);
             this.defineNodeButtons();

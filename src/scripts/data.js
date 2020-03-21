@@ -46,7 +46,8 @@ function generateMetadata(item) {
         cover,
         src,
         coverSrc,
-        id: filename
+        id: filename,
+        favorite: false
     }
 }
 

@@ -4,6 +4,7 @@ import playerUIState from "./scripts/player-ui-state"
 
 import { firstLetterUppercase } from "./utils"
 
+import Storage from "./localstorage";
 
 import MusicPlayer from "./scripts/player"
 import PlayerWave from "./scripts/wave-effect"
@@ -15,6 +16,10 @@ document.addEventListener('DOMContentLoaded', init);
 
 
 function init() {
+
+  const storage = Storage();
+  this.storage = storage;
+
   const durationNode = document.querySelector('.mdc-slider')
   this.durationSlider = {
     node: durationNode
