@@ -252,6 +252,37 @@
 
 // PLAYER VIWEWPORT/WRAPPER ================
 
+.state-collapsed{
+    transition: all .3s ease-in-out;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    #p-wave-container{
+        height: 60px;
+    }
+}
+.state-expanded{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    transition: all .3s ease-in-out;
+    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    #p-wave-container{
+        height: 100%;
+    }
+}
 .player-viewport{
     z-index: 4000;
     position: fixed;
@@ -293,37 +324,6 @@
         height: 100%;
         visibility: visible;
         opacity: 1;
-    }
-}
-.state-collapsed{
-    transition: all .3s ease-in-out;
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    #p-wave-container{
-        height: 60px;
-    }
-}
-.state-expanded{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    transition: all .3s ease-in-out;
-    
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    overflow: hidden;
-
-    #p-wave-container{
-        height: 100%;
     }
 }
 
