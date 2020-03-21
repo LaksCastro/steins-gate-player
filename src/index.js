@@ -1,6 +1,7 @@
 import './styles/style.scss';
 
 import playerUIState from "./scripts/player-ui-state"
+import playerWave from "./scripts/wave-effect"
 
 import { MDCSlider } from '@material/slider';
 
@@ -15,13 +16,17 @@ document.addEventListener('DOMContentLoaded', init);
 
 
 function init() {
+
+  playerWave.init();
+  playerWave.render();
+  playerWave.useStatic();
+
   const player = initPlayer();
-  const listenerFuncions = initPlayerKeyboardShortcuts(player);
+  initPlayerKeyboardShortcuts(player);
 
-  this.songs = songs;
   this.player = player;
-
   playerUIState.watch.call(this);
+
 }
 
 function initPlayer() {
@@ -55,14 +60,18 @@ function initPlayer() {
     pTitle.textContent = song.name;
     pDescription.textContent = firstLetterUppercase(song.category);
     pPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
+
+    playerWave.useStatic();
   }
 
   player.onInit = renderSong;
   player.onSongChanged = renderSong
 
-
   player.onPlayStateChanged = (updatedPlayer) => {
-    pPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause"
+    const isPaused = updatedPlayer.audio.paused;
+
+    pPlay.textContent = isPaused ? "play_arrow" : "pause";
+    isPaused ? playerWave.usePaused() : playerWave.usePlaying();
   }
   player.onAnyModeChanged = (updatedPlayer) => {
     pLoop.textContent = updatedPlayer.loopMode ? "repeat_one" : "repeat"

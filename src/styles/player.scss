@@ -57,7 +57,7 @@
         height: 100%;
         width: 0;
         transition: all .4s ease-in-out;
-        z-index: -1;
+        z-index: -2;
     }
     &:hover{
         &::after{
@@ -91,10 +91,42 @@
 #p-description{
     color: $color-light;
 }
-.mdc-icon-button{
-    color: $color;
-}
 .p-vol-wrapper{
     width: 100%;
     max-width: 950px;
+}
+#p-wave-wrapper{
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    height: 100%;
+
+    width: 100%;
+    max-width: 950px;
+
+    z-index: -1;
+}
+#p-wave-container{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    overflow: hidden;
+}
+.p-single-wave{
+    width: 8px;
+    background: rgba(66, 69, 73, 0.5);
+    margin: 0 2px;
+    transition: all .1s ease-in-out;
+}
+
+.mdc-icon-button{
+    color: $color;
 }

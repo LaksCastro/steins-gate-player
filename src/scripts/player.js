@@ -62,7 +62,7 @@ const player = (config) => {
         allowToChangeDuration: true,
 
         changeButtonControls: function (newButtonControls) {
-            this.config = Object.assign({}, this.config, newConfig);
+            this.config = Object.assign({}, this.config, newButtonControls);
             this.defineNodeButtons();
             this.defineActions();
             console.log(this);
