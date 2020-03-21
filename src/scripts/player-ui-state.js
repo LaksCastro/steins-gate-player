@@ -1,3 +1,5 @@
+import { moveNodeElementTo } from "../utils"
+
 function watch() {
     const playerWrapper = document.getElementById("app-player-bottom");
     const pData = document.getElementById("p-data");
@@ -21,7 +23,12 @@ function watch() {
             // volRange: volSlider,
             durationRange: "#duration",
         });
-        this.wave.moveTo("p-wave-wrapper", "p-expanded-wave-wrapper");
+        moveNodeElementTo({
+            newParentId: "p-expanded-wave-wrapper",
+            currentParentId: "p-wave-wrapper",
+            nodeToMove: this.wave.container
+        });
+        this.wave.reInit();
     }
 }
 

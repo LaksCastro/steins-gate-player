@@ -123,17 +123,28 @@
     justify-content: center;
     align-items: flex-end;
 }
-#p-expanded-wave-wrapper{
-    background: violet;
-    width: 100%;
-    height: 80px;
-}
 .p-single-wave{
     width: 8px;
     background: rgba(66, 69, 73, 0.5);
     margin: 0 2px;
     transition: all .1s ease-in-out;
 }
+
+// ============== EXPANDED STATE ================
+
+#p-expanded-wave-wrapper{
+    background: violet;
+    width: 100%;
+    height: 350px;
+    position: fixed; 
+    bottom: 0;
+}
+.p-expanded-top-bar{
+    width: 100%;
+    background: red;
+}
+
+// ==============  MATERIAL DESIGN ================
 
 .mdc-icon-button{
     color: $color;

@@ -1,14 +1,36 @@
 import { randomIntFromInterval } from "../utils"
 
-
 function toPx(num) {
     return `${num}px`
 }
 
 const wave = function () {
 
+    const container = document.getElementById("p-wave-container");
+
+
+    function init() {
+        calcVariants.call(this);
+    }
+
+    function calcVariants() {
+        this.width = this.container.clientWidth;
+        this.height = this.container.clientHeight;
+        this.maxWaveHeight = this.height - 20;
+
+        this.wavesLength = this.width / 12;
+
+        if (this.wavesLength > 80) this.wavesLength = 80;
+
+        this.waves = Array.from({ length: this.wavesLength }).map(() => {
+            const singleWave = document.createElement("div");
+            singleWave.classList.add("p-single-wave");
+            return singleWave;
+        });
+    }
+
     const instance = {
-        container: null,
+        container,
 
         waves: [],
         playingAnimationsId: [],
@@ -18,17 +40,20 @@ const wave = function () {
         maxWaveHeight: null,
         wavesLength: null,
 
+        state: null,
 
         usePaused: function () {
+            this.state = "usePaused";
             this.playingAnimationsId.forEach(id => clearTimeout(id));
         },
         usePlaying: function () {
+            this.state = "usePlaying";
             this.waves.forEach(wave => {
                 let currentHeight = null;
 
                 function animate() {
-                    playingAnimationsId.push(setTimeout(() => {
-                        let newHeight = randomIntFromInterval(0, maxWaveHeight);
+                    this.playingAnimationsId.push(setTimeout(() => {
+                        let newHeight = randomIntFromInterval(0, this.maxWaveHeight);
 
                         if (currentHeight) {
                             if (newHeight === currentHeight) {
@@ -39,49 +64,36 @@ const wave = function () {
 
                         wave.style.height = toPx(newHeight);
 
-                        animate();
+                        animate.call(this);
                     }, 100));
                 }
                 animate.call(this);
-
             });
-
         },
         useStatic: function () {
-            if (playingAnimationsId.length !== 0) {
-                playingAnimationsId.forEach(id => clearTimeout(id));
-            }
+            this.state = "useStatic";
+
+            if (this.playingAnimationsId.length !== 0)
+                this.playingAnimationsId.forEach(id => clearTimeout(id));
 
             this.waves.forEach(wave => {
                 let currentHeight = 8;
 
                 wave.style.height = toPx(currentHeight);
             });
-
         },
-        init: function () {
-            this.container = document.getElementById("p-wave-container");
-
-            this.width = this.container.clientWidth;
-            this.height = this.container.clientHeight;
-            this.maxWaveHeight = height - 20;
-
-            this.wavesLength = width / 12;
-
-            if (wavesLength > 80) wavesLength = 80;
-
-            this.waves = Array.from({ length: wavesLength }).map(() => {
-                const singleWave = document.createElement("div");
-                singleWave.classList.add("p-single-wave");
-                return singleWave;
-            });
+        reInit() {
+            init.call(this);
         },
         render: function () {
             this.waves.forEach(wave => {
                 this.container.appendChild(wave);
             });
-        }
+        },
     }
+
+    init.call(instance);
+
     return instance;
 }
 

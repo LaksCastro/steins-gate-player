@@ -1,7 +1,6 @@
 import './styles/style.scss';
 
 import playerUIState from "./scripts/player-ui-state"
-import playerWave from "./scripts/wave-effect"
 
 import { MDCSlider } from '@material/slider';
 
@@ -9,6 +8,8 @@ import { firstLetterUppercase } from "./utils"
 
 
 import MusicPlayer from "./scripts/player"
+import PlayerWave from "./scripts/wave-effect"
+
 import keyboard from "./scripts/keyboard"
 import songs from "./scripts/data"
 
@@ -16,18 +17,24 @@ document.addEventListener('DOMContentLoaded', init);
 
 
 function init() {
+  const wave = initWaveEffect.call(this);
+  this.wave = wave;
 
-  playerWave.init();
-  playerWave.render();
-  playerWave.useStatic();
+  const player = initPlayer.call(this);
+  this.player = player;
 
-  const player = initPlayer();
   initPlayerKeyboardShortcuts(player);
 
-  this.player = player;
-  this.wave = playerWave;
   playerUIState.watch.call(this);
+}
 
+function initWaveEffect() {
+  const wave = PlayerWave();
+
+  wave.render();
+  wave.useStatic();
+
+  return wave;
 }
 
 function initPlayer() {
@@ -62,17 +69,17 @@ function initPlayer() {
     pDescription.textContent = firstLetterUppercase(song.category);
     pPlay.textContent = updatedPlayer.audio.paused ? "play_arrow" : "pause";
 
-    playerWave.useStatic();
+    this.wave.useStatic();
   }
 
-  player.onInit = renderSong;
-  player.onSongChanged = renderSong
+  player.onInit = renderSong.bind(this);
+  player.onSongChanged = renderSong.bind(this)
 
   player.onPlayStateChanged = (updatedPlayer) => {
     const isPaused = updatedPlayer.audio.paused;
 
     pPlay.textContent = isPaused ? "play_arrow" : "pause";
-    isPaused ? playerWave.usePaused() : playerWave.usePlaying();
+    isPaused ? this.wave.usePaused() : this.wave.usePlaying();
   }
   player.onAnyModeChanged = (updatedPlayer) => {
     pLoop.textContent = updatedPlayer.loopMode ? "repeat_one" : "repeat"

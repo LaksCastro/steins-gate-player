@@ -30,8 +30,8 @@ function moveNodeElementTo(moveEntry) {
     const newParent = document.getElementById(newParentId);
     const oldParent = document.getElementById(currentParentId);
 
-    oldParent.removeChild(wrapper);
-    newParent.appendChild(wrapper);
+    oldParent.removeChild(nodeToMove);
+    newParent.appendChild(nodeToMove);
 }
 
 export {
