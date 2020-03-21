@@ -65,7 +65,6 @@ const player = (config) => {
             this.config = Object.assign({}, this.config, newButtonControls);
             this.defineNodeButtons();
             this.defineActions();
-            console.log(this);
         },
         init: function () {
             this.audio.volume = "1";

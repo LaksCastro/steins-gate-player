@@ -7,6 +7,10 @@
     left: 0;
     right: 0;
     transition: all .3s ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 .p-viewport-collapsed{
     height: 78px;
@@ -34,9 +38,10 @@
     }
 }
 .state-expanded{
+    transition: all .3s ease-in-out;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 .player-wrapper{
@@ -45,9 +50,11 @@
     position: relative;
     
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     flex-direction: column;
     align-items: center;
+
+    height: 100%;
 
     border-top: 2px transparent solid;
     border-bottom: 2px transparent solid;
@@ -130,9 +137,9 @@
     align-items: flex-end;
 }
 .p-single-wave{
-    width: 8px;
+    width: 16px;
     background: rgba(66, 69, 73, 0.5);
-    margin: 0 2px;
+    margin: 0 4px;
     transition: all .1s ease-in-out;
 }
 
@@ -164,8 +171,17 @@
 }
 .p-expanded-body{
     flex: 1;
-}
 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.p-expanded-data{
+    flex: 1;
+}
+.p-expanded-controls{
+    flex: 1;
+}
 // ==============  MATERIAL DESIGN ================
 
 .mdc-icon-button{

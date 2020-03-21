@@ -32,6 +32,31 @@
   </header>
 
   <div state="collapsed" id="app-player-bottom" class="player-viewport p-viewport-collapsed">
+    <div class="state-expanded">
+      <div class="p-expanded-top-bar-wrapper">
+        <div class="p-expanded-top-bar-container">
+          <button id="p-expanded-back-button" class="mdc-icon-button material-icons">expand_more</button>
+          <button id="p-expanded-vol" class="mdc-icon-button material-icons">volume_up</button>
+        </div>
+      </div>
+      <div class="p-expanded-body">
+        <div class="p-expanded-data">
+          <p id="timer">--:-- - --:--</p>
+        </div>
+        <div class="p-expanded-controls">
+          <button id="play">play</button>
+          <button id="prev">prev</button>
+          <button id="next">next</button>
+          <button id="loop">toggle loop mode</button>
+          <button id="random">toggle random mode</button>
+          <div>
+            <input type="range" name="duration" id="duration">
+          </div>
+        </div>
+      </div>
+      <div id="p-expanded-wave-wrapper"></div>
+    </div>
+
     <div class="state-collapsed">
       <div class="player-wrapper">
         <!-- <div class="p-vol-wrapper">
@@ -71,30 +96,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="state-expanded">
-      <div class="p-expanded-top-bar-wrapper">
-        <div class="p-expanded-top-bar-container">
-          <button id="p-random" class="mdc-icon-button material-icons">expand_more</button>
-          <button id="p-random" class="mdc-icon-button material-icons">volume_up</button>
-        </div>
-      </div>
-      <div class="p-expanded-body">
-        <div class="p-expanded-data">
-          <p id="timer">--:-- - --:--</p>
-        </div>
-        <div class="p-expanded-controls">
-          <button id="play">play</button>
-          <button id="prev">prev</button>
-          <button id="next">next</button>
-          <button id="loop">toggle loop mode</button>
-          <button id="random">toggle random mode</button>
-          <div>
-            <input type="range" name="duration" id="duration">
-          </div>
-        </div>
-      </div>
-      <div id="p-expanded-wave-wrapper"></div>
     </div>
   </div>
 </body>

@@ -23,7 +23,10 @@ const wave = function () {
         this.height = this.container.clientHeight;
         this.maxWaveHeight = this.height - 20;
 
-        this.wavesLength = this.width / 12;
+        const waveWidth = 16;
+        const waveMargin = 4;
+
+        this.wavesLength = this.width / (waveWidth + (waveMargin * 2));
 
         if (this.wavesLength > 80) this.wavesLength = 80;
     }
