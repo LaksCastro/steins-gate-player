@@ -66,34 +66,41 @@ function generateRandomColor(userConfig = {}) {
     };
 }
 
-function generateRandomColorPalette(userColor = {}) {
+function generateRandomColorPalette(userColor = {}, userVariant = {}) {
     const { color: defaultColor } = generateRandomColor();
+    const defaultVariant = { r: 15, g: 15, b: 15, a: 200 };
+
 
     const color = Object.assign({}, defaultColor, userColor);
+    const variant = Object.assign({}, defaultVariant, userVariant);
 
     const { r, g, b, a } = color;
+    const { vR, vG, vB, vA } = variant;
 
     const palette = {
-        r: getVariant({ num: r }),
-        g: getVariant({ num: g }),
-        b: getVariant({ num: b }),
-        a: getVariant({ num: a * 1000, max: 1000, min: 0 }).map(item => item / 1000),
+        r: getVariant({ variant: vR, num: r }),
+        g: getVariant({ variant: vG, num: g }),
+        b: getVariant({ variant: vB, num: b }),
+        a: getVariant({ variant: vA, num: a * 1000, max: 1000, min: 0 }).map(item => item / 1000),
     }
 
     function getVariant(userConfig = {}) {
         const defaultConfig = {
             min: 0,
             max: 255,
-            num: randomIntFromInterval(0, 255)
+            num: randomIntFromInterval(0, 255),
+            variant: 15
         }
         const config = Object.assign({}, defaultConfig, userConfig);
-        let { num, min, max } = config;
-        if (num + 15 >= max) {
-            num = [num - 15, max];
-        } else if (num - 15 < min) {
-            num = [min, num + 15];
+
+        let { num, min, max, variant } = config;
+
+        if (num + variant >= max) {
+            num = [num - variant, max];
+        } else if (num - variant < min) {
+            num = [min, num + variant];
         } else {
-            num = [num - 15, num + 15]
+            num = [num - variant, num + variant]
         }
         return num;
     }
