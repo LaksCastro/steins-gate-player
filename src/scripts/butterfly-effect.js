@@ -14,12 +14,13 @@ function butterfly(config) {
             this.canvas.beginPath();
             this.canvas.arc(200, 200, 50, 0, 2 * Math.PI);
             this.canvas.stroke();
+            this.canvas.fillStyle = "red";
             this.canvas.fill();
         },
         init: function () {
             this.width = this.canvasNode.clientWidth;
             this.height = this.canvasNode.clientHeight;
-            this.poitns = {
+            this.points = {
                 topLeft: [0, 0],
                 bottomLeft: [0, this.height],
                 topRight: [this.width, 0],
