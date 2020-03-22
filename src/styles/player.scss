@@ -1,22 +1,19 @@
 @import "./variables.scss";
 
 
-// BUTTERFLY ANIMATIOn ===============
-
-#butterfly-effect-wrapper{
-    width: 100%;
-    height: 100%;
-    position: fixed;
-
-    bottom: 0;
-    right: 0;
-    top: 0;
-    left: 0;
-}
-#butterfly-effect{
-    background: blue;
-}
 // STATE COLLAPSED ====================
+.player-viewport{
+    z-index: 4000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all .3s ease-in-out;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
 .player-wrapper{
     cursor: pointer;
 
@@ -286,18 +283,6 @@
     #p-wave-container{
         height: 100%;
     }
-}
-.player-viewport{
-    z-index: 4000;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transition: all .3s ease-in-out;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
 }
 .p-viewport-collapsed{
     height: 60px;
