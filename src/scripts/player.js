@@ -138,6 +138,13 @@ const player = (config) => {
         defineActions: function () {
             // USER ACTIONS:
 
+            // --- For Input Range's (volume and duration):
+            // Fired when move the range button
+            // this.volRange.listen("MDCSlider:input", () => this.changeVol(volRange.value));
+            // // Fired when mouse up from range button
+            // this.volRange.listen("MDCSlider:change", () => this.changeVol(volRange.value));
+
+
             // --- For Button Actions (play/pause, mute/unmute, next/prev, toggle loop, toggle random mode)
             // Play/Pause song
             this.playButton.onclick = () => this.togglePlaying();
@@ -156,8 +163,6 @@ const player = (config) => {
             this.durationRange.node.onpointerdown = () => {
                 this.isChangingTime = true;
 
-                console.log("pointer down");
-
                 const [listener] = keyboard.on([{
                     key: 27, // Escape (Esc)
                     callback: this.cancelChangeDuration.cancel.bind(this) // Bind to use this context
@@ -166,7 +171,6 @@ const player = (config) => {
                 this.cancelChangeDuration.listener = listener;
             }
             this.durationRange.node.onpointerup = () => {
-                console.log("pointer up");
                 this.isChangingTime = false;
 
                 keyboard.off([{
@@ -188,7 +192,6 @@ const player = (config) => {
 
             // Fired when mouse up from range button
             this.durationRange.slider.listen('MDCSlider:change', () => {
-                console.log("b");
                 const seconds = this.durationRange.slider.value;
                 if (this.allowToChangeDuration) {
                     this.changeDuration(seconds);
@@ -200,7 +203,6 @@ const player = (config) => {
 
             // To set display timer when user is changing time
             this.durationRange.slider.listen('MDCSlider:input', () => {
-                console.log("a");
                 const { seconds, minutes } = converterSeconds(Math.floor(this.durationRange.slider.value));
 
                 this.timerDisplayNow.textContent = getDisplayTime(seconds, minutes);
