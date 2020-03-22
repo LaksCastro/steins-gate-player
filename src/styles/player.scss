@@ -243,8 +243,6 @@
 // PLAYER VIWEWPORT/WRAPPER ================
 
 .state-collapsed{
-    transition: all .3s ease-in-out;
-    overflow: hidden;
     position: fixed;
 
     bottom: 0;
@@ -263,8 +261,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-
-    transition: all .3s ease-in-out;
     
     height: 100%;
     display: flex;
@@ -313,11 +309,12 @@
 }
 
 .hide{
-    opacity: 0 !important;
+    transition: all .3s ease-in-out;
+    opacity: 0;
     visibility: hidden;
-    display: none;
 }
 .show{
-    opacity: 1 !important;
+    transition: all .3s ease-in-out;
+    opacity: 1;
     visibility: visible;
 }
