@@ -1,12 +1,10 @@
 import './styles/style.scss';
-import './assets/others/sg-logo.png';
 
 import playerUIState from "./scripts/player-ui-state"
 
 import { firstLetterUppercase } from "./utils"
 
 import simpleAnimations from "./scripts/simple-animations"
-
 
 import Storage from "./scripts/localstorage";
 

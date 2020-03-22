@@ -29,12 +29,8 @@
 
     height: 100%;
 
-    border-top: 2px transparent solid;
-    border-bottom: 2px transparent solid;
-    border-image: linear-gradient(to right, $red, $yellow, $green, $purple);
-    border-image-slice: 1;
-
     &::after{
+        box-sizing: border-box;
         content: "";
         position: absolute;
         background: rgba(54, 57, 62, 0.5);
@@ -44,6 +40,10 @@
         width: 0;
         transition: all .4s ease-in-out;
         z-index: -2;
+        border-top: 2px transparent solid;
+        border-bottom: 2px transparent solid;
+        border-image: linear-gradient(to right, $red, $yellow, $green, $purple);
+        border-image-slice: 1;
     }
     &:hover{
         &::after{
