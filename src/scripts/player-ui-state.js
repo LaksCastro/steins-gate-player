@@ -32,7 +32,7 @@ function watch() {
             if (allowAutoClose)
                 hideVol();
 
-        }, 2000);
+        }, 3000);
     }
     function disableAutoClose() {
         allowAutoClose = false;
