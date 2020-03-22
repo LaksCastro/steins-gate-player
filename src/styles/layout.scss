@@ -3,12 +3,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 2rem;
+    padding: 12px 24px;
     *{
         color: $color;
     }
     img{
-        height: 80px;
+        height: 40px;
     }
 }
 .content{

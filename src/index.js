@@ -1,6 +1,5 @@
 import './styles/style.scss';
-import './assets/others/sg-logo.jpg';
-import "./assets/fonts/parts.ttf";
+import './assets/others/sg-logo.png';
 
 import playerUIState from "./scripts/player-ui-state"
 
