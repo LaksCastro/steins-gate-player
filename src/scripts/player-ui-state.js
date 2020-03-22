@@ -13,12 +13,68 @@ function watch() {
 
     let volState = "hidden";
 
+    // --INIT-- AUTO CLOSE VOL FEATURE =====================
+
+    let autoHiddenId = null;
+    let allowAutoClose = true;
+
     pExpandedTopBarVolButton.onclick = () => {
-        console.log();
-        toggleVolState.call(this);
+        toggleVolState();
+        if (volState === "visible") {
+            enableAutoClose();
+        } else {
+            disableAutoClose();
+        }
     }
+    function enableAutoClose() {
+        allowAutoClose = true;
+        autoHiddenId = setTimeout(() => {
+            if (allowAutoClose)
+                hideVol();
+
+        }, 2000);
+    }
+    function disableAutoClose() {
+        allowAutoClose = false;
+        if (autoHiddenId !== null) {
+            clearTimeout(autoHiddenId);
+            autoHiddenId = null;
+        }
+    }
+    function nodeToPreventAutoClose(node) {
+        node.onpointerdown = () => {
+            disableAutoClose();
+        }
+        node.onpointerup = () => {
+            enableAutoClose();
+        }
+    }
+    nodeToPreventAutoClose(pExpandedVolSliderWrapper);
+    nodeToPreventAutoClose(pExpandedVolButtonsWrapper);
+
+    // --END-- AUTO CLOSE VOL FEATURE =====================
+
+    // --INIT-- FEATURE TO SET VOL BY BUTTONS, NOT SLIDER =============
+
     pExpandedVolMaxButton.onclick = () => this.player.changeVol.apply(this.player, [100]);
     pExpandedVolMinButton.onclick = () => this.player.changeVol.apply(this.player, [0]);
+
+    // --END-- TO SET VOL BY BUTTONS, NOT SLIDER =============
+
+    // --INIT-- WRAPPERS FOR TOGGLE STATE FUNCITION =============
+
+    function showVol() {
+        if (volState === "visible") return;
+        toggleVolState();
+    }
+    function hideVol() {
+        if (volState === "hidden") return;
+        toggleVolState();
+    }
+
+    // --END-- WRAPPERS FOR TOGGLE STATE FUNCITION =============
+
+    // --INIT-- FUNCTION TO TOGGLE VOLUME SLIDER STATE, ADD OR REMOVE CLASS ON NECESSARY NODES
 
     function toggleVolState() {
         const isHidden = volState === "hidden";
@@ -36,6 +92,7 @@ function watch() {
         pExpandedVolSliderWrapper.classList.remove(newStateIsHidden ? "show" : "hide");
     }
 
+    // --END-- FUNCTION TO TOGGLE VOLUME SLIDER STATE, SET CLASS ON NECESSARY NODES
 
 
 
