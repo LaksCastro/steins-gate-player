@@ -2,18 +2,7 @@
 
 
 // STATE COLLAPSED ====================
-.player-viewport{
-    z-index: 4000;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transition: all .3s ease-in-out;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
 .player-wrapper{
     cursor: pointer;
 
@@ -257,10 +246,13 @@
     transition: all .3s ease-in-out;
     overflow: hidden;
     position: fixed;
+
     bottom: 0;
     left: 0;
     right: 0;
+    height: 60px;
 
+    z-index: 3000;
     #p-wave-container{
         height: 60px;
     }
@@ -280,39 +272,10 @@
 
     overflow: hidden;
 
+    z-index: 5000;
+
     #p-wave-container{
         height: 100%;
-    }
-}
-.p-viewport-collapsed{
-    height: 60px;
-    background: $content;
-    & .state-collapsed{
-        height: 60px;
-        visibility: visible;
-        opacity: 1;
-    }
-    & .state-expanded{
-        visibility: hidden;
-        opacity: 0;
-        height: 0px;
-    }
-}
-.p-viewport-expanded{
-    height: 100%;
-    & .state-collapsed{
-        visibility: hidden;
-        opacity: 0;
-        height: 0px;
-
-        & .player-wrapper{
-            display: none;
-        }
-    }
-    & .state-expanded{
-        height: 100%;
-        visibility: visible;
-        opacity: 1;
     }
 }
 
@@ -347,4 +310,14 @@
     .p-viewport-collapsed{
         height: 76px;
     }
+}
+
+.hide{
+    opacity: 0 !important;
+    visibility: hidden;
+    display: none;
+}
+.show{
+    opacity: 1 !important;
+    visibility: visible;
 }

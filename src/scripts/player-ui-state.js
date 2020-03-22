@@ -2,7 +2,9 @@ import keyboard from "./keyboard"
 import { moveNodeElementTo } from "../utils"
 
 function watch() {
-    const playerWrapper = document.getElementById("app-player-bottom");
+
+    const stateExpandedWrapper = document.querySelector(".state-expanded");
+    const stateCollapsedWrapper = document.querySelector(".state-collapsed");
 
     const playerExpandedBackButton = document.getElementById("p-expanded-back-button");
     const playerExpandedToHomeButton = document.getElementById("p-expanded-to-home");
@@ -14,7 +16,7 @@ function watch() {
     playerExpandedToHomeButton.onclick = collapsePlayer.bind(this);
     playerExpandedBackButton.onclick = collapsePlayer.bind(this);
 
-    let state = "collapse";
+    let state = "collapsed";
 
     keyboard.on([{
         key: 38,
@@ -25,7 +27,6 @@ function watch() {
     }]);
 
     function expandPlayer() {
-        if (state === "expanded") return;
         state = "expanded";
         changeState.apply(this, [{
             playButton: "#p-expanded-play",
@@ -45,7 +46,6 @@ function watch() {
         this.wave.reInit();
     }
     function collapsePlayer() {
-        if (state === "collapsed") return;
         state = "collapsed";
 
         changeState.apply(this, [{
@@ -68,13 +68,18 @@ function watch() {
     }
 
     function changeState(config) {
-        const currentState = playerWrapper.getAttribute("state");
-        const isCollapsed = currentState === "collapsed";
+        const isCollapsed = state === "collapsed";
         const newState = isCollapsed ? "expanded" : "collapsed";
 
-        playerWrapper.setAttribute("state", newState);
-        playerWrapper.classList.remove(`p-viewport-${currentState}`);
-        playerWrapper.classList.add(`p-viewport-${newState}`);
+        const newStateIsCollapsed = state === "collapsed";
+
+        state = newState;
+
+        stateCollapsedWrapper.classList.add(newStateIsCollapsed ? "show" : "hide");
+        stateCollapsedWrapper.classList.remove(newStateIsCollapsed ? "hide" : "show");
+
+        stateExpandedWrapper.classList.add(!newStateIsCollapsed ? "show" : "hide");
+        stateExpandedWrapper.classList.remove(!newStateIsCollapsed ? "hide" : "show");
 
         this.player.changeButtonControls(config);
     }
