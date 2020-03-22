@@ -1,5 +1,6 @@
 import './styles/style.scss';
 import './assets/others/sg-logo.jpg';
+import "./assets/fonts/parts.ttf";
 
 import playerUIState from "./scripts/player-ui-state"
 
@@ -17,7 +18,6 @@ import keyboard from "./scripts/keyboard"
 import songs from "./scripts/data"
 
 document.addEventListener('DOMContentLoaded', init);
-
 
 function init() {
   simpleAnimations();
