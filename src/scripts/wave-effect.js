@@ -7,7 +7,6 @@ function toPx(num) {
 const wave = function () {
 
     const container = document.getElementById("p-wave-container");
-    const expandedTopBar = document.getElementById("p-expanded-top-bar-wrapper");
 
     function init() {
         calcVariants.call(this);
@@ -72,12 +71,6 @@ const wave = function () {
             wave.style.height = toPx(newHeight);
             wave.style.backgroundColor = newColor;
         },
-        updateTopBar: function () {
-            const topBarPalette = { ...this.palette, a: [0.5, 1] }
-            const { string } = generateRandomColor(topBarPalette);
-
-            expandedTopBar.style.borderBottomColor = string;
-        },
         usePlaying: function () {
             if (this.state === "usePlaying") return;
 
@@ -94,14 +87,6 @@ const wave = function () {
                 }
                 animate.call(this);
             });
-
-            function animateTopBar() {
-                this.topBarAnimationId = setTimeout(() => {
-                    this.updateTopBar();
-                    animateTopBar.call(this);
-                }, 300)
-            }
-            animateTopBar.call(this);
 
             function changePalette() {
                 this.paletteAnimationId = setTimeout(() => {

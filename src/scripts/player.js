@@ -252,6 +252,7 @@ const player = (config) => {
         },
         toggleMute: function () {
             this.audio.muted = !this.audio.muted
+            return this.audio.muted;
         },
         toggleLoopMode: function () {
             this.loopMode = !this.loopMode;

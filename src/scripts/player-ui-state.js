@@ -14,6 +14,7 @@ function watch() {
     const playerExpandedBackButton = document.getElementById("p-expanded-back-button");
     const playerExpandedToHomeButton = document.getElementById("p-expanded-to-home");
     const playerExpandedFavoriteButton = document.getElementById("p-expanded-favorite");
+    const playerExpandedMuteButton = document.getElementById("p-expanded-mute");
     const pData = document.getElementById("p-data");
 
     pData.onclick = expandPlayer.bind(this);
@@ -102,6 +103,12 @@ function watch() {
         this.player.changeButtonControls(config);
     }
 
+
+    playerExpandedMuteButton.onclick = () => {
+        const nowIsMuted = this.player.toggleMute();
+
+        playerExpandedMuteButton.textContent = nowIsMuted ? "volume_off" : "volume_up";
+    }
     // FAVORITE FEATURE
 
     playerExpandedFavoriteButton.onclick = toggleFavorite.bind(this);

@@ -232,12 +232,15 @@
 .p-expanded-duration{
     width: 100%;
     padding: 1rem;
+    color: highlight-color(red);
 }
+
 .p-expanded-time-display{
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
+
 #p-expanded-time-init{
     color: $color;
 }
