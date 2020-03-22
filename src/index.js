@@ -11,7 +11,6 @@ import Storage from "./scripts/localstorage";
 
 import MusicPlayer from "./scripts/player"
 import PlayerWave from "./scripts/wave-effect"
-import Butterfly from "./scripts/butterfly-effect";
 
 import keyboard from "./scripts/keyboard"
 import songs from "./scripts/data"
@@ -39,12 +38,6 @@ function init() {
   initPlayerKeyboardShortcuts(player);
 
   playerUIState.watch.call(this);
-
-  const butterfly = Butterfly({
-    canvasId: "butterfly-effect",
-    canvasWrapperId: "butterfly-effect-wrapper"
-  });
-  this.butterfly = butterfly;
 }
 
 function initWaveEffect() {
