@@ -1,3 +1,5 @@
+import Hammer from "hammerjs";
+
 import keyboard from "./keyboard"
 import { moveNodeElementTo } from "../utils"
 
@@ -6,6 +8,8 @@ function watch() {
     const stateSpan = document.querySelector(".state-span");
     const stateExpandedWrapper = document.querySelector(".state-expanded");
     const stateCollapsedWrapper = document.querySelector(".state-collapsed");
+
+    const pExpandedBody = document.querySelector(".p-expanded-body");
 
     const playerExpandedBackButton = document.getElementById("p-expanded-back-button");
     const playerExpandedToHomeButton = document.getElementById("p-expanded-to-home");
@@ -18,6 +22,14 @@ function watch() {
     playerExpandedBackButton.onclick = collapsePlayer.bind(this);
 
     let state = "collapsed";
+
+    const hammertime = new Hammer(pExpandedBody);
+    hammertime.on('swipeleft', (function () {
+        this.player.next();
+    }).bind(this));
+    hammertime.on('swiperight', (function () {
+        this.player.prev();
+    }).bind(this));
 
     keyboard.on([{
         key: 38,

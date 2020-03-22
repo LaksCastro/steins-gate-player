@@ -27,3 +27,6 @@ html, body{
 .mdc-top-app-bar{
   background: $content;
 }
+img{
+  pointer-events: none;
+}
