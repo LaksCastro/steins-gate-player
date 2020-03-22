@@ -28,5 +28,6 @@ html, body{
   background: $content;
 }
 img{
+  user-select: none;
   pointer-events: none;
 }

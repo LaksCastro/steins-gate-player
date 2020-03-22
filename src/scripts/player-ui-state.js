@@ -9,7 +9,7 @@ function watch() {
     const stateExpandedWrapper = document.querySelector(".state-expanded");
     const stateCollapsedWrapper = document.querySelector(".state-collapsed");
 
-    const pExpandedBody = document.querySelector(".p-expanded-body");
+    const pExpandedBody = document.querySelector(".p-expanded-data");
 
     const playerExpandedBackButton = document.getElementById("p-expanded-back-button");
     const playerExpandedToHomeButton = document.getElementById("p-expanded-to-home");
@@ -24,12 +24,18 @@ function watch() {
     let state = "collapsed";
 
     const hammertime = new Hammer(pExpandedBody);
+    hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
     hammertime.on('swipeleft', (function () {
         this.player.next();
     }).bind(this));
+
     hammertime.on('swiperight', (function () {
         this.player.prev();
     }).bind(this));
+
+    hammertime.on('swipedown', collapsePlayer.bind(this));
+
 
     keyboard.on([{
         key: 38,
