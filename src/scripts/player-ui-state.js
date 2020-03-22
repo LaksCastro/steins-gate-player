@@ -5,6 +5,40 @@ import { moveNodeElementTo } from "../utils"
 
 function watch() {
 
+    const pExpandedTopBarVolButton = document.getElementById("p-expanded-vol");
+    const pExpandedVolButtonsWrapper = document.getElementById("p-expanded-vol-icons-wrapper");
+    const pExpandedVolMaxButton = document.getElementById("p-expanded-vol-max");
+    const pExpandedVolMinButton = document.getElementById("p-expanded-vol-min");
+    const pExpandedVolSliderWrapper = document.getElementById("p-expanded-vol-slider-wrapper");
+
+    let volState = "hidden";
+
+    pExpandedTopBarVolButton.onclick = () => {
+        console.log();
+        toggleVolState.call(this);
+    }
+    pExpandedVolMaxButton.onclick = () => this.player.changeVol.apply(this.player, [100]);
+    pExpandedVolMinButton.onclick = () => this.player.changeVol.apply(this.player, [0]);
+
+    function toggleVolState() {
+        const isHidden = volState === "hidden";
+        const newState = isHidden ? "visible" : "hidden";
+
+        volState = newState;
+
+        const newStateIsHidden = newState === "hidden";
+
+
+        pExpandedVolButtonsWrapper.classList.add(newStateIsHidden ? "hide" : "show");
+        pExpandedVolButtonsWrapper.classList.remove(newStateIsHidden ? "show" : "hide");
+
+        pExpandedVolSliderWrapper.classList.add(newStateIsHidden ? "hide" : "show");
+        pExpandedVolSliderWrapper.classList.remove(newStateIsHidden ? "show" : "hide");
+    }
+
+
+
+
     const stateSpan = document.querySelector(".state-span");
     const stateExpandedWrapper = document.querySelector(".state-expanded");
     const stateCollapsedWrapper = document.querySelector(".state-collapsed");

@@ -24,10 +24,15 @@ function init() {
   const storage = Storage();
   this.storage = storage;
 
-  const durationNode = document.querySelector('.mdc-slider')
+  const durationNode = document.getElementById('mdc-slider-duration')
   this.durationSlider = {
     node: durationNode
   };
+
+  const volumeNode = document.getElementById('mdc-slider-volume');
+  this.volumeSlider = {
+    node: volumeNode
+  }
 
   const wave = initWaveEffect.call(this);
   this.wave = wave;
@@ -72,8 +77,6 @@ function initPlayer() {
     this.wave.useStatic();
   }
 
-  // const volSlider = new MDCSlider(document.querySelector('.mdc-slider'));
-
   const pThumb = document.getElementById("p-thumb");
   const pPlay = document.getElementById("p-play");
   const pLoop = document.getElementById("p-loop");
@@ -99,7 +102,7 @@ function initPlayer() {
     randomButton: "#p-random",
     timerDisplayNow: "#p-expanded-time-init",
     timerDisplayTotal: "#p-expanded-time-end",
-    // volRange: volSlider,
+    volRange: this.volumeSlider,
     durationRange: this.durationSlider,
     songs,
   });

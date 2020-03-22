@@ -38,7 +38,7 @@ const player = (config) => {
         playButton: document.querySelector(playButton),
         nextButton: document.querySelector(nextButton),
         prevButton: document.querySelector(prevButton),
-        // volRange,
+        volRange,
         durationRange,
         muteButton: document.querySelector(muteButton),
         loopButton: document.querySelector(loopButton),
@@ -85,7 +85,9 @@ const player = (config) => {
         init: function () {
             this.audio.volume = "1";
 
-            // this.volRange.setAttribute("aria-valuenow", "100");
+            this.volRange.node.setAttribute("aria-valuemin", "0");
+            this.volRange.slider = new MDCSlider(this.volRange.node);
+
             this.durationRange.node.setAttribute("aria-valuemin", "0");
 
             this.defineNodeButtons();
@@ -98,8 +100,6 @@ const player = (config) => {
             this.playButton = document.querySelector(this.config.playButton)
             this.nextButton = document.querySelector(this.config.nextButton)
             this.prevButton = document.querySelector(this.config.prevButton)
-            // volRange,
-            // this.durationRange = document.querySelector(this.config.durationRange)
             this.muteButton = document.querySelector(this.config.muteButton)
             this.loopButton = document.querySelector(this.config.loopButton)
             this.randomButton = document.querySelector(this.config.randomButton)
@@ -140,9 +140,9 @@ const player = (config) => {
 
             // --- For Input Range's (volume and duration):
             // Fired when move the range button
-            // this.volRange.listen("MDCSlider:input", () => this.changeVol(volRange.value));
-            // // Fired when mouse up from range button
-            // this.volRange.listen("MDCSlider:change", () => this.changeVol(volRange.value));
+            this.volRange.slider.listen("MDCSlider:input", () => this.changeVol(this.volRange.slider.value));
+            // Fired when mouse up from range button
+            this.volRange.slider.listen("MDCSlider:change", () => this.changeVol(this.volRange.slider.value));
 
 
             // --- For Button Actions (play/pause, mute/unmute, next/prev, toggle loop, toggle random mode)
@@ -271,6 +271,7 @@ const player = (config) => {
         },
         changeVol: function (vol) {
             this.audio.volume = vol / 100;
+            this.volRange.slider.value = vol;
         },
         changeDuration: function (time) {
             this.audio.currentTime = time;

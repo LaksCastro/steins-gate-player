@@ -9,6 +9,8 @@
   <link rel='stylesheet' href='https://unpkg.com/material-components-web/dist/material-components-web.min.css'>
   <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap" rel="stylesheet">
+
   <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 
 
@@ -148,7 +150,24 @@
     <div class="p-expanded-body">
       <div id="p-expanded-background-image"></div>
 
-      <div class="p-expanded-vol-slider-wrapper"></div>
+      <div id="p-expanded-vol-slider-wrapper" class="hide">
+        <div id="mdc-slider-volume" class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+          aria-valuenow="100" aria-label="Select Volume Level">
+          <div class="mdc-slider__track-container">
+            <div class="mdc-slider__track"></div>
+          </div>
+          <div class="mdc-slider__thumb-container">
+            <svg class="mdc-slider__thumb" width="21" height="21">
+              <circle cx="10.5" cy="10.5" r="7.875"></circle>
+            </svg>
+            <div class="mdc-slider__focus-ring"></div>
+          </div>
+        </div>
+      </div>
+      <div id="p-expanded-vol-icons-wrapper" class="hide">
+        <button id="p-expanded-vol-min" class="mdc-icon-button material-icons">volume_mute</button>
+        <button id="p-expanded-vol-max" class="mdc-icon-button material-icons">volume_up</button>
+      </div>
 
       <div class="p-expanded-data">
         <img id="p-expanded-thumb" class="p-expanded-data-img" src="/assets/fatima.jpg" alt="teste">
@@ -162,8 +181,8 @@
           <button id="p-expanded-mute" class="mdc-icon-button material-icons">volume_up</button>
         </div>
         <div class="p-expanded-duration">
-          <div class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
-            aria-label="Select Duration">
+          <div id="mdc-slider-duration" class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="0" aria-label="Select Duration">
             <div class="mdc-slider__track-container">
               <div class="mdc-slider__track"></div>
             </div>

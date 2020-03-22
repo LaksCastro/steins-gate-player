@@ -177,9 +177,16 @@
     filter: blur(8px);
 }
 
-.p-expanded-vol-slider-wrapper{
+#p-expanded-vol-slider-wrapper{
     width: 100%;
-    padding: 2rem 12px;
+    padding: 12px 2rem;
+    padding-bottom: 4px;
+}
+#p-expanded-vol-icons-wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 12px;
 }
 
 .p-expanded-data{

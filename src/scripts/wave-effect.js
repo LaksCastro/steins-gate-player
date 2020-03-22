@@ -7,6 +7,7 @@ function toPx(num) {
 const wave = function () {
 
     const container = document.getElementById("p-wave-container");
+    const root = document.documentElement;
 
     function init() {
         calcVariants.call(this);
@@ -45,7 +46,7 @@ const wave = function () {
         palette: generateRandomColorPalette({ a: 0.5 }),
         paletteAnimationId: null,
 
-        topBarAnimationId: null,
+        sliderAnimationId: null,
 
         state: null,
 
@@ -56,6 +57,7 @@ const wave = function () {
             this.playingAnimationsId.forEach(id => clearTimeout(id));
             clearTimeout(this.paletteAnimationId);
             clearTimeout(this.topBarAnimationId);
+            clearTimeout(this.sliderAnimationId);
         },
         updateWave: function (wave, currentHeight) {
             let newHeight = randomIntFromInterval(0, this.maxWaveHeight);
@@ -88,6 +90,20 @@ const wave = function () {
                 animate.call(this);
             });
 
+
+            function animateSliderColor() {
+                this.sliderAnimationId = setTimeout(() => {
+                    if (this.state !== "usePlaying") return;
+
+                    let { string: newColor } = generateRandomColor({ ...this.palette, a: [0.9, 1] });
+
+                    root.style.setProperty('--mdc-theme-secondary', newColor);
+
+                    animateSliderColor.call(this);
+                }, 300);
+            }
+            animateSliderColor.call(this);
+
             function changePalette() {
                 this.paletteAnimationId = setTimeout(() => {
                     if (this.state !== "usePlaying") return;
@@ -108,8 +124,8 @@ const wave = function () {
             if (typeof this.paletteAnimationId !== "null") {
                 clearTimeout(this.paletteAnimationId);
             }
-            if (typeof this.topBarAnimationId !== "null") {
-                clearTimeout(this.topBarAnimationId);
+            if (typeof this.sliderAnimationId !== "null") {
+                clearTimeout(this.sliderAnimationId);
             }
 
             this.waves.forEach(wave => {
