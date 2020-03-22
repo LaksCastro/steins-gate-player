@@ -23,6 +23,7 @@
 html, body{
   width: 100%;
   background: $background;
+  overscroll-behavior-y: contain;
 }
 .mdc-top-app-bar{
   background: $content;

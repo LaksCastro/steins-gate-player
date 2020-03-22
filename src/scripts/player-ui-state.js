@@ -23,19 +23,12 @@ function watch() {
 
     let state = "collapsed";
 
-    const hammertime = new Hammer(pExpandedBody);
-    hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    const expandedBodyHammer = new Hammer(pExpandedBody);
+    expandedBodyHammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
-    hammertime.on('swipeleft', (function () {
-        this.player.next();
-    }).bind(this));
-
-    hammertime.on('swiperight', (function () {
-        this.player.prev();
-    }).bind(this));
-
-    hammertime.on('swipedown', collapsePlayer.bind(this));
-
+    expandedBodyHammer.on('swipeleft', this.player.next.bind(this.player));
+    expandedBodyHammer.on('swiperight', this.player.prev.bind(this.player));
+    expandedBodyHammer.on('swipedown', collapsePlayer.bind(this));
 
     keyboard.on([{
         key: 38,
