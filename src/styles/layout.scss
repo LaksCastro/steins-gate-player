@@ -1,5 +1,5 @@
-
-
+@import "./tab.scss";
+@import "./carousel.scss";
 
 #sg-logo{
   padding-bottom: 22px;
@@ -13,12 +13,6 @@
     *{
         color: $color;
     }
-    img{
-        height: 40px;
-    }
-}
-.content{
-    color: #fff;
 }
 
 #sg-main-name{

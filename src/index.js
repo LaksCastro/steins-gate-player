@@ -14,6 +14,8 @@ import PlayerWave from "./scripts/wave-effect"
 import keyboard from "./scripts/keyboard"
 import songs from "./scripts/data"
 
+import app from "./scripts/app";
+
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
@@ -41,6 +43,8 @@ function init() {
   initPlayerKeyboardShortcuts(player);
 
   playerUIState.watch.call(this);
+
+  app.init();
 }
 
 function initWaveEffect() {
