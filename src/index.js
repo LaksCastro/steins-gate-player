@@ -1,4 +1,5 @@
 import './styles/style.scss';
+import './assets/others/sg-logo.jpg';
 
 import playerUIState from "./scripts/player-ui-state"
 

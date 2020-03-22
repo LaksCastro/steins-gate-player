@@ -3,6 +3,20 @@
 
 // STATE COLLAPSED ====================
 
+.state-span{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: $content;
+    transition: all .2s ease-in-out;
+    &.collapsed{
+        height: 59px;
+    }
+    &.expanded{
+        height: 100%;
+    }
+}
 .player-wrapper{
     cursor: pointer;
 
@@ -159,6 +173,8 @@
     background-position: center center;
     background-repeat: no-repeat;
     opacity: 0.05;
+
+    filter: blur(8px);
 }
 
 .p-expanded-vol-slider-wrapper{

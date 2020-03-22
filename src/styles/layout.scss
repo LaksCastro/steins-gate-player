@@ -1,0 +1,16 @@
+.top-bar-wrapper{
+    background: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 2rem;
+    *{
+        color: $color;
+    }
+    img{
+        height: 80px;
+    }
+}
+.content{
+    color: #fff;
+}

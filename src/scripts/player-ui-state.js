@@ -3,6 +3,7 @@ import { moveNodeElementTo } from "../utils"
 
 function watch() {
 
+    const stateSpan = document.querySelector(".state-span");
     const stateExpandedWrapper = document.querySelector(".state-expanded");
     const stateCollapsedWrapper = document.querySelector(".state-collapsed");
 
@@ -77,6 +78,9 @@ function watch() {
         const newStateIsCollapsed = newState === "collapsed";
 
         state = newState;
+
+        stateSpan.classList.add(newStateIsCollapsed ? "collapsed" : "expanded");
+        stateSpan.classList.remove(newStateIsCollapsed ? "expanded" : "collapsed");
 
         stateCollapsedWrapper.classList.add(newStateIsCollapsed ? "show" : "hide");
         stateCollapsedWrapper.classList.remove(newStateIsCollapsed ? "hide" : "show");

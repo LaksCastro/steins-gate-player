@@ -165,7 +165,9 @@ const player = (config) => {
 
                 const [listener] = keyboard.on([{
                     key: 27, // Escape (Esc)
-                    callback: this.cancelChangeDuration.cancel.bind(this) // Bind to use this context
+                    callback: () => {
+                        this.cancelChangeDuration.cancel.call(this);
+                    } // Bind to use this context
                 }]);
 
                 this.cancelChangeDuration.listener = listener;
