@@ -27,7 +27,8 @@ function watch() {
     }]);
 
     function expandPlayer() {
-        state = "expanded";
+        if (state === "expanded") return
+
         changeState.apply(this, [{
             playButton: "#p-expanded-play",
             nextButton: "#p-expanded-next",
@@ -43,10 +44,12 @@ function watch() {
             currentParentId: "p-wave-wrapper",
             nodeToMove: this.wave.container
         });
+
         this.wave.reInit();
     }
     function collapsePlayer() {
-        state = "collapsed";
+
+        if (state === "collapsed") return
 
         changeState.apply(this, [{
             playButton: "#p-play",
@@ -71,15 +74,15 @@ function watch() {
         const isCollapsed = state === "collapsed";
         const newState = isCollapsed ? "expanded" : "collapsed";
 
-        const newStateIsCollapsed = state === "collapsed";
+        const newStateIsCollapsed = newState === "collapsed";
 
         state = newState;
 
         stateCollapsedWrapper.classList.add(newStateIsCollapsed ? "show" : "hide");
         stateCollapsedWrapper.classList.remove(newStateIsCollapsed ? "hide" : "show");
 
-        stateExpandedWrapper.classList.add(!newStateIsCollapsed ? "show" : "hide");
-        stateExpandedWrapper.classList.remove(!newStateIsCollapsed ? "hide" : "show");
+        stateExpandedWrapper.classList.add(newStateIsCollapsed ? "hide" : "show");
+        stateExpandedWrapper.classList.remove(newStateIsCollapsed ? "show" : "hide");
 
         this.player.changeButtonControls(config);
     }
