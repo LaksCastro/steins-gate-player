@@ -1,12 +1,5 @@
 import EmblaCarousel from 'embla-carousel'
 
-function init() {
-    const emblaNode = document.getElementById('tabs');
-    const options = { containScroll: true, dragFree: true }
-    const embla = EmblaCarousel(emblaNode, options);
-    return embla;
-}
-
 function renderTabs(tabs) {
     const tabWrapper = document.getElementById('tab-wrapper');
     const tabContainer = document.getElementById('tab-container');
@@ -23,7 +16,17 @@ function renderTabs(tabs) {
     const tabCarousel = EmblaCarousel(tabWrapper, options);
     return tabCarousel;
 }
+function renderCategories() {
+    const categoryWrapper = document.querySelector('.s-category-wrapper');
+    // const categoryContainer = document.querySelector('.tab-container');
+
+    const options = { containScroll: true, dragFree: true }
+
+    const tabCarousel = EmblaCarousel(categoryWrapper, options);
+    return tabCarousel;
+}
 
 export {
-    renderTabs
+    renderTabs,
+    renderCategories
 };

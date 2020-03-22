@@ -1,5 +1,7 @@
-function init() {
+import { renderCategories } from "./carousel";
 
+function init() {
+    renderCategories();
 
 }
 
