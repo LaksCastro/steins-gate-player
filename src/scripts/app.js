@@ -146,7 +146,7 @@ function init() {
                 }
                 playButton.textContent = player.isPaused ? "play_arrow" : "pause";
             }
-            cardAnimation.createAnimation(card, isSelected);
+            cardAnimation.createAnimation(card, isSelected, player.isPaused);
 
 
             songsWrapper.appendChild(card);

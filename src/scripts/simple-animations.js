@@ -58,7 +58,7 @@ function simpleAnimations() {
                 }, 100);
             }
         },
-        animateSelectedCard: function (card) {
+        animateSelectedCard: function (card, useStatic) {
             const style = card.style;
 
             let allowAnimate = true;
@@ -76,18 +76,19 @@ function simpleAnimations() {
 
                     style.setProperty('--before-height', `${randomIntFromInterval(0, 30)}px`);
 
-                    animate();
+                    if (!useStatic) animate();
+
                 }, 100);
             }
             animate();
 
             return clearAnimation;
         },
-        createAnimation(card, isSelected) {
+        createAnimation(card, isSelected, useStatic) {
             let clearAnimation = null;
 
             if (isSelected) {
-                this.animateSelectedCard(card)
+                this.animateSelectedCard(card, useStatic)
             } else {
                 clearAnimation = this.animateNotSelectedCard(card)
             }
@@ -95,8 +96,9 @@ function simpleAnimations() {
             this.allCards.push({ card, isSelected, clearAnimation });
         },
         clearAnimations: function () {
-            this.allCards.forEach(card => {
-                const style = card.node;
+            console.log(this.allCards);
+            this.allCards.forEach(({ card }) => {
+                const style = card.style;
 
                 style.setProperty('--after-height', '5px');
                 style.setProperty('--after-background', '#a1a1a1');
