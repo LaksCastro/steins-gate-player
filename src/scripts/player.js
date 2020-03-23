@@ -1,5 +1,5 @@
 import timer from "./timer";
-
+import Hammer from "hammerjs";
 import { MDCSlider } from '@material/slider';
 
 import keyboard from "./keyboard";
@@ -187,6 +187,16 @@ const player = (config) => {
             this.playButton.onclick = () => this.togglePlaying();
             // Next
             this.nextButton.onclick = () => this.next();
+
+            const nextHammer = new Hammer(this.nextButton, { time: 1000 });
+
+            let teste = false;
+
+            nextHammer.on('press', (e) => {
+                if (this.currentTime + 5 > this.totalTime) this.next();
+                else this.changeDuration.apply(this, [Number(Number(this.timer.currentTime) + 5)]);
+            });
+
             // Prev
             this.prevButton.onclick = () => this.prev();
             // Mute/Unmote
