@@ -65,23 +65,31 @@ function init() {
     this.player.on(this.player.events.SONG_CHANGE, updatedPlayer => {
         clearSongs();
         currentSong = updatedPlayer.songs[updatedPlayer.currentSong];
-        renderSongs(data);
+        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
         simpleAnimations.call(this);
     });
     this.player.on(this.player.events.INIT, updatedPlayer => {
         currentSong = updatedPlayer.songs[updatedPlayer.currentSong];
-        renderSongs(data);
+        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
         simpleAnimations.call(this);
     });
 
     function clearSongs() {
-        songsWrapper.innerHTML = "";
+        const childsToRemove = [...songsWrapper.childNodes];
+        Array.from({ length: childsToRemove.length }).forEach((_, i) =>
+            songsWrapper.removeChild(childsToRemove[i]));
     }
     function renderSongs(songs) {
-        songs.forEach(song => {
+        songs.forEach((song, i) => {
             const isSelected = song.filename === currentSong.filename;
 
             const card = getCardHTML(song, isSelected);
+            // card.setAttribute("playlist", "");
+
+            card.onclick = () => {
+                this.player.songs = songs;
+                this.player.play.apply(this.player, [i, false]);
+            }
 
             songsWrapper.appendChild(card);
         });
