@@ -2,21 +2,10 @@ import { generateRandomColorPalette, generateRandomColor, randomIntFromInterval 
 
 function simpleAnimations() {
 
-    const animations = {
-        cardAnimation: {
+    const card = {
+        allCards: [],
 
-        }
-    }
-
-
-    animateCardsNotSelected();
-    function animateCardsNotSelected() {
-
-        const cards = document.querySelectorAll(".s-item-wrapper:not(.s-item-wrapper-selected)");
-
-        Array.from({ length: cards.length }).forEach((_, i) => {
-
-            const card = cards[i];
+        animateNotSelectedCard: function (card) {
 
             const style = card.style;
 
@@ -68,18 +57,8 @@ function simpleAnimations() {
                     animate();
                 }, 100);
             }
-        });
-    }
-
-    animateCardSelected();
-    function animateCardSelected() {
-
-        const cards = document.querySelectorAll(".s-item-wrapper-selected");
-
-        Array.from({ length: cards.length }).forEach((_, i) => {
-
-            const card = cards[i];
-
+        },
+        animateSelectedCard: function (card) {
             const style = card.style;
 
             let allowAnimate = true;
@@ -96,8 +75,30 @@ function simpleAnimations() {
                 }, 100);
             }
             animate();
-        });
+        },
+        clearAnimations: function () {
+            this.allCards.forEach(card => {
+                const style = card.node;
+
+                style.setProperty('--after-height', '5px');
+                style.setProperty('--after-background', '#a1a1a1');
+
+                style.setProperty('--before-height', '5px');
+                style.setProperty('--before-background', '#a1a1a1');
+            });
+            this.allCards = [];
+        },
+        createAnimation(card, isSelected) {
+            isSelected ? this.animateSelectedCard() : this.animateNotSelectedCard(card);
+
+            this.allCards.push({ ...card, isSelected });
+        }
     }
+
+    const animations = {
+        card
+    }
+
     return animations;
 }
 

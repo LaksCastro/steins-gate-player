@@ -64,8 +64,9 @@ function init() {
     const gRandom = document.getElementById("g-random");
     const gPlay = document.getElementById("g-start");
 
-    renderCategories();
+    const { cardAnimation } = simpleAnimations();
 
+    renderCategories();
 
     gRandom.onclick = () => {
         setCurrentSong(0, true);
@@ -110,6 +111,21 @@ function init() {
         simpleAnimations.call(this);
     });
 
+    function render(updatedPlayer) {
+        player = updatedPlayer;
+        clearSongs();
+        currentSong = {
+            ...updatedPlayer.songs[updatedPlayer.currentSong],
+            index: updatedPlayer.currentSong
+        };
+        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
+        // simpleAnimations.call(this);
+    }
+    function clearCardAnimations(songs) {
+        songs.forEach(item => {
+            simpleAnimations.call(this);
+        });
+    }
     function setCurrentSong(index, useRandom, songs = false) {
         if (index === currentSong.index && !useRandom) return;
 
@@ -130,12 +146,11 @@ function init() {
     function renderSongs(songs) {
         songs.forEach((song, i) => {
             const isSelected = i === currentSong.index;
-            console.log(isSelected);
+
             const {
                 cardWrapper: card,
                 itemPlayButton: playButton
             } = getCardHTML(song, isSelected);
-            // card.setAttribute("playlist", "");
 
             if (isSelected) {
                 playButton.textContent = player.isPaused ? "play_arrow" : "pause";
@@ -160,6 +175,7 @@ function init() {
                 }
                 playButton.textContent = player.isPaused ? "play_arrow" : "pause";
             }
+            cardAnimation.createAnimation(card, isSelected);
 
 
             songsWrapper.appendChild(card);
