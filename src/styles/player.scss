@@ -40,10 +40,9 @@
         width: 0;
         transition: all .4s ease-in-out;
         z-index: -2;
-        border-top: 2px transparent solid;
-        border-bottom: 2px transparent solid;
-        border-image: linear-gradient(to right, $red, $yellow, $green, $purple);
-        border-image-slice: 1;
+        border-top: 2px var(--mdc-theme-secondary) solid;
+        border-bottom: 2px var(--mdc-theme-secondary) solid;
+        
     }
     &:hover{
         &::after{

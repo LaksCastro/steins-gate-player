@@ -44,7 +44,7 @@ function init() {
 
   playerUIState.watch.call(this);
 
-  app.init();
+  app.init.call(this);
 }
 
 function initWaveEffect() {
