@@ -87,19 +87,20 @@ function init() {
 
 
     function setCurrentSong(index, useRandom, songs = false) {
-        if (index === currentSong.index && !useRandom) return;
+        if (player.isPaused) {
+            player.togglePlaying();
+        }
+        if (index === currentSong.index && !useRandom) return
 
         if (songs)
             player.songs = songs;
 
-        if (player.isPaused) {
-            player.togglePlaying();
-        }
         currentSong = {
             ...player.songs[player.currentSong],
             index
         };
         player.play.apply(player, [index, useRandom]);
+
     }
     function clearSongs() {
         cardAnimation.clearAnimations();

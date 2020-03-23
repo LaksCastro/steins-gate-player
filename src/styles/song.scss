@@ -95,9 +95,13 @@
     position: relative;
     height: 70px;
     width: 70px;
-    overflow: hidden;
     box-shadow: 5px 5px 10px 3px $background;
+    border: 2px solid transparent;
     border-radius: 16px;
+    overflow: hidden;
+    transition: all .3s ease-in;
+    will-change: transform, border;
+    transform: translate(0, 0);
 }
 .s-item-cover{
     position: absolute;
@@ -108,16 +112,9 @@
     left: 0;
     top: 0;
 
-    transform: scale(1);
-
     object-fit: cover;
     object-position: center;
     border-radius: 16px;
-
-    will-change: transform;
-
-    
-    transition: all .3s ease-in;
 }
 .s-item-wrapper{
     margin: 1rem 0;
@@ -141,15 +138,6 @@
     &:active{
         background: $content-lightness;
     }
-    &:hover{
-        .s-item-cover-wrapper{
-            border: 2px solid transparent;
-            .s-item-cover{
-                transform: scale(1.1);
-            }
-        }
-
-    }
 
     &::after, &::before{
         will-change: height, background;
@@ -164,6 +152,9 @@
             .s-item-button-play{
                 transform: translate(15%, calc(15% + 2px));
                 background: var(--before-background);
+            }
+            .s-item-cover-wrapper{
+                transform: translate(2px, 2px);
             }
         }
         &::after, &::before{
@@ -185,11 +176,13 @@
             background: var(--before-background);
             transform: translateX(-16px);
         }
-        .s-item-cover{
+        .s-item-cover-wrapper{
             border: 2px solid transparent;
         }
     }
-    &.s-item-wrapper-selected{        
+    &.s-item-wrapper-selected{      
+        border: 2px solid var(--mdc-theme-secondary);  
+
         &::after{
             transition: all .1s ease-in;
             content: "";
@@ -212,11 +205,15 @@
             background: var(--mdc-theme-secondary);
             transform: translateX(-16px);
         }
-        border: 2px solid var(--mdc-theme-secondary);
         .s-item-button-play{
             background: var(--mdc-theme-secondary);
         }
-        .s-item-cover{
+        &:hover{
+            .s-item-cover-wrapper{
+                transform: translate(2px, 2px);
+            }
+        }
+        .s-item-cover-wrapper{
             border: 2px solid var(--mdc-theme-secondary);
         }
     }
