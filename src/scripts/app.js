@@ -64,7 +64,7 @@ function init() {
     const gRandom = document.getElementById("g-random");
     const gPlay = document.getElementById("g-start");
 
-    const { cardAnimation } = simpleAnimations();
+    const { card: cardAnimation } = simpleAnimations();
 
     renderCategories();
 
@@ -81,51 +81,11 @@ function init() {
         }
     }
 
-    player.on(player.events.SONG_CHANGE, updatedPlayer => {
-        player = updatedPlayer;
-        clearSongs();
-        currentSong = {
-            ...updatedPlayer.songs[updatedPlayer.currentSong],
-            index: updatedPlayer.currentSong
-        };
-        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
-        simpleAnimations.call(this);
-    });
-    player.on(player.events.INIT, updatedPlayer => {
-        player = updatedPlayer;
-        currentSong = {
-            ...updatedPlayer.songs[updatedPlayer.currentSong],
-            index: updatedPlayer.currentSong
-        };
-        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
-        simpleAnimations.call(this);
-    });
-    player.on(player.events.PLAY_TOGGLE, (updatedPlayer) => {
-        player = updatedPlayer;
-        clearSongs();
-        currentSong = {
-            ...updatedPlayer.songs[updatedPlayer.currentSong],
-            index: updatedPlayer.currentSong
-        };
-        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
-        simpleAnimations.call(this);
-    });
+    player.on(player.events.SONG_CHANGE, render);
+    player.on(player.events.INIT, render);
+    player.on(player.events.PLAY_TOGGLE, render);
 
-    function render(updatedPlayer) {
-        player = updatedPlayer;
-        clearSongs();
-        currentSong = {
-            ...updatedPlayer.songs[updatedPlayer.currentSong],
-            index: updatedPlayer.currentSong
-        };
-        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
-        // simpleAnimations.call(this);
-    }
-    function clearCardAnimations(songs) {
-        songs.forEach(item => {
-            simpleAnimations.call(this);
-        });
-    }
+
     function setCurrentSong(index, useRandom, songs = false) {
         if (index === currentSong.index && !useRandom) return;
 
@@ -139,9 +99,20 @@ function init() {
         player.play.apply(player, [index, useRandom]);
     }
     function clearSongs() {
+        cardAnimation.clearAnimations();
         const childsToRemove = [...songsWrapper.childNodes];
         Array.from({ length: childsToRemove.length }).forEach((_, i) =>
             songsWrapper.removeChild(childsToRemove[i]));
+    }
+    function render(updatedPlayer) {
+        player = updatedPlayer;
+        clearSongs();
+        currentSong = {
+            ...updatedPlayer.songs[updatedPlayer.currentSong],
+            index: updatedPlayer.currentSong
+        };
+        renderSongs(data);
+        // simpleAnimations.call(this);
     }
     function renderSongs(songs) {
         songs.forEach((song, i) => {

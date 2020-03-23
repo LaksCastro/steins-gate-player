@@ -63,10 +63,15 @@ function simpleAnimations() {
 
             let allowAnimate = true;
 
+            let animationId = null;
+
+            function clearAnimation() {
+                clearTimeout(animationId);
+            }
             function animate() {
                 if (!allowAnimate) return;
 
-                setTimeout(() => {
+                animationId = setTimeout(() => {
                     style.setProperty('--after-height', `${randomIntFromInterval(0, 30)}px`);
 
                     style.setProperty('--before-height', `${randomIntFromInterval(0, 30)}px`);
@@ -75,6 +80,19 @@ function simpleAnimations() {
                 }, 100);
             }
             animate();
+
+            return clearAnimation;
+        },
+        createAnimation(card, isSelected) {
+            let clearAnimation = null;
+
+            if (isSelected) {
+                this.animateSelectedCard(card)
+            } else {
+                clearAnimation = this.animateNotSelectedCard(card)
+            }
+
+            this.allCards.push({ card, isSelected, clearAnimation });
         },
         clearAnimations: function () {
             this.allCards.forEach(card => {
@@ -85,13 +103,10 @@ function simpleAnimations() {
 
                 style.setProperty('--before-height', '5px');
                 style.setProperty('--before-background', '#a1a1a1');
+
+                if (card.clearAnimation) card.clearAnimation();
             });
             this.allCards = [];
-        },
-        createAnimation(card, isSelected) {
-            isSelected ? this.animateSelectedCard() : this.animateNotSelectedCard(card);
-
-            this.allCards.push({ ...card, isSelected });
         }
     }
 
