@@ -4,9 +4,8 @@ function toPx(num) {
     return `${num}px`
 }
 
-const wave = function () {
+const wave = function (container, waveClass) {
 
-    const container = document.getElementById("p-wave-container");
     const root = document.documentElement;
 
     function init() {
@@ -14,7 +13,7 @@ const wave = function () {
 
         this.waves = Array.from({ length: this.wavesLength }).map(() => {
             const singleWave = document.createElement("div");
-            singleWave.classList.add("p-single-wave");
+            singleWave.classList.add(waveClass);
             return singleWave;
         });
     }

@@ -48,7 +48,7 @@ function init() {
 }
 
 function initWaveEffect() {
-  const wave = PlayerWave();
+  const wave = PlayerWave(document.getElementById("p-wave-container"), "p-single-wave");
 
   wave.render();
   wave.useStatic();
