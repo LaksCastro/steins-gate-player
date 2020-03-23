@@ -70,6 +70,13 @@
     align-items: center;
     transition: all .2s ease-in-out;
     cursor: pointer;
+
+    --after-height: 5px;
+    --before-height: 5px;
+
+    --after-background: red;
+    --before-background: blue;
+
     &:hover{
         background: $content-hovered;
     }
@@ -81,23 +88,25 @@
         background: $content-lightness;
     }
     &::after{
+        transition: all .1s ease-in;
         content: "";
         position: absolute;
         bottom: 0;
-        left: 50%;
+        left: 70%;
         width: 5px;
-        height: 10px;
-        background: red;
+        height: var(--after-height);
+        background: var(--after-background);
         transform: translateX(-4px);
     }
     &::before{
+        transition: all .1s ease-in;
         content: "";
         position: absolute;
         bottom: 0;
-        left: 50%;
+        left: 70%;
         width: 5px;
-        height: 10px;
-        background: blue;
+        height: var(--before-height);
+        background: var(--before-background);
         transform: translateX(-16px);
     }
 }
