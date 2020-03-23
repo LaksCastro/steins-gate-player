@@ -1,6 +1,14 @@
 import { generateRandomColorPalette, generateRandomColor, randomIntFromInterval } from "../utils"
 
 function simpleAnimations() {
+
+    const animations = {
+        cardAnimation: {
+
+        }
+    }
+
+
     animateCardsNotSelected();
     function animateCardsNotSelected() {
 
@@ -90,6 +98,7 @@ function simpleAnimations() {
             animate();
         });
     }
+    return animations;
 }
 
 export default simpleAnimations;

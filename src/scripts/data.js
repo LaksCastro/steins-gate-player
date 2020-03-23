@@ -1,5 +1,6 @@
 import storage from "./localstorage"
 import { firstLetterUppercase } from "../utils"
+import dataJson from "./data.json"
 
 const playlists = {
     opening: [],
@@ -18,35 +19,7 @@ const tabs = [{
 
 const { favorites } = storage();
 
-const data = [{
-    filename: "hacking-to-the-gate.mp3",
-    type: "song",
-    category: "opening",
-}, {
-    filename: "ar-kanako-itou.mp3",
-    type: "song",
-    category: "opening",
-}, {
-    filename: "hisenkei-geniac.mp3",
-    type: "song",
-    category: "opening",
-}, {
-    filename: "skyclad-no-kansokusha.mp3",
-    type: "song",
-    category: "opening",
-}, {
-    filename: "space-engineer.mp3",
-    type: "song",
-    category: "opening",
-}, {
-    filename: "fatima.mp3",
-    type: "song",
-    category: "opening",
-}, {
-    filename: "toki-tsukasadoru.mp3",
-    type: "song",
-    category: "ending",
-}].map(generateMetadata);
+const data = dataJson.map(generateMetadata);
 
 
 function generateMetadata(item) {
