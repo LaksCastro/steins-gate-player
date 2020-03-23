@@ -51,29 +51,72 @@ function getCardHTML(data, isSelected) {
     itemPlayButton.textContent = isSelected ? "pause" : "play_arrow";
 
     cardWrapper.appendChild(itemPlayButton);
-    return cardWrapper;
+    return { cardWrapper, itemPlayButton };
 }
 
 
 function init() {
     let currentSong = null;
 
+    let player = this.player;
+
     const songsWrapper = document.querySelector(".song-list-wrapper");
+    const gRandom = document.getElementById("g-random");
+    const gPlay = document.getElementById("g-start");
 
     renderCategories();
 
-    this.player.on(this.player.events.SONG_CHANGE, updatedPlayer => {
+
+    gRandom.onclick = () => {
+        setCurrentSong(0, true);
+        if (player.isPaused) {
+            player.togglePlaying();
+        }
+    }
+    gPlay.onclick = () => {
+        setCurrentSong(0, false);
+        if (player.isPaused) {
+            player.togglePlaying();
+        }
+    }
+
+    player.on(player.events.SONG_CHANGE, updatedPlayer => {
+        player = updatedPlayer;
         clearSongs();
-        currentSong = updatedPlayer.songs[updatedPlayer.currentSong];
+        currentSong = {
+            ...updatedPlayer.songs[updatedPlayer.currentSong],
+            index: updatedPlayer.currentSong
+        };
         renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
         simpleAnimations.call(this);
     });
-    this.player.on(this.player.events.INIT, updatedPlayer => {
-        currentSong = updatedPlayer.songs[updatedPlayer.currentSong];
+    player.on(player.events.INIT, updatedPlayer => {
+        player = updatedPlayer;
+        currentSong = {
+            ...updatedPlayer.songs[updatedPlayer.currentSong],
+            index: updatedPlayer.currentSong
+        };
         renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
         simpleAnimations.call(this);
+    });
+    player.on(player.events.PLAY_TOGGLE, (updatedPlayer) => {
+        player = updatedPlayer;
+        clearSongs();
+        renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
     });
 
+    function setCurrentSong(index, useRandom, songs = false) {
+        if (index === currentSong.index && !useRandom) return;
+
+        if (songs)
+            player.songs = songs;
+
+        currentSong = {
+            ...player.songs[player.currentSong],
+            index
+        };
+        player.play.apply(player, [index, useRandom]);
+    }
     function clearSongs() {
         const childsToRemove = [...songsWrapper.childNodes];
         Array.from({ length: childsToRemove.length }).forEach((_, i) =>
@@ -82,14 +125,31 @@ function init() {
     function renderSongs(songs) {
         songs.forEach((song, i) => {
             const isSelected = song.filename === currentSong.filename;
-
-            const card = getCardHTML(song, isSelected);
+            console.log(isSelected);
+            const {
+                cardWrapper: card,
+                itemPlayButton: playButton
+            } = getCardHTML(song, isSelected);
             // card.setAttribute("playlist", "");
 
+            playButton.textContent = player.isPaused ? "play_arrow" : "pause";
+
             card.onclick = () => {
-                this.player.songs = songs;
-                this.player.play.apply(this.player, [i, false]);
+                setCurrentSong(i, false, songs);
+                console.log("b");
             }
+            playButton.onclick = (e) => {
+                e.stopPropagation();
+
+                if (currentSong.index === i) {
+                    player.togglePlaying();
+                } else {
+                    setCurrentSong(i, false, songs);
+                    player.togglePlaying();
+                }
+                playButton.textContent = player.isPaused ? "play_arrow" : "pause";
+            }
+
 
             songsWrapper.appendChild(card);
         });

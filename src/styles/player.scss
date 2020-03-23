@@ -42,7 +42,8 @@
         z-index: -2;
         border-top: 2px var(--mdc-theme-secondary) solid;
         border-bottom: 2px var(--mdc-theme-secondary) solid;
-        
+
+        will-change: width;
     }
     &:hover{
         &::after{
@@ -238,7 +239,6 @@
 .p-expanded-duration{
     width: 100%;
     padding: 1rem;
-    color: highlight-color(red);
 }
 
 .p-expanded-time-display{
