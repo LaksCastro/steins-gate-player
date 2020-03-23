@@ -59,6 +59,8 @@ function simpleAnimations() {
             }
         },
         animateSelectedCard: function (card, useStatic) {
+            if (useStatic) return;
+
             const style = card.style;
 
             let allowAnimate = true;
@@ -76,8 +78,7 @@ function simpleAnimations() {
 
                     style.setProperty('--before-height', `${randomIntFromInterval(0, 30)}px`);
 
-                    if (!useStatic) animate();
-
+                    animate();
                 }, 100);
             }
             animate();

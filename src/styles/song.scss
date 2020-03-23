@@ -154,7 +154,7 @@
                 background: var(--before-background);
             }
             .s-item-cover-wrapper{
-                transform: translate(2px, 2px);
+                transform: translate(-2px, -2px);
             }
         }
         &::after, &::before{
@@ -207,11 +207,6 @@
         }
         .s-item-button-play{
             background: var(--mdc-theme-secondary);
-        }
-        &:hover{
-            .s-item-cover-wrapper{
-                transform: translate(2px, 2px);
-            }
         }
         .s-item-cover-wrapper{
             border: 2px solid var(--mdc-theme-secondary);
