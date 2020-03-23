@@ -92,6 +92,9 @@ function init() {
         if (songs)
             player.songs = songs;
 
+        if (player.isPaused) {
+            player.togglePlaying();
+        }
         currentSong = {
             ...player.songs[player.currentSong],
             index
@@ -131,7 +134,6 @@ function init() {
 
             card.onclick = () => {
                 setCurrentSong(i, false, songs);
-                console.log("b");
             }
             playButton.onclick = (e) => {
                 e.stopPropagation();
@@ -140,14 +142,10 @@ function init() {
                     player.togglePlaying();
                 } else {
                     setCurrentSong(i, false, songs);
-                    if (player.isPaused) {
-                        player.togglePlaying();
-                    }
                 }
                 playButton.textContent = player.isPaused ? "play_arrow" : "pause";
             }
             cardAnimation.createAnimation(card, isSelected, player.isPaused);
-
 
             songsWrapper.appendChild(card);
         });
