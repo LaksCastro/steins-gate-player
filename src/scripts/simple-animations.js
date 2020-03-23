@@ -66,7 +66,7 @@ function simpleAnimations() {
     animateCardSelected();
     function animateCardSelected() {
 
-        const cards = document.querySelectorAll(".s-item-wrapper-selected.playing");
+        const cards = document.querySelectorAll(".s-item-wrapper-selected");
 
         Array.from({ length: cards.length }).forEach((_, i) => {
 

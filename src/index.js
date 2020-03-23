@@ -35,13 +35,11 @@ function init() {
   this.wave = wave;
 
   const player = initPlayer.call(this);
-  this.player = player;
 
   initPlayerKeyboardShortcuts(player);
 
   playerUIState.watch.call(this);
 
-  app.init.call(this);
 }
 
 function initWaveEffect() {
@@ -123,6 +121,10 @@ function initPlayer() {
     pExpandedLoop.textContent = updatedPlayer.loopMode ? "repeat_one" : "repeat"
     pExpandedRandom.textContent = updatedPlayer.randomMode ? "shuffle" : "call_made"
   });
+
+  this.player = player;
+
+  app.init.call(this);
 
   player.init();
 
