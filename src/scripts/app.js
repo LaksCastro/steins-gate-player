@@ -102,7 +102,12 @@ function init() {
     player.on(player.events.PLAY_TOGGLE, (updatedPlayer) => {
         player = updatedPlayer;
         clearSongs();
+        currentSong = {
+            ...updatedPlayer.songs[updatedPlayer.currentSong],
+            index: updatedPlayer.currentSong
+        };
         renderSongs.apply({ ...this, player: updatedPlayer }, [data]);
+        simpleAnimations.call(this);
     });
 
     function setCurrentSong(index, useRandom, songs = false) {
@@ -124,7 +129,7 @@ function init() {
     }
     function renderSongs(songs) {
         songs.forEach((song, i) => {
-            const isSelected = song.filename === currentSong.filename;
+            const isSelected = i === currentSong.index;
             console.log(isSelected);
             const {
                 cardWrapper: card,
@@ -132,7 +137,11 @@ function init() {
             } = getCardHTML(song, isSelected);
             // card.setAttribute("playlist", "");
 
-            playButton.textContent = player.isPaused ? "play_arrow" : "pause";
+            if (isSelected) {
+                playButton.textContent = player.isPaused ? "play_arrow" : "pause";
+            } else {
+                playButton.textContent = "play_arrow";
+            }
 
             card.onclick = () => {
                 setCurrentSong(i, false, songs);
@@ -145,7 +154,9 @@ function init() {
                     player.togglePlaying();
                 } else {
                     setCurrentSong(i, false, songs);
-                    player.togglePlaying();
+                    if (player.isPaused) {
+                        player.togglePlaying();
+                    }
                 }
                 playButton.textContent = player.isPaused ? "play_arrow" : "pause";
             }
