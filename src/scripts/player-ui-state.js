@@ -203,10 +203,12 @@ function watch() {
     // FAVORITE FEATURE
 
     playerExpandedFavoriteButton.onclick = toggleFavorite.bind(this);
-    this.player.onAnyFavoriteChanged = ({ songs }) => {
+
+    this.player.on(this.player.events.FAVORITE_CHANGE, ({ songs }) => {
         const favoriteSongs = songs.filter(song => song.favorite);
         this.storage.setFavorites(favoriteSongs);
-    }
+    });
+
     function toggleFavorite() {
         const nowIsFavorite = this.player.toggleFavorite();
         playerExpandedFavoriteButton.textContent = nowIsFavorite ? "favorite" : "favorite_border";

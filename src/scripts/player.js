@@ -46,12 +46,6 @@ const player = (config) => {
         timerDisplayNow: document.querySelector(timerDisplayNow),
         timerDisplayTotal: document.querySelector(timerDisplayTotal),
 
-        onInit: null,
-        onSongChanged: null,
-        onPlayStateChanged: null,
-        onAnyModeChanged: null,
-        onAnyFavoriteChanged: null,
-
         isPaused: true,
 
         isChangingTime: false,
@@ -66,6 +60,31 @@ const player = (config) => {
 
         allowToChangeDuration: true,
 
+        listeners: [],
+
+        lastId: -1,
+
+        getId: function () {
+            return this.lastId + 1;
+        },
+        events: {
+            INIT: "init",
+            SONG_CHANGE: "song_change",
+            PLAY_TOGGLE: "play_state_change",
+            MODE_CHANGE: "any_mode_change",
+            FAVORITE_CHANGE: "any_favorite_change"
+        },
+        on: function (evt, callback) {
+            this.listeners.push({
+                type: evt,
+                callback,
+                id: this.getId()
+            });
+        },
+        off: function (id) {
+            this.listeners = this.listeners.filter(list => list.id !== id);
+        },
+
         toggleFavorite: function () {
             const currentSong = this.songs[this.currentSong];
 
@@ -73,7 +92,11 @@ const player = (config) => {
 
             this.songs[this.currentSong] = { ...currentSong, favorite: updatedFavorite };
 
-            if (this.onAnyFavoriteChanged) this.onAnyFavoriteChanged(this);
+            this.listeners.forEach(listener => {
+                if (listener.type === this.events.FAVORITE_CHANGE) {
+                    listener.callback(this);
+                }
+            });
 
             return updatedFavorite;
         },
@@ -94,7 +117,11 @@ const player = (config) => {
             this.defineAudioEvents();
             this.defineActions();
 
-            if (this.onInit) this.onInit(this);
+            this.listeners.forEach(listener => {
+                if (listener.type === this.events.INIT) {
+                    listener.callback(this);
+                }
+            });
         },
         defineNodeButtons() {
             this.playButton = document.querySelector(this.config.playButton)
@@ -110,7 +137,12 @@ const player = (config) => {
             // On action pause(), run pause timer side effect, the same for when start()
             this.audio.onpause = () => {
                 this.timer.pauseCount.call({ ...this.timer, audio: this.audio });
-                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
+
+                this.listeners.forEach(listener => {
+                    if (listener.type === this.events.PLAY_TOGGLE) {
+                        listener.callback(this);
+                    }
+                });
             }
 
             // On action next()/prev(), this will make the browser load the metadata for this sound
@@ -132,7 +164,12 @@ const player = (config) => {
             // On play, start/continue timer
             this.audio.onplay = () => {
                 this.timer.startCount.call({ ...this.timer, audio: this.audio });
-                if (this.onPlayStateChanged) this.onPlayStateChanged(this);
+
+                this.listeners.forEach(listener => {
+                    if (listener.type === this.events.PLAY_TOGGLE) {
+                        listener.callback(this);
+                    }
+                });
             }
         },
         defineActions: function () {
@@ -256,17 +293,30 @@ const player = (config) => {
         },
         toggleLoopMode: function () {
             this.loopMode = !this.loopMode;
-            if (this.onAnyModeChanged) this.onAnyModeChanged(this);
+            this.listeners.forEach(listener => {
+                if (listener.type === this.events.MODE_CHANGE) {
+                    listener.callback(this);
+                }
+            });
         },
         toggleRandomMode: function () {
             this.randomMode = !this.randomMode;
-            if (this.onAnyModeChanged) this.onAnyModeChanged(this);
+            this.listeners.forEach(listener => {
+                if (listener.type === this.events.MODE_CHANGE) {
+                    listener.callback(this);
+                }
+            });
         },
         changeAudioSrc: function (newSrc, onChange) {
             if (newSrc !== this.audio.src) {
                 this.audio.src = newSrc;
                 onChange();
-                if (this.onSongChanged) this.onSongChanged(this);
+
+                this.listeners.forEach(listener => {
+                    if (listener.type === this.events.SONG_CHANGE) {
+                        listener.callback(this);
+                    }
+                });
             }
         },
         changeVol: function (vol) {

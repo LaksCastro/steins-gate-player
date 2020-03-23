@@ -4,8 +4,6 @@ import playerUIState from "./scripts/player-ui-state"
 
 import { firstLetterUppercase } from "./utils"
 
-import simpleAnimations from "./scripts/simple-animations"
-
 import Storage from "./scripts/localstorage";
 
 import MusicPlayer from "./scripts/player"
@@ -19,7 +17,6 @@ import app from "./scripts/app";
 document.addEventListener('DOMContentLoaded', init);
 
 function init() {
-  simpleAnimations();
 
   const storage = Storage();
   this.storage = storage;
@@ -109,23 +106,24 @@ function initPlayer() {
     songs,
   });
 
-  player.onInit = renderSong.bind(this);
-  player.onSongChanged = renderSong.bind(this)
+  player.on(player.events.INIT, renderSong.bind(this));
+  player.on(player.events.SONG_CHANGE, renderSong.bind(this));
 
-  player.onPlayStateChanged = (updatedPlayer) => {
+  player.on(player.events.PLAY_TOGGLE, (updatedPlayer) => {
     const isPaused = updatedPlayer.audio.paused;
 
     pPlay.textContent = isPaused ? "play_arrow" : "pause";
     pExpandedPlay.textContent = isPaused ? "play_arrow" : "pause";
     isPaused ? this.wave.usePaused() : this.wave.usePlaying();
-  }
-  player.onAnyModeChanged = (updatedPlayer) => {
+  });
+  player.on(player.events.MODE_CHANGE, (updatedPlayer) => {
     pLoop.textContent = updatedPlayer.loopMode ? "repeat_one" : "repeat"
     pRandom.textContent = updatedPlayer.randomMode ? "shuffle" : "call_made"
 
     pExpandedLoop.textContent = updatedPlayer.loopMode ? "repeat_one" : "repeat"
     pExpandedRandom.textContent = updatedPlayer.randomMode ? "shuffle" : "call_made"
-  }
+  });
+
   player.init();
 
   return player;
