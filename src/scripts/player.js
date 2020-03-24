@@ -66,6 +66,8 @@ const player = (config) => {
 
         isAdvancing: false,
 
+        currentPlaylist: "all",
+
         getId: function () {
             return this.lastId + 1;
         },
@@ -287,6 +289,11 @@ const player = (config) => {
                 if (!this.isPaused)
                     this.audio.play();
             });
+        },
+        changePlaylist: function (songs) {
+            this.songs = songs;
+            this.currentPlaylist = songs[0].playlist
+            return this.currentPlaylist;
         },
         pause: function () {
             this.audio.pause();

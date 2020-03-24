@@ -96,7 +96,7 @@ function init() {
         if (index === currentSong.index && !useRandom) return
 
         if (songs)
-            player.songs = songs;
+            player.changePlaylist.apply(player, [songs]);
 
         currentSong = {
             ...player.songs[player.currentSong],
@@ -117,14 +117,10 @@ function init() {
             ...updatedPlayer.songs[updatedPlayer.currentSong],
             index: updatedPlayer.currentSong
         };
-        renderSongs(updatedPlayer.songs);
+        renderSongs(updatedPlayer.songs, player.currentPlaylist);
     }
-    function renderSongs(songs) {
-        let equalPlaylists = !player.songs.some((pSong, i) => {
-            const song = songs[i];
-            if (!song) return true;
-            return pSong.filename !== song.filename
-        });
+    function renderSongs(songs, playlist) {
+        let equalPlaylists = player.currentPlaylist === playlist
 
         clearSongs();
         songs.forEach((song, i) => {

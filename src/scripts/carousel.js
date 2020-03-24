@@ -30,7 +30,7 @@ function renderCategories(renderSongs, player) {
 
             const categoryHammer = new Hammer(categoryHTML);
             categoryHammer.on("tap", () => {
-                renderSongs(category.getSongs());
+                renderSongs(category.getSongs(), category.name.toLowerCase());
             });
         });
     }

@@ -40,7 +40,8 @@ function generateMetadata(item) {
         src,
         coverSrc,
         id: filename,
-        favorite: favorites.some(fav => fav.filename === item.filename)
+        favorite: favorites.some(fav => fav.filename === item.filename),
+        playlist: "all"
     }
 
     switch (item.category) {
