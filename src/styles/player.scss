@@ -129,7 +129,7 @@
     height: 350px;
     position: fixed;
     bottom: 0;
-    z-index: -1;
+    z-index: 999;
 
     & .p-single-wave{
         background: rgba(66, 69, 73, 0.2);
@@ -288,6 +288,8 @@
     }
 }
 .state-expanded{
+    z-index: 5000;
+
     position: fixed;
     top: 0;
     bottom: 0;

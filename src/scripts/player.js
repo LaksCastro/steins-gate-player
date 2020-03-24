@@ -309,7 +309,7 @@ const player = (config) => {
             const isFirstThenGoToLast = this.currentSong === 0;
 
             const audioIndex = isFirstThenGoToLast || useOtherPlaylist ? songs.length - 1 : this.currentSong - 1;
-            const args = this.timer.currentTime > 5 ? [(useOtherPlaylist ? audioIndex : this.currentSong), false] : [audioIndex, this.randomMode];
+            const args = this.timer.currentTime > 5 ? [(useOtherPlaylist ? songs.length - 1 : this.currentSong), false] : [audioIndex, this.randomMode];
             this.play(...args);
         },
         togglePlaying: function () {
