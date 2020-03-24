@@ -125,7 +125,7 @@ function init() {
         clearSongs();
         songs.forEach((song, i) => {
 
-            const isSelected = i === currentSong.index && equalPlaylists;
+            const isSelected = song.filename === currentSong.filename || (i === currentSong.index && equalPlaylists);
 
             const {
                 cardWrapper: card,
