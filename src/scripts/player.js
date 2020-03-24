@@ -64,6 +64,8 @@ const player = (config) => {
 
         lastId: -1,
 
+        isAdvancing: false,
+
         getId: function () {
             return this.lastId + 1;
         },
@@ -185,17 +187,25 @@ const player = (config) => {
             // --- For Button Actions (play/pause, mute/unmute, next/prev, toggle loop, toggle random mode)
             // Play/Pause song
             this.playButton.onclick = () => this.togglePlaying();
-            // Next
-            this.nextButton.onclick = () => this.next();
 
+
+            // Next
             const nextHammer = new Hammer(this.nextButton, { time: 1000 });
 
-            let teste = false;
-
-            nextHammer.on('press', (e) => {
-                if (this.currentTime + 5 > this.totalTime) this.next();
-                else this.changeDuration.apply(this, [Number(Number(this.timer.currentTime) + 5)]);
+            nextHammer.on('press', acelerateAudio.bind(this));
+            nextHammer.on('pressup', normalizeAudio.bind(this));
+            nextHammer.on('tap', () => {
+                this.next.call(this);
             });
+
+            function acelerateAudio() {
+                this.changePlaybackRate(1.8);
+            }
+            function normalizeAudio() {
+                this.changePlaybackRate(1);
+            }
+
+
 
             // Prev
             this.prevButton.onclick = () => this.prev();
@@ -328,6 +338,9 @@ const player = (config) => {
                     }
                 });
             }
+        },
+        changePlaybackRate: function (playbackRate) {
+            this.audio.playbackRate = playbackRate;
         },
         changeVol: function (vol) {
             this.audio.volume = vol / 100;
