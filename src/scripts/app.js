@@ -57,7 +57,6 @@ function getCardHTML(data, isSelected) {
 
 function init() {
 
-    renderCategories();
 
 
     let currentSong = null;
@@ -70,6 +69,7 @@ function init() {
 
     const { card: cardAnimation } = simpleAnimations();
 
+    renderCategories(renderSongs, player);
 
     gRandom.onclick = () => {
         setCurrentSong(0, true);
@@ -84,9 +84,9 @@ function init() {
         }
     }
 
-    player.on(player.events.SONG_CHANGE, render);
-    player.on(player.events.INIT, render);
-    player.on(player.events.PLAY_TOGGLE, render);
+    player.on(player.events.SONG_CHANGE, render.bind(this));
+    player.on(player.events.INIT, render.bind(this));
+    player.on(player.events.PLAY_TOGGLE, render.bind(this));
 
 
     function setCurrentSong(index, useRandom, songs = false) {
@@ -113,17 +113,24 @@ function init() {
     }
     function render(updatedPlayer) {
         player = updatedPlayer;
-        clearSongs();
         currentSong = {
             ...updatedPlayer.songs[updatedPlayer.currentSong],
             index: updatedPlayer.currentSong
         };
-        renderSongs(data);
-        // simpleAnimations.call(this);
+        renderSongs(updatedPlayer.songs);
     }
     function renderSongs(songs) {
+        let equalPlaylists = !player.songs.some((pSong, i) => {
+            const song = songs[i];
+            if (!song) return true;
+            return pSong.filename !== song.filename
+        });
+
+        clearSongs();
         songs.forEach((song, i) => {
-            const isSelected = i === currentSong.index;
+
+            const isSelected = i === currentSong.index && equalPlaylists;
+
             const {
                 cardWrapper: card,
                 itemPlayButton: playButton

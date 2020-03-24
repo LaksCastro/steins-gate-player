@@ -8,6 +8,7 @@ const playlists = {
     favorite: []
 }
 
+
 const tabs = [{
     name: "Sounds",
 }, {
@@ -43,8 +44,8 @@ function generateMetadata(item) {
     }
 
     switch (item.category) {
-        case "opening": playlists.opening.push(completeItem);
-        case "ending": playlists.ending.push(completeItem);
+        case "opening": playlists.opening.push(completeItem); break;
+        case "ending": playlists.ending.push(completeItem); break;
     }
     if (completeItem.favorite) {
         playlists.favorite.push(completeItem);
@@ -53,9 +54,23 @@ function generateMetadata(item) {
     return completeItem;
 }
 
+const categories = [{
+    name: "All",
+    getSongs: () => data
+}, {
+    name: "Favorites",
+    getSongs: () => playlists.favorite
+}, {
+    name: "Openings",
+    getSongs: () => playlists.opening
+}, {
+    name: "Endings",
+    getSongs: () => playlists.ending
+}]
+
 export {
-    playlists,
-    tabs
+    tabs,
+    categories
 }
 export default data;
 

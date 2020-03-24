@@ -292,14 +292,17 @@ const player = (config) => {
             this.audio.pause();
         },
         next: function () {
-            const isLastThenRestart = this.currentSong === (this.songs.length - 1)
+            const isLastThenRestart = this.currentSong >= (this.songs.length - 1)
             const audioIndex = isLastThenRestart ? 0 : this.currentSong + 1
             this.play(audioIndex, this.randomMode);
         },
         prev: function () {
-            const isFirstThenGoToLast = this.currentSong === 0
-            const audioIndex = isFirstThenGoToLast ? songs.length - 1 : this.currentSong - 1;
-            const args = this.timer.currentTime > 5 ? [this.currentSong, false] : [audioIndex, this.randomMode];
+            const useOtherPlaylist = this.currentSong > this.songs.length - 1
+
+            const isFirstThenGoToLast = this.currentSong === 0;
+
+            const audioIndex = isFirstThenGoToLast || useOtherPlaylist ? songs.length - 1 : this.currentSong - 1;
+            const args = this.timer.currentTime > 5 ? [(useOtherPlaylist ? audioIndex : this.currentSong), false] : [audioIndex, this.randomMode];
             this.play(...args);
         },
         togglePlaying: function () {
