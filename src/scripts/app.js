@@ -1,7 +1,7 @@
 import data, { playlists } from "./data";
 import { firstLetterUppercase } from "../utils"
 import { renderCategories } from "./carousel";
-
+import { categories } from "./data";
 import simpleAnimations from "./simple-animations"
 
 function getCardHTML(data, isSelected) {
@@ -74,13 +74,17 @@ function init() {
     renderCategories(renderSongs);
 
     gRandom.onclick = () => {
-        setCurrentSong(0, true);
+        const [newSongs] = categories.filter(item => item.name.toLowerCase() === player.currentPlaylist);
+
+        setCurrentSong(0, true, newSongs);
         if (player.isPaused) {
             player.togglePlaying();
         }
     }
     gPlay.onclick = () => {
-        setCurrentSong(0, false);
+        const [newSongs] = categories.filter(item => item.name.toLowerCase() === player.currentPlaylist);
+
+        setCurrentSong(0, false, newSongs.getSongs());
         if (player.isPaused) {
             player.togglePlaying();
         }
@@ -138,11 +142,12 @@ function init() {
     }
     function renderSongs(songs, playlist) {
         equalPlaylists = player.currentPlaylist === playlist
+        if (!equalPlaylists) player.changePlaylist(songs)
 
         clearSongs();
         songs.forEach((song, i) => {
 
-            const isSelected = song.filename === currentSong.filename && equalPlaylists;
+            const isSelected = song.filename === currentSong.filename || (equalPlaylists && i === currentSong.index);
 
             const {
                 cardWrapper: card,
