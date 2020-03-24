@@ -69,7 +69,9 @@ function init() {
 
     const { card: cardAnimation } = simpleAnimations();
 
-    renderCategories(renderSongs, player);
+    let equalPlaylists = true;
+
+    renderCategories(renderSongs);
 
     gRandom.onclick = () => {
         setCurrentSong(0, true);
@@ -90,19 +92,34 @@ function init() {
 
 
     function setCurrentSong(index, useRandom, songs = false) {
-        if (player.isPaused) {
-            player.togglePlaying();
+        console.log(equalPlaylists);
+        if (equalPlaylists) {
+            if (player.isPaused) {
+                player.togglePlaying();
+            }
+            if (index === currentSong.index && !useRandom) return
+
+            if (songs)
+                player.changePlaylist.apply(player, [songs]);
+
+            currentSong = {
+                ...player.songs[player.currentSong],
+                index
+            };
+            player.play.apply(player, [index, useRandom]);
+        } else {
+            if (songs)
+                player.changePlaylist.apply(player, [songs]);
+
+            currentSong = {
+                ...player.songs[player.currentSong],
+                index
+            };
+            player.play.apply(player, [index, useRandom]);
+            if (player.isPaused) {
+                player.togglePlaying();
+            }
         }
-        if (index === currentSong.index && !useRandom) return
-
-        if (songs)
-            player.changePlaylist.apply(player, [songs]);
-
-        currentSong = {
-            ...player.songs[player.currentSong],
-            index
-        };
-        player.play.apply(player, [index, useRandom]);
 
     }
     function clearSongs() {
@@ -120,12 +137,12 @@ function init() {
         renderSongs(updatedPlayer.songs, player.currentPlaylist);
     }
     function renderSongs(songs, playlist) {
-        let equalPlaylists = player.currentPlaylist === playlist
+        equalPlaylists = player.currentPlaylist === playlist
 
         clearSongs();
         songs.forEach((song, i) => {
 
-            const isSelected = song.filename === currentSong.filename || (i === currentSong.index && equalPlaylists);
+            const isSelected = song.filename === currentSong.filename && equalPlaylists;
 
             const {
                 cardWrapper: card,
@@ -144,7 +161,7 @@ function init() {
             playButton.onclick = (e) => {
                 e.stopPropagation();
 
-                if (currentSong.index === i) {
+                if (currentSong.index === i && equalPlaylists) {
                     player.togglePlaying();
                 } else {
                     setCurrentSong(i, false, songs);

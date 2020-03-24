@@ -13,13 +13,24 @@ function getCategoryHTML(category) {
 
     const item = document.createElement("div");
     item.classList.add("s-category-item");
-    item.textContent = category.name
+
+    const itemBackgroundSpan = document.createElement("div");
+    itemBackgroundSpan.classList.add("s-category-item-span");
+    itemBackgroundSpan.textContent = category.name
+
+    const itemImg = document.createElement("img");
+    itemImg.src = category.src;
+    itemImg.alt = category.name;
+    itemImg.classList.add("s-category-item-img");
+
+    item.appendChild(itemBackgroundSpan);
+    item.appendChild(itemImg);
 
     itemContainer.appendChild(item);
 
     return itemContainer;
 }
-function renderCategories(renderSongs, player) {
+function renderCategories(renderSongs) {
     const categoryWrapper = document.querySelector('.s-category-wrapper');
     const categoryContainer = document.querySelector('.s-category-container');
 

@@ -50,11 +50,52 @@
 
     background: $content;
 
+    position: relative;
+
     &:hover{
       background: $content-hovered;
     }
     &:active{
       background: $content-lightness;
+    }
+}
+.s-category-item-span{
+    border-radius: 12px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+
+    background: linear-gradient(to top, rgba(30, 33, 36,0.9), transparent);
+}
+.s-category-item-img{
+    border-radius: 12px;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 0;
+    
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+    
+    transition: all .2s ease-in-out;
+
+    &:hover{
+        object-position: right;
     }
 }
 

@@ -28,7 +28,7 @@ const wave = function (container, waveClass) {
 
         this.wavesLength = this.width / (waveWidth + (waveMargin * 2));
 
-        if (this.wavesLength > 80) this.wavesLength = 80;
+        if (this.wavesLength > 60) this.wavesLength = 60;
     }
 
     const instance = {

@@ -57,16 +57,20 @@ function generateMetadata(item) {
 
 const categories = [{
     name: "All",
-    getSongs: () => data
+    getSongs: () => data,
+    src: require("../assets/categories/all.png").default
 }, {
-    name: "Favorites",
-    getSongs: () => playlists.favorite
+    name: "Favorite",
+    getSongs: () => playlists.favorite.map(item => ({ ...item, playlist: "favorite" })),
+    src: require("../assets/categories/favorite.jpg").default
 }, {
-    name: "Openings",
-    getSongs: () => playlists.opening
+    name: "Opening",
+    getSongs: () => playlists.opening.map(item => ({ ...item, playlist: "opening" })),
+    src: require("../assets/categories/opening.jpg").default
 }, {
-    name: "Endings",
-    getSongs: () => playlists.ending
+    name: "Ending",
+    getSongs: () => playlists.ending.map(item => ({ ...item, playlist: "ending" })),
+    src: require("../assets/categories/ending.jpg").default
 }]
 
 export {
