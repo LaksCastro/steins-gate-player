@@ -23,6 +23,7 @@ function renderCategories(renderSongs, player) {
     const categoryWrapper = document.querySelector('.s-category-wrapper');
     const categoryContainer = document.querySelector('.s-category-container');
 
+
     function generateCategories() {
         categories.forEach(category => {
             const categoryHTML = getCategoryHTML(category);
@@ -39,6 +40,8 @@ function renderCategories(renderSongs, player) {
     const wrapperHammer = new Hammer(categoryWrapper);
 
     let maxScrollX = categoryWrapper.scrollWidth - categoryWrapper.clientWidth;
+
+    window.addEventListener("resize", () => maxScrollX = categoryWrapper.scrollWidth - categoryWrapper.clientWidth);
 
     let currentX = 0;
 
