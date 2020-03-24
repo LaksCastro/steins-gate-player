@@ -137,17 +137,22 @@
 }
 .p-expanded-top-bar-wrapper{
     width: 100%;
-    background: $content;
-    box-shadow: 2px 2px 5px 1px $background;
+
+    box-shadow: 2px 2px 5px 1px transparent;
 
     display: flex;
     justify-content: center;
 
     border-bottom: 5px solid transparent;
-    transition: all .1s ease-in-out;
+    transition: all .3s ease-in-out;
+
+    &:hover{
+        background: $content;
+        box-shadow: 2px 2px 5px 1px $content;
+    }
 }
 .p-expanded-top-bar-container{
-    padding: 8px 1.5rem;
+    padding: 2px 1.5rem;
     width: 100%;
     height: 100%;
     max-width: 950px;
@@ -332,6 +337,11 @@
     }
     .p-viewport-collapsed{
         height: 76px;
+    }
+}
+@media screen and (max-width: 350px){
+    #p-prev{
+        display: none;
     }
 }
 

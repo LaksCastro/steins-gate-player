@@ -225,3 +225,15 @@
 .s-item-description{
     color: $color-light;
 }
+
+@media screen and (max-width: 558px){
+    .s-item-button-play{
+        right: 20px;
+    }
+}
+
+@media screen and (max-width: 398px){
+    .s-item-cover-wrapper{
+        display: none;
+    }
+}
