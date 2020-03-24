@@ -121,6 +121,7 @@ function watch() {
     expandedBodyHammer.on('swipeleft', this.player.next.bind(this.player));
     expandedBodyHammer.on('swiperight', this.player.prev.bind(this.player));
     expandedBodyHammer.on('swipedown', collapsePlayer.bind(this));
+    expandedBodyHammer.on('swipeup', collapsePlayer.bind(this));
 
     keyboard.on([{
         key: 38,
