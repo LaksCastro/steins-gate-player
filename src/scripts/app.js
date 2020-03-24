@@ -161,7 +161,8 @@ function init() {
             }
 
             card.onclick = () => {
-                setCurrentSong(i, false, songs);
+                if (!isSelected)
+                    setCurrentSong(i, false, songs);
             }
             playButton.onclick = (e) => {
                 e.stopPropagation();
