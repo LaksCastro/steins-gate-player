@@ -197,7 +197,6 @@ const player = (config) => {
             nextHammer.on('tap', () => {
                 this.next.call(this);
             });
-
             function acelerateAudio() {
                 this.changePlaybackRate(1.8);
             }

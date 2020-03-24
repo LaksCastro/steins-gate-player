@@ -97,7 +97,6 @@ function simpleAnimations() {
             this.allCards.push({ card, isSelected, clearAnimation });
         },
         clearAnimations: function () {
-            console.log(this.allCards);
             this.allCards.forEach(({ card }) => {
                 const style = card.style;
 

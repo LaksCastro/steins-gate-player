@@ -41,7 +41,6 @@
     "core-js": "3",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
-    "embla-carousel": "^2.8.1",
     "hammerjs": "^2.0.8"
   },
   "browserslist": [

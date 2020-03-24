@@ -56,6 +56,10 @@ function getCardHTML(data, isSelected) {
 
 
 function init() {
+
+    renderCategories();
+
+
     let currentSong = null;
 
     let player = this.player;
@@ -66,7 +70,6 @@ function init() {
 
     const { card: cardAnimation } = simpleAnimations();
 
-    renderCategories();
 
     gRandom.onclick = () => {
         setCurrentSong(0, true);
@@ -121,7 +124,6 @@ function init() {
     function renderSongs(songs) {
         songs.forEach((song, i) => {
             const isSelected = i === currentSong.index;
-
             const {
                 cardWrapper: card,
                 itemPlayButton: playButton

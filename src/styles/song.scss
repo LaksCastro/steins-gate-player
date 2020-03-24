@@ -16,15 +16,18 @@
     padding: 2rem 0;
     width: 100%;
 
-    overflow: hidden;
+    overflow: scroll;
 }
 .s-category-container{
     display: flex;
     width: 100%;
 }
 .s-category-item-container{
+    user-select: none;
     width: 200px;
     height: 200px;
+
+    min-width: 200px;
     
     padding: 12px;
 }
