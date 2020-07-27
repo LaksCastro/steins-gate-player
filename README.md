@@ -16,6 +16,9 @@
   
 3. [Helltaker Game](https://store.steampowered.com/agecheck/app/1289310/)
 
+## Why?
+I wanted to work with WaveFoms using some technology. Then I started to browse the Web Audio API, and this repository helped me understand some concepts like buffers, audio elements, input and output of buffers, frequency and now I will try to improve more using what I know now. Ah, why Helltaker? Nothing special, just a game I played and I like it.
+
 <br>
 <br>
 <br>
