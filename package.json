@@ -1,0 +1,32 @@
+{
+  "name": "NOME_DO_PROJETO",
+  "version": "1.0.0",
+  "description": "DESCRIÇÃO_DO_PROJETO",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel public/index.html --out-dir development -p 3000",
+    "build": "parcel build public/index.html --out-dir dist --public-url ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LaksCastro/NOME_DO_REPOSITÓRIO.git"
+  },
+  "keywords": [
+    "KEYWORDS",
+    "DO",
+    "PROJETO"
+  ],
+  "author": "Laks Castro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LaksCastro/NOME_DO_REPOSITÓRIO/issues"
+  },
+  "homepage": "https://github.com/LaksCastro/NOME_DO_REPOSITÓRIO/#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/runtime-corejs2": "^7.9.2",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.3"
+  }
+}
