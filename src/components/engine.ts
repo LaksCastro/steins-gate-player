@@ -13,7 +13,7 @@ export default function Engine(): EngineObject {
   const frames = RequestFrame(update);
 
   const drawer = stateManager.getInstance<DrawerObject>("drawer");
-  const logic = stateManager.getInstance<LogicObject>("drawer");
+  const logic = stateManager.getInstance<LogicObject>("logic");
 
   function start(): void {
     drawer.getState().fill();

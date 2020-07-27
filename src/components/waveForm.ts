@@ -8,26 +8,26 @@ export type WaveFormObject = {
   getWaveLines: () => WaveLineObject[];
   setWaveLines: (index: number, value: WaveLineObject) => void;
   recalculate: () => void;
+  populateArray: () => void;
 };
 
 export default function WaveForm(): WaveFormObject {
   const stateManager: StateManager = this;
 
   const viewport = stateManager.getInstance<ViewportObject>("viewport");
-
-  const linesPadding = 12;
+  const linesPadding = 4;
 
   let lines: WaveLineObject[] = [];
-  let linesLength = null;
+  let linesLength = 32;
   let linesWidth = null;
 
   function populateArray(): void {
     for (let i = 0; i < linesLength; i++) {
-      const y = 0;
-      const x = i * linesWidth + i * linesPadding;
+      const y = viewport.getState().getSize().height;
+      const x = i * linesWidth + i * linesPadding + linesPadding;
 
       lines[i] = WaveLine({
-        color: "#fff",
+        color: "rgb(255,255,255)",
         width: linesWidth,
         height: 0,
         coordinates: Point(createPointFrom(x, y)),
@@ -36,15 +36,11 @@ export default function WaveForm(): WaveFormObject {
   }
 
   function calculateConstants(): void {
-    lines = [];
-
     const currentViewportState = viewport.getState();
 
     const { width } = currentViewportState.getSize();
 
-    linesWidth = width / 50;
-
-    linesLength = width / (linesWidth + linesPadding);
+    linesWidth = width / (linesLength + linesPadding);
   }
 
   function getWaveLines(): WaveLineObject[] {
@@ -66,6 +62,7 @@ export default function WaveForm(): WaveFormObject {
     getWaveLines,
     setWaveLines,
     recalculate,
+    populateArray,
   };
 
   return Object.freeze(self);

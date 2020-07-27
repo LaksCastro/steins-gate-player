@@ -1,10 +1,10 @@
-export type Player = {
+export type PlayerObject = {
   getPlayerNode: () => HTMLAudioElement;
   play: () => void;
   pause: () => void;
 };
 
-export default function Player(selector: string): Player {
+export default function Player(selector: string): PlayerObject {
   function getPlayerNode(): HTMLAudioElement {
     return document.querySelector(selector);
   }
@@ -23,7 +23,7 @@ export default function Player(selector: string): Player {
 
   function connect(): void {}
 
-  const self: Player = {
+  const self: PlayerObject = {
     getPlayerNode,
     play,
     pause,

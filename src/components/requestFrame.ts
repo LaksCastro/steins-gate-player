@@ -5,7 +5,7 @@ export type RequestFrame = {
 };
 
 export default function RequestFrame(callback: () => void): RequestFrame {
-  let paused = true;
+  let paused = false;
 
   function isPaused(): boolean {
     return paused;

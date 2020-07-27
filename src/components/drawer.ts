@@ -2,6 +2,7 @@ import { StateManager } from "./stateManager";
 import { CanvasObject } from "./canvas";
 import { ViewportObject } from "./viewport";
 import { WaveFormObject } from "./waveForm";
+import { randomInt } from "./utils";
 
 export type DrawerObject = {
   fill: () => void;
@@ -26,13 +27,12 @@ export default function Drawer(): DrawerObject {
       const { color, coordinates, width, height } = line.getAttributes();
       const { x, y } = coordinates.getCoordinates();
 
-      ctx.fillStyle = color;
+      ctx.fillStyle = `rgba(${color})`;
+
       ctx.rect(x, y, width, height);
 
-      ctx.closePath();
+      ctx.fill();
     }
-
-    ctx.fill();
   }
 
   function clear(): void {
