@@ -2,3 +2,6 @@ node_modules
 .cache/
 development
 production
+dist
+.env*
+!.env.example
